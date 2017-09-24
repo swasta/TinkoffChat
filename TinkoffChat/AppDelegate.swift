@@ -14,53 +14,59 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
-        if application.applicationState == .inactive { // true
-            print("Application moved from <Not running state> to <Inactive> state: \(#function)")
-        }
-        printSeparator()
+        logStateChange(from: "Not running") // will move to inactive
         return true
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         if application.applicationState == .inactive { // true
-            print("Application is still in <Inactive> state: \(#function)")
+            print("Application is still in Inactive state: \(#function)")
         }
         printSeparator()
         return true
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
-        if application.applicationState == .active { // true
-            print("Application moved from <Inactive> to <Active> state: \(#function)")
-        }
-        printSeparator()
+        logStateChange(from: "Inactive") // did move to active
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
-        if application.applicationState == .active { // true
-            print("Application moves from <Active> to <Inactive> state: \(#function)")
-        }
-        printSeparator()
+        logStateChange(to: "Inactive") // will move to inactive
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
-        if application.applicationState == .background { // true
-            print("Application moved from <Inactive> to <Background> state: \(#function)")
-        }
-        printSeparator()
+        logStateChange(from: "Inactive") // did move to background
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
-        if application.applicationState == .background { // true
-            print("Application moves from <Background> to <Inactive> state: \(#function)")
+        logStateChange(to: "Inactive") // will move from background
+    }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        logStateChange(to: "Not running") // will move from background
+    }
+    
+    private func logStateChange(from previousState: String? = nil, to nextState: String? = nil, function: String = #function) {
+        if previousState == nil, let next = nextState {
+            print("Application moves from \(currentState()) to \(next) state: \(function)")
+        } else if let previous = previousState {
+            print("Application moved from \(previous) to \(currentState()) state: \(function)")
         }
         printSeparator()
     }
     
-    func applicationWillTerminate(_ application: UIApplication) {
-        if application.applicationState == .background { // true
-            print("Application moves from <Background> to <Not running> state: \(#function)")
+    private func currentState() -> String {
+        let appState = UIApplication.shared.applicationState
+        var state = ""
+        switch appState {
+        case .active:
+            state = "Active"
+        case .inactive:
+            state = "Inactive"
+        case .background:
+            state = "Background"
         }
+        return state
     }
     
     private func printSeparator() {
