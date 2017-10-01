@@ -84,7 +84,6 @@ class ProfileViewController: UIViewController {
         imagePickerController.popoverPresentationController?.sourceRect = selectProfilePhotoButton.bounds
         present(imagePickerController, animated: true, completion: nil)
     }
-    
 }
 
 // MARK: - Extensions
