@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		140D1B711F810E3A006F2AEA /* DesignableCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140D1B701F810E3A006F2AEA /* DesignableCorners.swift */; };
+		140D1B731F810F78006F2AEA /* DesignableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140D1B721F810F78006F2AEA /* DesignableButton.swift */; };
+		1436B5B41F815C670099E508 /* DesignableBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1436B5B31F815C670099E508 /* DesignableBorder.swift */; };
+		1436B5B61F8169950099E508 /* ProfileImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1436B5B51F8169950099E508 /* ProfileImageButton.swift */; };
 		1493CB6F1F72CBA900C544E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1493CB6E1F72CBA900C544E9 /* AppDelegate.swift */; };
 		1493CB741F72CBA900C544E9 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1493CB721F72CBA900C544E9 /* Profile.storyboard */; };
 		1493CB761F72CBA900C544E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1493CB751F72CBA900C544E9 /* Assets.xcassets */; };
@@ -16,6 +20,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		140D1B701F810E3A006F2AEA /* DesignableCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableCorners.swift; sourceTree = "<group>"; };
+		140D1B721F810F78006F2AEA /* DesignableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableButton.swift; sourceTree = "<group>"; };
+		1436B5B31F815C670099E508 /* DesignableBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableBorder.swift; sourceTree = "<group>"; };
+		1436B5B51F8169950099E508 /* ProfileImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageButton.swift; sourceTree = "<group>"; };
 		1493CB6B1F72CBA800C544E9 /* TinkoffChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkoffChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1493CB6E1F72CBA900C544E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1493CB731F72CBA900C544E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Profile.storyboard; sourceTree = "<group>"; };
@@ -37,6 +45,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1436B5B71F8188A80099E508 /* Designables */ = {
+			isa = PBXGroup;
+			children = (
+				140D1B701F810E3A006F2AEA /* DesignableCorners.swift */,
+				1436B5B31F815C670099E508 /* DesignableBorder.swift */,
+			);
+			path = Designables;
+			sourceTree = "<group>";
+		};
+		1436B5B81F8188B80099E508 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				140D1B721F810F78006F2AEA /* DesignableButton.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		1436B5B91F8188C20099E508 /* UI Elements */ = {
+			isa = PBXGroup;
+			children = (
+				1436B5B71F8188A80099E508 /* Designables */,
+				1436B5B81F8188B80099E508 /* Components */,
+			);
+			path = "UI Elements";
+			sourceTree = "<group>";
+		};
 		1493CB621F72CBA800C544E9 = {
 			isa = PBXGroup;
 			children = (
@@ -58,7 +92,9 @@
 			children = (
 				1493CB6E1F72CBA900C544E9 /* AppDelegate.swift */,
 				14B50CB21F7C10AF004E5E81 /* ProfileViewController.swift */,
+				1436B5B51F8169950099E508 /* ProfileImageButton.swift */,
 				1493CB721F72CBA900C544E9 /* Profile.storyboard */,
+				1436B5B91F8188C20099E508 /* UI Elements */,
 				1493CB801F72D1A800C544E9 /* Media.xcassets */,
 				1493CB751F72CBA900C544E9 /* Assets.xcassets */,
 				1493CB771F72CBA900C544E9 /* LaunchScreen.storyboard */,
@@ -140,8 +176,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1436B5B61F8169950099E508 /* ProfileImageButton.swift in Sources */,
+				1436B5B41F815C670099E508 /* DesignableBorder.swift in Sources */,
+				140D1B711F810E3A006F2AEA /* DesignableCorners.swift in Sources */,
 				14B50CB31F7C10AF004E5E81 /* ProfileViewController.swift in Sources */,
 				1493CB6F1F72CBA900C544E9 /* AppDelegate.swift in Sources */,
+				140D1B731F810F78006F2AEA /* DesignableButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
