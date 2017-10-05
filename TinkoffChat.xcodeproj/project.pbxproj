@@ -71,6 +71,16 @@
 			path = "UI Elements";
 			sourceTree = "<group>";
 		};
+		1440E7761F869CEB0000A1F1 /* Profile Screen */ = {
+			isa = PBXGroup;
+			children = (
+				14B50CB21F7C10AF004E5E81 /* ProfileViewController.swift */,
+				1436B5B51F8169950099E508 /* ProfileImageButton.swift */,
+				1493CB721F72CBA900C544E9 /* Profile.storyboard */,
+			);
+			path = "Profile Screen";
+			sourceTree = "<group>";
+		};
 		1493CB621F72CBA800C544E9 = {
 			isa = PBXGroup;
 			children = (
@@ -91,9 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				1493CB6E1F72CBA900C544E9 /* AppDelegate.swift */,
-				14B50CB21F7C10AF004E5E81 /* ProfileViewController.swift */,
-				1436B5B51F8169950099E508 /* ProfileImageButton.swift */,
-				1493CB721F72CBA900C544E9 /* Profile.storyboard */,
+				1440E7761F869CEB0000A1F1 /* Profile Screen */,
 				1436B5B91F8188C20099E508 /* UI Elements */,
 				1493CB801F72D1A800C544E9 /* Media.xcassets */,
 				1493CB751F72CBA900C544E9 /* Assets.xcassets */,
