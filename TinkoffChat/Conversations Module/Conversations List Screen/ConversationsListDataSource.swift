@@ -9,15 +9,34 @@
 import UIKit
 
 class ConversationsListDataSource: NSObject {
-    private let onlineConversations = DataManager.getConversations(online: true)
-    private let offlineConversations = DataManager.getConversations(online: false)
+    private var onlineConversations: [Conversation]
+    private var offlineConversations: [Conversation]
+    
+    let dataManager: DataManager
     
     private let firstSectionHeader = "Online"
     private let secondSectionHeader = "History"
     
+    init(_ dataManager: DataManager) {
+        self.dataManager = dataManager
+        self.onlineConversations = dataManager.getConversations(online: true)
+        self.offlineConversations = dataManager.getConversations(online: false)
+        super.init()
+        dataManager.delegate = self
+    }
+    
     func conversation(for indexPath: IndexPath) -> Conversation {
         return indexPath.section == 0 ? onlineConversations[indexPath.row] : offlineConversations[indexPath.row]
     }
+}
+
+extension ConversationsListDataSource: DataManagerDelegate {
+    func didUpdate(_ onlineConversations: [Conversation], _ offlineConversations: [Conversation]) {
+        self.onlineConversations = onlineConversations
+        self.offlineConversations = offlineConversations
+    }
+    
+    
 }
 
 extension ConversationsListDataSource: UITableViewDataSource {
@@ -54,7 +73,7 @@ extension ConversationsListDataSource: UITableViewDataSource {
         conversationCell.name = conversation.name
         conversationCell.message = conversation.messages.last?.text
         conversationCell.date = conversation.lastMessageDate
-        conversationCell.online = conversation.online
+        conversationCell.online = conversation.isOnline
         conversationCell.hasUnreadMessages = conversation.hasUnreadMessages
         return conversationCell
     }

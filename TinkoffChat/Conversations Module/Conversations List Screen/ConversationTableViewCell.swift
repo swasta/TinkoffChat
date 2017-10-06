@@ -71,6 +71,9 @@ class ConversationTableViewCell: UITableViewCell, ConversationCellConfiguration 
             if hasUnreadMessages {
                 let pointSize = messageLabel.font.pointSize
                 messageLabel.font = UIFont.boldSystemFont(ofSize: pointSize)
+            } else {
+                let pointSize = messageLabel.font.pointSize
+                messageLabel.font = UIFont.systemFont(ofSize: pointSize)
             }
         }
     }

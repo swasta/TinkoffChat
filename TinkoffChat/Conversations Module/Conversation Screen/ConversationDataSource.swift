@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ConversationsDataSource: NSObject {
+class ConversationDataSource: NSObject {
     private struct CellIdentifier {
         static let incomingCellIdentifier = "Incoming Cell"
         static let outgoingCellIdentifier = "Outgoing Cell"
@@ -22,7 +22,7 @@ class ConversationsDataSource: NSObject {
     }
 }
 
-extension ConversationsDataSource: UITableViewDataSource {
+extension ConversationDataSource: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return conversation.messages.count

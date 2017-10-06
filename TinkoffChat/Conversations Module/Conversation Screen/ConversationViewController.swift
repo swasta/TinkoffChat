@@ -9,9 +9,9 @@
 import UIKit
 
 class ConversationViewController: UIViewController {
-    
-    var conversation: Conversation?
-    var dataSource: ConversationsDataSource?
+    var conversation: Conversation! // cannot be nil, otherwise app must crash
+    var dataManager: DataManager!
+    private lazy var dataSource = ConversationDataSource(conversation: conversation)
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -19,5 +19,10 @@ class ConversationViewController: UIViewController {
         super.viewDidLoad()
         tableView.dataSource = dataSource
     }
-
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        conversation.hasUnreadMessages = false
+        dataManager.update(conversation)
+    }
 }

@@ -9,9 +9,10 @@
 import Foundation
 
 struct Conversation {
+    let id: String
     let name: String
     var messages: [Message]
-    var online: Bool
+    var isOnline: Bool
     var hasUnreadMessages: Bool
     var lastMessageDate: Date?
 }

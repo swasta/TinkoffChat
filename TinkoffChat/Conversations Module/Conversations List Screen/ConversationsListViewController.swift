@@ -12,25 +12,18 @@ class ConversationsListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    private let dataSource = ConversationsListDataSource()
+    private let dataManager = DataManager()
+    private lazy var dataSource = ConversationsListDataSource(dataManager)
+    private var selectedIndexPath: IndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = dataSource
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // Interactive animated deselection of a cell
-        if let indexPath = tableView.indexPathForSelectedRow, let transitionCoordinator = transitionCoordinator {
-            transitionCoordinator.animate(alongsideTransition: { (context) in
-                self.tableView.deselectRow(at: indexPath, animated: animated)
-            }, completion: { (context) in
-                if context.isCancelled {
-                    self.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
-                }
-            })
-        }
+        tableView.reloadData()
     }
     
     // MARK: Navigation
@@ -39,10 +32,12 @@ class ConversationsListViewController: UIViewController {
         if let conversationViewController = segue.destination as? ConversationViewController,
             let selectedIndexPath = tableView.indexPathForSelectedRow,
             let selectedCell = dataSource.tableView(tableView, cellForRowAt: selectedIndexPath) as? ConversationTableViewCell {
+            self.selectedIndexPath = selectedIndexPath
             let selectedConversation = dataSource.conversation(for: selectedIndexPath)
-            let conversationDataSource = ConversationsDataSource(conversation: selectedConversation)
-            conversationViewController.dataSource = conversationDataSource
+            conversationViewController.conversation = selectedConversation
+            conversationViewController.dataManager = dataManager
             conversationViewController.navigationItem.title = selectedCell.name
+            tableView.deselectRow(at: selectedIndexPath, animated: true)
         }
     }
     
