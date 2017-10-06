@@ -14,6 +14,10 @@ class ConversationsListDataSource: NSObject {
     
     private let firstSectionHeader = "Online"
     private let secondSectionHeader = "History"
+    
+    func conversation(for indexPath: IndexPath) -> Conversation {
+        return indexPath.section == 0 ? onlineConversations[indexPath.row] : offlineConversations[indexPath.row]
+    }
 }
 
 extension ConversationsListDataSource: UITableViewDataSource {
@@ -46,9 +50,9 @@ extension ConversationsListDataSource: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let conversationCell = tableView.dequeueReusableCell(withIdentifier: ConversationTableViewCell.identifier, for: indexPath) as! ConversationTableViewCell
-        let conversation: Conversation = indexPath.section == 0 ? onlineConversations[indexPath.row] : offlineConversations[indexPath.row]
+        let conversation = self.conversation(for: indexPath)
         conversationCell.name = conversation.name
-        conversationCell.message = conversation.messages?.last?.text
+        conversationCell.message = conversation.messages.last?.text
         conversationCell.date = conversation.lastMessageDate
         conversationCell.online = conversation.online
         conversationCell.hasUnreadMessages = conversation.hasUnreadMessages

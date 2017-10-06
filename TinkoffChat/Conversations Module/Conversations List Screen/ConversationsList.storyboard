@@ -30,7 +30,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Carole Ahlers" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bze-Di-7Nx" userLabel="Name label" customClass="CustomKerningLabel" customModule="TinkoffChat" customModuleProvider="target">
-                                                    <rect key="frame" x="16.000000000000007" y="8" width="96.666666666666686" height="18"/>
+                                                    <rect key="frame" x="16" y="8" width="94" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -80,6 +80,7 @@
                                             <outlet property="dateLabel" destination="6d5-xs-3ii" id="JRI-iq-RlI"/>
                                             <outlet property="messageLabel" destination="ORw-6v-8bf" id="mwb-So-FIS"/>
                                             <outlet property="nameLabel" destination="Bze-Di-7Nx" id="MJl-7g-ztW"/>
+                                            <segue destination="3iJ-EK-HO1" kind="show" id="MLT-cF-OZg"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -97,7 +98,7 @@
                     <navigationItem key="navigationItem" title="Tinkoff Chat" id="cUz-Wc-WEM">
                         <barButtonItem key="rightBarButtonItem" image="myProfileIcon" id="uAe-8L-EeK">
                             <connections>
-                                <segue destination="vH8-8h-ldJ" kind="presentation" id="xrH-LZ-STB"/>
+                                <segue destination="vH8-8h-ldJ" kind="show" id="xrH-LZ-STB"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -108,6 +109,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A1l-uy-CXV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="275.36231884057975" y="75"/>
+        </scene>
+        <!--Conversation-->
+        <scene sceneID="Qat-Js-drW">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Conversation" id="3iJ-EK-HO1" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="t1W-Jl-MN5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="861" y="-140"/>
         </scene>
         <!--Profile-->
         <scene sceneID="Lzg-Em-57z">
