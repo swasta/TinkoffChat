@@ -9,11 +9,13 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-
+    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var selectProfilePhotoButton: UIButton!
     @IBOutlet weak var editButton: UIButton!
+    
+    // MARK: View life cycle
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()

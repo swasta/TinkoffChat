@@ -10,19 +10,17 @@ import UIKit
 
 class ConversationTableViewCell: UITableViewCell, ConversationCellConfiguration {
     
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var messageLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var messageLabel: UILabel!
+    @IBOutlet private weak var dateLabel: UILabel!
     
     private let onlineBackgroundColor: UIColor = #colorLiteral(red: 1, green: 0.9952996139, blue: 0.816628575, alpha: 1)
     private let noMessagesText = "No messages yet"
-    
+    private let dateFormatter = DateFormatter()
     
     class var identifier: String {
         return String(describing: self)
     }
-    
-    private let dateFormatter = DateFormatter()
     
     var name: String? {
         didSet {

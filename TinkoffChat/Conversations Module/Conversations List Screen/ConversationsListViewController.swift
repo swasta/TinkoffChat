@@ -16,6 +16,8 @@ class ConversationsListViewController: UIViewController {
     private lazy var dataSource = ConversationsListDataSource(dataManager)
     private var selectedIndexPath: IndexPath?
     
+    // MARK: View life cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = dataSource

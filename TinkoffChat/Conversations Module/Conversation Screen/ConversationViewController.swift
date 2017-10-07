@@ -14,9 +14,17 @@ class ConversationViewController: UIViewController {
     private lazy var dataSource = ConversationDataSource(conversation: conversation)
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var noMessagesView: UIView!
+    
+    // MARK: View life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard !conversation.messages.isEmpty else {
+            tableView.backgroundView = noMessagesView
+            return
+        }
+        
         tableView.dataSource = dataSource
     }
     

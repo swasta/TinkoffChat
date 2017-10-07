@@ -14,7 +14,7 @@ class ConversationDataSource: NSObject {
         static let outgoingCellIdentifier = "Outgoing Cell"
     }
     
-    let conversation: Conversation
+    private let conversation: Conversation
     
     init(conversation: Conversation) {
         self.conversation = conversation
@@ -23,7 +23,6 @@ class ConversationDataSource: NSObject {
 }
 
 extension ConversationDataSource: UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return conversation.messages.count
     }

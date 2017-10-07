@@ -8,8 +8,7 @@
 
 import UIKit
 
-class MessageLabel: UILabel {
-
+@IBDesignable class MessageLabel: UILabel {
     override func awakeFromNib() {
         super.awakeFromNib()
         configureFont()

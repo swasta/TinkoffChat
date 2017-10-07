@@ -21,7 +21,7 @@ class DataManager {
             return Array(offlineConversations.values)
         }
     }
-
+    
     weak var delegate: DataManagerDelegate?
     
     private lazy var offlineConversations = generateConversations(online: false, numberOfMessages: numberOfMessages)

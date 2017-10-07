@@ -12,7 +12,7 @@ class ConversationsListDataSource: NSObject {
     private var onlineConversations: [Conversation]
     private var offlineConversations: [Conversation]
     
-    let dataManager: DataManager
+    private let dataManager: DataManager
     
     private let firstSectionHeader = "Online"
     private let secondSectionHeader = "History"
@@ -35,12 +35,9 @@ extension ConversationsListDataSource: DataManagerDelegate {
         self.onlineConversations = onlineConversations
         self.offlineConversations = offlineConversations
     }
-    
-    
 }
 
 extension ConversationsListDataSource: UITableViewDataSource {
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
