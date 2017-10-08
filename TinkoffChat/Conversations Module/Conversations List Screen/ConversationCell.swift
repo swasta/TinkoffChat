@@ -18,10 +18,6 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {
     private let noMessagesText = "No messages yet"
     private let dateFormatter = DateFormatter()
     
-    let standartFont = UIFont(name: "Helvetica Neue", size: 17)
-    let mediumFont = UIFont(name: "HelveticaNeue-Medium", size: 17)
-    let noMessageFont = UIFont(name: "HelveticaNeue-Italic", size: 17)
-    
     class var identifier: String {
         return String(describing: self)
     }

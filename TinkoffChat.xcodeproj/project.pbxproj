@@ -129,10 +129,10 @@
 			isa = PBXGroup;
 			children = (
 				1440E77A1F86A50E0000A1F1 /* ConversationViewController.swift */,
-				144D53D51F8771FB002D0764 /* Conversation.storyboard */,
 				144D53D71F87798C002D0764 /* MessageCell.swift */,
 				144D53D91F877A85002D0764 /* MessageCellConfiguration.swift */,
 				144D53DB1F8796FC002D0764 /* ConversationDataSource.swift */,
+				144D53D51F8771FB002D0764 /* Conversation.storyboard */,
 			);
 			path = "Conversation Screen";
 			sourceTree = "<group>";
