@@ -24,7 +24,6 @@ class ConversationViewController: UIViewController {
             tableView.backgroundView = noMessagesView
             return
         }
-        
         tableView.dataSource = dataSource
     }
     

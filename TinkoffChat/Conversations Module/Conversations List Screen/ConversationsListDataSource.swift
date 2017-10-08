@@ -65,7 +65,7 @@ extension ConversationsListDataSource: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let conversationCell = tableView.dequeueReusableCell(withIdentifier: ConversationTableViewCell.identifier, for: indexPath) as! ConversationTableViewCell
+        let conversationCell = tableView.dequeueReusableCell(withIdentifier: ConversationCell.identifier, for: indexPath) as! ConversationCell
         let conversation = self.conversation(for: indexPath)
         conversationCell.name = conversation.name
         conversationCell.message = conversation.messages.last?.text

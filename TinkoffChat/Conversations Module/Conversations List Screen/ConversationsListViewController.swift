@@ -14,7 +14,6 @@ class ConversationsListViewController: UIViewController {
     
     private let dataManager = DataManager()
     private lazy var dataSource = ConversationsListDataSource(dataManager)
-    private var selectedIndexPath: IndexPath?
     
     // MARK: View life cycle
     
@@ -25,7 +24,9 @@ class ConversationsListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     // MARK: Navigation
@@ -33,8 +34,7 @@ class ConversationsListViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let conversationViewController = segue.destination as? ConversationViewController,
             let selectedIndexPath = tableView.indexPathForSelectedRow,
-            let selectedCell = dataSource.tableView(tableView, cellForRowAt: selectedIndexPath) as? ConversationTableViewCell {
-            self.selectedIndexPath = selectedIndexPath
+            let selectedCell = dataSource.tableView(tableView, cellForRowAt: selectedIndexPath) as? ConversationCell {
             let selectedConversation = dataSource.conversation(for: selectedIndexPath)
             conversationViewController.conversation = selectedConversation
             conversationViewController.dataManager = dataManager

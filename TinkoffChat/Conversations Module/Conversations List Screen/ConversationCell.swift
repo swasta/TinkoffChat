@@ -1,5 +1,5 @@
 //
-//  ConversationCellTableViewCell.swift
+//  ConversationCell.swift
 //  TinkoffChat
 //
 //  Created by Nikita Borodulin on 05/10/2017.
@@ -8,15 +8,19 @@
 
 import UIKit
 
-class ConversationTableViewCell: UITableViewCell, ConversationCellConfiguration {
+class ConversationCell: UITableViewCell, ConversationCellConfiguration {
     
     @IBOutlet private weak var nameLabel: UILabel!
-    @IBOutlet private weak var messageLabel: UILabel!
+    @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet private weak var dateLabel: UILabel!
     
     private let onlineBackgroundColor: UIColor = #colorLiteral(red: 1, green: 0.9952996139, blue: 0.816628575, alpha: 1)
     private let noMessagesText = "No messages yet"
     private let dateFormatter = DateFormatter()
+    
+    let standartFont = UIFont(name: "Helvetica Neue", size: 17)
+    let mediumFont = UIFont(name: "HelveticaNeue-Medium", size: 17)
+    let noMessageFont = UIFont(name: "HelveticaNeue-Italic", size: 17)
     
     class var identifier: String {
         return String(describing: self)
@@ -31,15 +35,12 @@ class ConversationTableViewCell: UITableViewCell, ConversationCellConfiguration 
     var message: String? {
         didSet {
             if message != nil {
-                let pointSize = messageLabel.font.pointSize
-                messageLabel.font = UIFont.systemFont(ofSize: pointSize)
+                messageLabel.font = .systemFont(ofSize: messageLabel.font.pointSize)
                 messageLabel.text = message
             } else {
-                let pointSize = messageLabel.font.pointSize
-                messageLabel.font = UIFont.italicSystemFont(ofSize: pointSize)
+                messageLabel.font = UIFont.italicSystemFont(ofSize: messageLabel.font.pointSize)
                 messageLabel.text = noMessagesText
             }
-            
         }
     }
     
@@ -67,11 +68,9 @@ class ConversationTableViewCell: UITableViewCell, ConversationCellConfiguration 
     var hasUnreadMessages: Bool = false {
         didSet {
             if hasUnreadMessages {
-                let pointSize = messageLabel.font.pointSize
-                messageLabel.font = UIFont.boldSystemFont(ofSize: pointSize)
+                messageLabel.font = .boldSystemFont(ofSize: messageLabel.font.pointSize)
             } else {
-                let pointSize = messageLabel.font.pointSize
-                messageLabel.font = UIFont.systemFont(ofSize: pointSize)
+                messageLabel.font = .systemFont(ofSize: messageLabel.font.pointSize)
             }
         }
     }

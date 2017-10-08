@@ -23,7 +23,7 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ConversationTableViewCell" id="jRz-fa-6lq" customClass="ConversationTableViewCell" customModule="TinkoffChat" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ConversationCell" id="jRz-fa-6lq" customClass="ConversationCell" customModule="TinkoffChat" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="320" height="78"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jRz-fa-6lq" id="jKI-bf-4zh">
@@ -31,7 +31,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Carole Ahlers" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bze-Di-7Nx" userLabel="Name label" customClass="CustomKerningLabel" customModule="TinkoffChat" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="8" width="94" height="18"/>
+                                                    <rect key="frame" x="8" y="8" width="94" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -44,8 +44,8 @@
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
                                                     </variation>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="I think it's because the pixels change value differently than conventional Just look at th…" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ORw-6v-8bf" userLabel="Message label" customClass="MessageLabel" customModule="TinkoffChat" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="29" width="287" height="31.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="I think it's because the pixels change value differently than conventional Just look at th…" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ORw-6v-8bf" userLabel="Message label">
+                                                    <rect key="frame" x="8" y="29" width="295" height="31.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" red="0.5490196078431373" green="0.5490196078431373" blue="0.5490196078431373" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -74,12 +74,12 @@
                                             <constraints>
                                                 <constraint firstItem="Bze-Di-7Nx" firstAttribute="top" secondItem="jKI-bf-4zh" secondAttribute="topMargin" id="7Yw-wR-vT1"/>
                                                 <constraint firstAttribute="trailing" secondItem="hag-5j-eyY" secondAttribute="trailing" constant="17" id="Idw-Rh-3KP"/>
-                                                <constraint firstItem="ORw-6v-8bf" firstAttribute="leading" secondItem="jKI-bf-4zh" secondAttribute="leadingMargin" constant="8" id="Ov3-Ti-j3f"/>
+                                                <constraint firstItem="ORw-6v-8bf" firstAttribute="leading" secondItem="jKI-bf-4zh" secondAttribute="leadingMargin" id="Ov3-Ti-j3f"/>
                                                 <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="ORw-6v-8bf" secondAttribute="bottom" id="P49-QQ-X35"/>
                                                 <constraint firstItem="hag-5j-eyY" firstAttribute="height" secondItem="6d5-xs-3ii" secondAttribute="height" multiplier="0.6" id="Rhe-KO-ye5"/>
                                                 <constraint firstItem="6d5-xs-3ii" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Bze-Di-7Nx" secondAttribute="trailing" constant="3" id="Rz7-Tr-EtN"/>
                                                 <constraint firstAttribute="trailing" secondItem="ORw-6v-8bf" secondAttribute="trailing" constant="17" id="Tve-M8-gfy"/>
-                                                <constraint firstItem="Bze-Di-7Nx" firstAttribute="leading" secondItem="jKI-bf-4zh" secondAttribute="leadingMargin" constant="8" id="a38-yY-H93"/>
+                                                <constraint firstItem="Bze-Di-7Nx" firstAttribute="leading" secondItem="jKI-bf-4zh" secondAttribute="leadingMargin" id="a38-yY-H93"/>
                                                 <constraint firstItem="hag-5j-eyY" firstAttribute="leading" secondItem="6d5-xs-3ii" secondAttribute="trailing" constant="10" id="dBL-tW-gTM"/>
                                                 <constraint firstItem="6d5-xs-3ii" firstAttribute="centerY" secondItem="Bze-Di-7Nx" secondAttribute="centerY" id="goM-Dj-Plp"/>
                                                 <constraint firstItem="ORw-6v-8bf" firstAttribute="top" secondItem="Bze-Di-7Nx" secondAttribute="bottom" constant="3" id="he0-iK-U1Y"/>

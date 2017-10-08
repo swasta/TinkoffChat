@@ -15,14 +15,12 @@
 		1440E7781F86A47F0000A1F1 /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1440E7771F86A47F0000A1F1 /* ConversationsListViewController.swift */; };
 		1440E77B1F86A50E0000A1F1 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1440E77A1F86A50E0000A1F1 /* ConversationViewController.swift */; };
 		1440E77D1F86A5F10000A1F1 /* ConversationCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1440E77C1F86A5F10000A1F1 /* ConversationCellConfiguration.swift */; };
-		1440E77F1F86A6700000A1F1 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1440E77E1F86A6700000A1F1 /* ConversationTableViewCell.swift */; };
 		1440E7821F86AB8E0000A1F1 /* ConversationsList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1440E7811F86AB8E0000A1F1 /* ConversationsList.storyboard */; };
 		144D53D61F8771FB002D0764 /* Conversation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 144D53D51F8771FB002D0764 /* Conversation.storyboard */; };
 		144D53D81F87798C002D0764 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144D53D71F87798C002D0764 /* MessageCell.swift */; };
 		144D53DA1F877A85002D0764 /* MessageCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144D53D91F877A85002D0764 /* MessageCellConfiguration.swift */; };
 		144D53DC1F8796FC002D0764 /* ConversationDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144D53DB1F8796FC002D0764 /* ConversationDataSource.swift */; };
 		148FA89E1F86B9D200888C3E /* DesignableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148FA89D1F86B9D200888C3E /* DesignableImageView.swift */; };
-		148FA8A21F86BE3600888C3E /* MessageLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148FA8A11F86BE3600888C3E /* MessageLabel.swift */; };
 		148FA8A61F86CEF100888C3E /* ConversationsListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148FA8A51F86CEF100888C3E /* ConversationsListDataSource.swift */; };
 		148FA8AA1F86D67400888C3E /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148FA8A91F86D67400888C3E /* Conversation.swift */; };
 		148FA8AC1F86D69C00888C3E /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148FA8AB1F86D69C00888C3E /* Message.swift */; };
@@ -33,6 +31,7 @@
 		1493CB791F72CBA900C544E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1493CB771F72CBA900C544E9 /* LaunchScreen.storyboard */; };
 		1493CB811F72D1A800C544E9 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1493CB801F72D1A800C544E9 /* Media.xcassets */; };
 		14B50CB31F7C10AF004E5E81 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B50CB21F7C10AF004E5E81 /* ProfileViewController.swift */; };
+		14EFBD421F8AE5D200228E4B /* ConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EFBD411F8AE5D200228E4B /* ConversationCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,14 +43,12 @@
 		1440E7771F86A47F0000A1F1 /* ConversationsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
 		1440E77A1F86A50E0000A1F1 /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 		1440E77C1F86A5F10000A1F1 /* ConversationCellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCellConfiguration.swift; sourceTree = "<group>"; };
-		1440E77E1F86A6700000A1F1 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
 		1440E7811F86AB8E0000A1F1 /* ConversationsList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ConversationsList.storyboard; sourceTree = "<group>"; };
 		144D53D51F8771FB002D0764 /* Conversation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Conversation.storyboard; sourceTree = "<group>"; };
 		144D53D71F87798C002D0764 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		144D53D91F877A85002D0764 /* MessageCellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellConfiguration.swift; sourceTree = "<group>"; };
 		144D53DB1F8796FC002D0764 /* ConversationDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationDataSource.swift; sourceTree = "<group>"; };
 		148FA89D1F86B9D200888C3E /* DesignableImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableImageView.swift; sourceTree = "<group>"; };
-		148FA8A11F86BE3600888C3E /* MessageLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageLabel.swift; sourceTree = "<group>"; };
 		148FA8A51F86CEF100888C3E /* ConversationsListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListDataSource.swift; sourceTree = "<group>"; };
 		148FA8A91F86D67400888C3E /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		148FA8AB1F86D69C00888C3E /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -64,6 +61,7 @@
 		1493CB7A1F72CBA900C544E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1493CB801F72D1A800C544E9 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		14B50CB21F7C10AF004E5E81 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		14EFBD411F8AE5D200228E4B /* ConversationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,9 +118,8 @@
 			children = (
 				1440E7771F86A47F0000A1F1 /* ConversationsListViewController.swift */,
 				148FA8A51F86CEF100888C3E /* ConversationsListDataSource.swift */,
-				1440E77E1F86A6700000A1F1 /* ConversationTableViewCell.swift */,
+				14EFBD411F8AE5D200228E4B /* ConversationCell.swift */,
 				1440E77C1F86A5F10000A1F1 /* ConversationCellConfiguration.swift */,
-				148FA8A11F86BE3600888C3E /* MessageLabel.swift */,
 				1440E7811F86AB8E0000A1F1 /* ConversationsList.storyboard */,
 			);
 			path = "Conversations List Screen";
@@ -265,12 +262,11 @@
 				148FA8AA1F86D67400888C3E /* Conversation.swift in Sources */,
 				1436B5B41F815C670099E508 /* DesignableBorder.swift in Sources */,
 				1440E77B1F86A50E0000A1F1 /* ConversationViewController.swift in Sources */,
-				1440E77F1F86A6700000A1F1 /* ConversationTableViewCell.swift in Sources */,
-				148FA8A21F86BE3600888C3E /* MessageLabel.swift in Sources */,
 				144D53DC1F8796FC002D0764 /* ConversationDataSource.swift in Sources */,
 				140D1B711F810E3A006F2AEA /* DesignableCorners.swift in Sources */,
 				148FA8AE1F86D98A00888C3E /* DataManager.swift in Sources */,
 				14B50CB31F7C10AF004E5E81 /* ProfileViewController.swift in Sources */,
+				14EFBD421F8AE5D200228E4B /* ConversationCell.swift in Sources */,
 				148FA89E1F86B9D200888C3E /* DesignableImageView.swift in Sources */,
 				1493CB6F1F72CBA900C544E9 /* AppDelegate.swift in Sources */,
 				1440E7781F86A47F0000A1F1 /* ConversationsListViewController.swift in Sources */,

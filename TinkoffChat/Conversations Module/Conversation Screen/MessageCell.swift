@@ -1,5 +1,5 @@
 //
-//  MessageCell.swift
+//  MessageTableViewCell.swift
 //  TinkoffChat
 //
 //  Created by Nikita Borodulin on 06/10/2017.
