@@ -9,37 +9,17 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-
+    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var selectProfilePhotoButton: UIButton!
     @IBOutlet weak var editButton: UIButton!
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        // print(editButton.frame) в данный момент аутлеты еще не инициализированы, обращение к nil вызовет краш
-    }
-    
-    // MARK: - View life cycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        print("\(#function) \(editButton.frame)") // фрейм editButton'а еще не является окончательным, autolayout еще не сработал
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("\(#function) \(editButton.frame)") // фрейм editButton'а все еще не является окончательным
-    }
+    // MARK: View life cycle
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         profileImageView.layer.cornerRadius = selectProfilePhotoButton.layer.cornerRadius
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print("\(#function) \(editButton.frame)") // здесь фрейм уже окончателен
     }
     
     // MARK: - Actions

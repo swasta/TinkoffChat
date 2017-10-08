@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VFq-sU-d3m">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Tinkoff Chat-->
+        <scene sceneID="MPr-6k-6Ia">
+            <objects>
+                <viewController id="GwT-F8-o4Z" customClass="ConversationsListViewController" customModule="TinkoffChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0lV-r0-rkf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="78" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZSn-ZE-CA3">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ConversationCell" id="jRz-fa-6lq" customClass="ConversationCell" customModule="TinkoffChat" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="78"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jRz-fa-6lq" id="jKI-bf-4zh">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="77.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Carole Ahlers" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bze-Di-7Nx" userLabel="Name label" customClass="CustomKerningLabel" customModule="TinkoffChat" customModuleProvider="target">
+                                                    <rect key="frame" x="8" y="8" width="94" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="characterSpacing">
+                                                            <real key="value" value="-0.20000000000000001"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <variation key="heightClass=regular-widthClass=regular">
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
+                                                    </variation>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="I think it's because the pixels change value differently than conventional Just look at th…" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ORw-6v-8bf" userLabel="Message label">
+                                                    <rect key="frame" x="8" y="29" width="295" height="31.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" red="0.5490196078431373" green="0.5490196078431373" blue="0.5490196078431373" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=regular">
+                                                        <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                                    </variation>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вчера" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6d5-xs-3ii" customClass="CustomKerningLabel" customModule="TinkoffChat" customModuleProvider="target">
+                                                    <rect key="frame" x="246.5" y="6" width="38.5" height="22.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" red="0.54901960780000003" green="0.54901960780000003" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="characterSpacing">
+                                                            <real key="value" value="-0.10000000000000001"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <variation key="heightClass=regular-widthClass=regular">
+                                                        <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                                    </variation>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="disclosureIcon" translatesAutoresizingMaskIntoConstraints="NO" id="hag-5j-eyY">
+                                                    <rect key="frame" x="295" y="11" width="8" height="13"/>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Bze-Di-7Nx" firstAttribute="top" secondItem="jKI-bf-4zh" secondAttribute="topMargin" id="7Yw-wR-vT1"/>
+                                                <constraint firstAttribute="trailing" secondItem="hag-5j-eyY" secondAttribute="trailing" constant="17" id="Idw-Rh-3KP"/>
+                                                <constraint firstItem="ORw-6v-8bf" firstAttribute="leading" secondItem="jKI-bf-4zh" secondAttribute="leadingMargin" id="Ov3-Ti-j3f"/>
+                                                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="ORw-6v-8bf" secondAttribute="bottom" id="P49-QQ-X35"/>
+                                                <constraint firstItem="hag-5j-eyY" firstAttribute="height" secondItem="6d5-xs-3ii" secondAttribute="height" multiplier="0.6" id="Rhe-KO-ye5"/>
+                                                <constraint firstItem="6d5-xs-3ii" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Bze-Di-7Nx" secondAttribute="trailing" constant="3" id="Rz7-Tr-EtN"/>
+                                                <constraint firstAttribute="trailing" secondItem="ORw-6v-8bf" secondAttribute="trailing" constant="17" id="Tve-M8-gfy"/>
+                                                <constraint firstItem="Bze-Di-7Nx" firstAttribute="leading" secondItem="jKI-bf-4zh" secondAttribute="leadingMargin" id="a38-yY-H93"/>
+                                                <constraint firstItem="hag-5j-eyY" firstAttribute="leading" secondItem="6d5-xs-3ii" secondAttribute="trailing" constant="10" id="dBL-tW-gTM"/>
+                                                <constraint firstItem="6d5-xs-3ii" firstAttribute="centerY" secondItem="Bze-Di-7Nx" secondAttribute="centerY" id="goM-Dj-Plp"/>
+                                                <constraint firstItem="ORw-6v-8bf" firstAttribute="top" secondItem="Bze-Di-7Nx" secondAttribute="bottom" constant="3" id="he0-iK-U1Y"/>
+                                                <constraint firstItem="hag-5j-eyY" firstAttribute="centerY" secondItem="Bze-Di-7Nx" secondAttribute="centerY" id="sAR-Wr-S45"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <inset key="separatorInset" minX="18" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <connections>
+                                            <outlet property="dateLabel" destination="6d5-xs-3ii" id="JRI-iq-RlI"/>
+                                            <outlet property="messageLabel" destination="ORw-6v-8bf" id="mwb-So-FIS"/>
+                                            <outlet property="nameLabel" destination="Bze-Di-7Nx" id="MJl-7g-ztW"/>
+                                            <segue destination="3iJ-EK-HO1" kind="show" id="MLT-cF-OZg"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="X1t-SY-kxL" firstAttribute="bottom" secondItem="ZSn-ZE-CA3" secondAttribute="bottom" id="WLK-oG-KIM"/>
+                            <constraint firstItem="X1t-SY-kxL" firstAttribute="trailing" secondItem="ZSn-ZE-CA3" secondAttribute="trailing" id="WOO-rS-pCc"/>
+                            <constraint firstItem="ZSn-ZE-CA3" firstAttribute="top" secondItem="X1t-SY-kxL" secondAttribute="top" id="fVH-VT-Wd2"/>
+                            <constraint firstItem="ZSn-ZE-CA3" firstAttribute="leading" secondItem="X1t-SY-kxL" secondAttribute="leading" id="jrJ-V9-mru"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="X1t-SY-kxL"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Tinkoff Chat" id="cUz-Wc-WEM">
+                        <barButtonItem key="rightBarButtonItem" image="myProfileIcon" id="uAe-8L-EeK">
+                            <connections>
+                                <segue destination="vH8-8h-ldJ" kind="show" id="xrH-LZ-STB"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="ZSn-ZE-CA3" id="l7V-Ip-PHL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A1l-uy-CXV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="275.36231884057975" y="75"/>
+        </scene>
+        <!--Conversation-->
+        <scene sceneID="Qat-Js-drW">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Conversation" id="3iJ-EK-HO1" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="t1W-Jl-MN5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="861" y="-140"/>
+        </scene>
+        <!--Profile-->
+        <scene sceneID="Lzg-Em-57z">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Profile" id="vH8-8h-ldJ" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wL4-QD-6MN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="973" y="75"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="0w8-n8-Npc">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VFq-sU-d3m" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="OjJ-Ut-Bks">
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="GwT-F8-o4Z" kind="relationship" relationship="rootViewController" id="Feq-6C-MLf"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kP7-65-KDF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-562" y="75"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="disclosureIcon" width="8" height="13"/>
+        <image name="myProfileIcon" width="30" height="30"/>
+    </resources>
+</document>
