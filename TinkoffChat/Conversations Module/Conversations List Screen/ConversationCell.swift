@@ -34,7 +34,7 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {
                 messageLabel.font = .systemFont(ofSize: messageLabel.font.pointSize)
                 messageLabel.text = message
             } else {
-                messageLabel.font = UIFont.italicSystemFont(ofSize: messageLabel.font.pointSize)
+                messageLabel.font = .italicSystemFont(ofSize: messageLabel.font.pointSize)
                 messageLabel.text = noMessagesText
             }
         }
@@ -65,7 +65,7 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {
         didSet {
             if hasUnreadMessages {
                 messageLabel.font = .boldSystemFont(ofSize: messageLabel.font.pointSize)
-            } else {
+            } else if message != nil {
                 messageLabel.font = .systemFont(ofSize: messageLabel.font.pointSize)
             }
         }
