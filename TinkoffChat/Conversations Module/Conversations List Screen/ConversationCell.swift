@@ -11,7 +11,7 @@ import UIKit
 class ConversationCell: UITableViewCell, ConversationCellConfiguration {
     
     @IBOutlet private weak var nameLabel: UILabel!
-    @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet private weak var messageLabel: UILabel!
     @IBOutlet private weak var dateLabel: UILabel!
     
     private let onlineBackgroundColor: UIColor = #colorLiteral(red: 1, green: 0.9952996139, blue: 0.816628575, alpha: 1)
