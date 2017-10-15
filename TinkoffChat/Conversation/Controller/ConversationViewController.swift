@@ -10,7 +10,7 @@ import UIKit
 
 class ConversationViewController: UIViewController {
     var conversation: Conversation! // cannot be nil, otherwise app must crash
-    var dataManager: DataManager!
+    var dataManager: DataGenerator!
     private lazy var dataSource = ConversationDataSource(conversation: conversation)
     
     @IBOutlet weak var tableView: UITableView!

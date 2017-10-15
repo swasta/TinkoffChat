@@ -8,12 +8,11 @@
 
 import Foundation
 
-protocol DataManagerDelegate: class {
+protocol DataGeneratorDelegate: class {
     func didUpdate(_ onlineConversations: [Conversation], _ offlineConversations: [Conversation])
 }
 
-class DataManager {
-    
+class DataGenerator {
     func getConversations(online: Bool) -> [Conversation] {
         if online {
             return Array(onlineConversations.values)
@@ -22,7 +21,7 @@ class DataManager {
         }
     }
     
-    weak var delegate: DataManagerDelegate?
+    weak var delegate: DataGeneratorDelegate?
     
     private lazy var offlineConversations = generateConversations(online: false, numberOfMessages: numberOfMessages)
     private lazy var onlineConversations = generateConversations(online: true, numberOfMessages: numberOfMessages)

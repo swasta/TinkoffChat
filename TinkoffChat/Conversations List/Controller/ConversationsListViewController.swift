@@ -12,7 +12,7 @@ class ConversationsListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    private let dataManager = DataManager()
+    private let dataManager = DataGenerator()
     private lazy var dataSource = ConversationsListDataSource(dataManager)
     
     // MARK: View life cycle

@@ -8,7 +8,7 @@
 
 import UIKit
 
-@IBDesignable class DesignableButton: UIButton, DesignableCorners, DesignableBorder {
+@IBDesignable class DesignableButton: UIButton, DesignableCorners, DesignableBorder, DesignableBackgroundColor {
     
     // MARK: - Corners
     @IBInspectable var cornerRadius: CGFloat = .nan {
@@ -30,15 +30,34 @@ import UIKit
     }
     
     // MARK: - Border
-    @IBInspectable open var borderWidth: CGFloat = CGFloat.nan {
+    @IBInspectable var borderWidth: CGFloat = CGFloat.nan {
         didSet {
             setupBorder()
         }
     }
     
-    @IBInspectable open var borderColor: UIColor? = nil {
+    @IBInspectable var borderColor: UIColor? = nil {
         didSet {
             setupBorder()
+        }
+    }
+    
+    // MARK: - Background color
+    @IBInspectable var disabledAdjustsBackgroundColor: Bool = false {
+        didSet {
+            setupBackgroundColor()
+        }
+    }
+    
+    @IBInspectable var normalBackgroundColor: UIColor? = .white {
+        didSet {
+            setupBackgroundColor()
+        }
+    }
+    
+    @IBInspectable var disabledBackgroundColor: UIColor? = .gray {
+        didSet {
+            setupBackgroundColor()
         }
     }
     
@@ -46,6 +65,7 @@ import UIKit
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        setupBackgroundColor()
         setupCorners()
         setupBorder()
     }
