@@ -30,8 +30,10 @@ extension ConversationDataSource: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message = conversation.messages[indexPath.row]
         let identifier = message.type == .incoming ? CellIdentifier.incomingCellIdentifier : CellIdentifier.outgoingCellIdentifier
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! MessageCell
-        cell.message = message.text
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+        if let cell = cell as? MessageCellConfiguration {
+            cell.message = message.text
+        }
         return cell
     }
 }

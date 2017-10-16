@@ -32,7 +32,7 @@ class ProfileViewController: UIViewController {
     private let gcdDataManager = GCDDataManager()
     private let operationDataManager = OperationDataManager()
     
-    // MARK: View life cycle
+    // MARK: - View life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,14 +84,14 @@ class ProfileViewController: UIViewController {
     
     private func loadUserProfile() {
         activityIndicator.startAnimating()
-        let profileDataManager = getRandomProfileDataManager()
+        let profileDataManager = getRandomProfileDataManager() // randomly read with GCD or Operation
         profileDataManager.loadUserProfile { [unowned self] profile, error in
             self.activityIndicator.stopAnimating()
             if let loadedProfile = profile {
                 self.originalProfile = loadedProfile
                 self.modifiedProfile = loadedProfile
             } else {
-               self.updateUI()
+                self.updateUI()
             }
             if error != nil {
                 self.handleDataOperationError(error!)

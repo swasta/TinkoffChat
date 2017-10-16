@@ -24,6 +24,7 @@ class FileBasedStorage {
     
     enum FileBasedStorageError: Error {
         case corruptedData
+        case profileNotFound
     }
     
     func save(_ profile: UserProfile) throws {
@@ -34,7 +35,7 @@ class FileBasedStorage {
     
     func loadUserProfile() throws -> UserProfile? {
         guard fileManager.fileExists(atPath: filePath.path) else {
-            throw FileBasedStorageError.corruptedData
+            throw FileBasedStorageError.profileNotFound
         }
         let data = try Data(contentsOf: filePath)
         let profile = try deserializeUserProfile(from: data)

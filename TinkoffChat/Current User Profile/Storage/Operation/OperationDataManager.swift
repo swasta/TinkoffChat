@@ -12,7 +12,6 @@ class OperationDataManager: ProfileDataManager {
     private let queue = OperationQueue()
     private let dataStorage = FileBasedStorage()
     
-    
     func save(_ profile: UserProfile, completion: @escaping (Bool, Error?) -> Void) {
         let saveOperation = SaveProfileOperation(with: profile, dataStorage: dataStorage, completion: completion)
         queue.addOperation(saveOperation)

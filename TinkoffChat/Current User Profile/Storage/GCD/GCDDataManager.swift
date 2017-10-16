@@ -9,7 +9,7 @@
 import Foundation
 
 class GCDDataManager: ProfileDataManager {
-    private let serialQueue = DispatchQueue(label: "com.nikitaborodulin.gcdDataManagerQueue")
+    private let serialQueue = DispatchQueue(label: "com.nikitaborodulin.TinkoffChat.gcdDataManagerQueue")
     private let dataStorage = FileBasedStorage()
     
     func save(_ profile: UserProfile, completion: @escaping (Bool, Error?) -> Void) {
