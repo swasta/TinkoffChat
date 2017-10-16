@@ -9,5 +9,5 @@
 import UIKit
 
 protocol MessageCellConfiguration: class {
-    var text: String? { get set }
+    var message: String? { get set }
 }

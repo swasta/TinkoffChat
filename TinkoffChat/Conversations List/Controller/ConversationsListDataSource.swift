@@ -12,12 +12,12 @@ class ConversationsListDataSource: NSObject {
     private var onlineConversations: [Conversation]
     private var offlineConversations: [Conversation]
     
-    private let dataManager: DataManager
+    private let dataManager: DataGenerator
     
     private let firstSectionHeader = "Online"
     private let secondSectionHeader = "History"
     
-    init(_ dataManager: DataManager) {
+    init(_ dataManager: DataGenerator) {
         self.dataManager = dataManager
         self.onlineConversations = dataManager.getConversations(online: true)
         self.offlineConversations = dataManager.getConversations(online: false)
@@ -30,7 +30,7 @@ class ConversationsListDataSource: NSObject {
     }
 }
 
-extension ConversationsListDataSource: DataManagerDelegate {
+extension ConversationsListDataSource: DataGeneratorDelegate {
     func didUpdate(_ onlineConversations: [Conversation], _ offlineConversations: [Conversation]) {
         self.onlineConversations = onlineConversations
         self.offlineConversations = offlineConversations

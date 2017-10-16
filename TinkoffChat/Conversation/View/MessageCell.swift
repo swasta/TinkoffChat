@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MessageCell: UITableViewCell {
+class MessageCell: UITableViewCell, MessageCellConfiguration {
     var message: String? {
         didSet {
             messageLabel.text = message
