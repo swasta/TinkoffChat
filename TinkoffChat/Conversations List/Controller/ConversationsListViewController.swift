@@ -9,11 +9,14 @@
 import UIKit
 
 class ConversationsListViewController: UIViewController {
+    @IBOutlet private weak var tableView: UITableView!
     
-    @IBOutlet weak var tableView: UITableView!
-    
-    private let dataManager = DataGenerator()
-    private lazy var dataSource = ConversationsListDataSource(dataManager)
+    private lazy var dataSource = ConversationsListDataSource(communicationManager)
+    private lazy var communicationManager: CommunicationManager = {
+        let communicationManager = CommunicationManager(with: MultipeerCommunicator(with: MessageSerializer()))
+        communicationManager.delegate = self
+        return communicationManager
+    }()
     
     // MARK: View life cycle
     
@@ -25,25 +28,39 @@ class ConversationsListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         DispatchQueue.main.async {
-            self.tableView.reloadData()
+            self.updateConversationList()
         }
+        communicationManager.delegate = self
     }
     
     // MARK: Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let conversationViewController = segue.destination as? ConversationViewController,
-            let selectedIndexPath = tableView.indexPathForSelectedRow,
-            let selectedCell = dataSource.tableView(tableView, cellForRowAt: selectedIndexPath) as? ConversationCell {
+            let selectedIndexPath = tableView.indexPathForSelectedRow {
             let selectedConversation = dataSource.conversation(for: selectedIndexPath)
+            conversationViewController.communicationManager = communicationManager
             conversationViewController.conversation = selectedConversation
-            conversationViewController.dataManager = dataManager
-            conversationViewController.navigationItem.title = selectedCell.name
             tableView.deselectRow(at: selectedIndexPath, animated: true)
         }
     }
     
     @IBAction func unwindToConversationsList(sender: UIStoryboardSegue) {
         
+    }
+    
+    // MARK: Private methods
+    
+    private func updateConversationList() {
+        dataSource.update()
+        self.tableView.reloadData()
+    }
+}
+
+extension ConversationsListViewController: CommunicationManagerDelegate {
+    func updateUI() {
+        DispatchQueue.main.async {
+            self.updateConversationList()
+        }
     }
 }

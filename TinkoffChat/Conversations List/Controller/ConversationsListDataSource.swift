@@ -9,59 +9,51 @@
 import UIKit
 
 class ConversationsListDataSource: NSObject {
-    private var onlineConversations: [Conversation]
-    private var offlineConversations: [Conversation]
+    private var conversations = [[Conversation]]()
     
-    private let dataManager: DataGenerator
+    private let communicationManager: CommunicationManager
+    private let headerTitles = ["Online", "History"]
     
-    private let firstSectionHeader = "Online"
-    private let secondSectionHeader = "History"
-    
-    init(_ dataManager: DataGenerator) {
-        self.dataManager = dataManager
-        self.onlineConversations = dataManager.getConversations(online: true)
-        self.offlineConversations = dataManager.getConversations(online: false)
+    init(_ communicationManager: CommunicationManager) {
+        self.communicationManager = communicationManager
         super.init()
-        dataManager.delegate = self
+        self.update()
+    }
+    
+    func update() {
+        let onlineConversations = sort(communicationManager.getConversations(online: true))
+        let offlineConversations = sort(communicationManager.getConversations(online: false))
+        conversations = [onlineConversations, offlineConversations]
     }
     
     func conversation(for indexPath: IndexPath) -> Conversation {
-        return indexPath.section == 0 ? onlineConversations[indexPath.row] : offlineConversations[indexPath.row]
+        return conversations[indexPath.section][indexPath.row]
     }
-}
-
-extension ConversationsListDataSource: DataGeneratorDelegate {
-    func didUpdate(_ onlineConversations: [Conversation], _ offlineConversations: [Conversation]) {
-        self.onlineConversations = onlineConversations
-        self.offlineConversations = offlineConversations
+    
+    private func sort(_ conversations: [Conversation]) -> [Conversation] {
+        let sortedConversationsWithLastMessageDate = conversations
+            .filter { $0.lastMessageDate != nil }
+            .sorted {$0.lastMessageDate! > $1.lastMessageDate!}
+        let sortedConversationsWithoutLastMessageDate = conversations
+            .filter { $0.lastMessageDate == nil && $0.name != nil }
+            .sorted { $0.name! > $1.name! }
+        let chatsWithoutDateAndName = conversations
+            .filter { $0.name == nil && $0.lastMessageDate == nil }
+        return sortedConversationsWithLastMessageDate + sortedConversationsWithoutLastMessageDate + chatsWithoutDateAndName
     }
 }
 
 extension ConversationsListDataSource: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return conversations.count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0:
-            return firstSectionHeader
-        case 1:
-            return secondSectionHeader
-        default:
-            return nil
-        }
+        return conversations[section].count == 0 ? nil : headerTitles[section]
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return onlineConversations.count
-        case 1:
-            return offlineConversations.count
-        default:
-            return 0
-        }
+        return conversations[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

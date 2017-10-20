@@ -182,13 +182,13 @@ extension ProfileViewController {
         guard let info = notification.userInfo else {
             return
         }
-        let keyboardSize = (info[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+        let keyboardSize = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let verticalSpacing = view.frame.height / 10
-        let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize!.height + verticalSpacing, right: 0)
+        let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height + verticalSpacing, right: 0)
         scrollView.contentInset = contentInsets
         scrollView.scrollIndicatorInsets = contentInsets
         var viewRect = view.frame
-        viewRect.size.height -= keyboardSize!.height
+        viewRect.size.height -= keyboardSize.height
         if let activeField = self.activeField {
             let activeFieldFrame = activeField.convert(activeField.bounds, to: scrollView)
             let activeFieldBottomLeftPoint = CGPoint(x: activeFieldFrame.minX, y: activeFieldFrame.maxY)
