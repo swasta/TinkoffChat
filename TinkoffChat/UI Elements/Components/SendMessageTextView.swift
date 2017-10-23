@@ -10,19 +10,10 @@ import UIKit
 
 @IBDesignable class SendMessageTextView: UITextView, DesignableCorners, DesignableBorder {
     private static let defaultPlaceholderColor = UIColor(red: 13/255, green: 9/255, blue: 37/255, alpha: 0.4)
-    private static let defaultPlaceholderFont = UIFont(name: "SFUIText-Light", size: 15)
+    private static let defaultPlaceholderFontSize: CGFloat = 15
+    private static let defaultPlaceholderFont = UIFont(name: "SFUIText-Light", size: defaultPlaceholderFontSize)
     private let placeholderLabel: UILabel = UILabel()
     private var placeholderLabelConstraints = [NSLayoutConstraint]()
-    
-    // MARK: - Placeholder
-    
-    override var contentSize: CGSize {
-        didSet {
-            var topCorrection = (bounds.size.height - contentSize.height * zoomScale) / 2.0
-            topCorrection = max(0, topCorrection)
-            contentInset = UIEdgeInsets(top: topCorrection, left: 0, bottom: 0, right: 0)
-        }
-    }
     
     @IBInspectable var placeholder: String = "" {
         didSet {
@@ -35,7 +26,13 @@ import UIKit
             placeholderLabel.textColor = placeholderColor
         }
     }
-
+    
+    @IBInspectable var placeholderFontSize: CGFloat = SendMessageTextView.defaultPlaceholderFontSize {
+        didSet {
+            placeholderLabel.font = placeholderLabel.font.withSize(placeholderFontSize)
+        }
+    }
+    
     var placeholderFont: UIFont? = SendMessageTextView.defaultPlaceholderFont {
         didSet {
             let font = (placeholderFont != nil) ? placeholderFont : self.font
@@ -134,10 +131,10 @@ import UIKit
     private func updateConstraintsForPlaceholderLabel() {
         let leadingConstraint = placeholderLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: textContainerInset.left + textContainer.lineFragmentPadding)
         let widthConstraint = placeholderLabel.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -(textContainerInset.left + textContainerInset.right + textContainer.lineFragmentPadding * 2.0))
-        let centerYConstraint = placeholderLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: textContainerInset.top)
+        let centerYConstraint = placeholderLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         let newConstraints = [leadingConstraint, widthConstraint, centerYConstraint]
-        removeConstraints(placeholderLabelConstraints)
-        addConstraints(newConstraints)
+        NSLayoutConstraint.deactivate(placeholderLabelConstraints)
+        NSLayoutConstraint.activate(newConstraints)
         placeholderLabelConstraints = newConstraints
     }
     

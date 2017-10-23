@@ -11,10 +11,12 @@ import UIKit
 class ConversationsListViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     
-    private lazy var dataSource = ConversationsListDataSource(communicationManager)
+    private let tableDelegate = ConversationsListTableDelegate()
+    private lazy var tableDataSource = ConversationsListTableDataSource(communicationManager)
     private lazy var communicationManager: CommunicationManager = {
         let communicationManager = CommunicationManager(with: MultipeerCommunicator(with: MessageSerializer()))
         communicationManager.delegate = self
+        communicationManager.enableCommunicationServices(true)
         return communicationManager
     }()
     
@@ -22,15 +24,18 @@ class ConversationsListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.dataSource = dataSource
+        tableView.dataSource = tableDataSource
+        tableView.delegate = tableDelegate
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        DispatchQueue.main.async {
-            self.updateConversationList()
-        }
         communicationManager.delegate = self
+        updateConversationList()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        tableView.reloadData()
     }
     
     // MARK: Navigation
@@ -38,22 +43,20 @@ class ConversationsListViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let conversationViewController = segue.destination as? ConversationViewController,
             let selectedIndexPath = tableView.indexPathForSelectedRow {
-            let selectedConversation = dataSource.conversation(for: selectedIndexPath)
+            let selectedConversation = tableDataSource.conversation(for: selectedIndexPath)
             conversationViewController.communicationManager = communicationManager
             conversationViewController.conversation = selectedConversation
             tableView.deselectRow(at: selectedIndexPath, animated: true)
         }
     }
     
-    @IBAction func unwindToConversationsList(sender: UIStoryboardSegue) {
-        
-    }
+    @IBAction func unwindToConversationsList(sender: UIStoryboardSegue) { }
     
     // MARK: Private methods
     
     private func updateConversationList() {
-        dataSource.update()
-        self.tableView.reloadData()
+        tableDataSource.update()
+        tableView.reloadData()
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  ConversationsListDataSource.swift
+//  ConversationsListTableDataSource.swift
 //  TinkoffChat
 //
 //  Created by Nikita Borodulin on 05/10/2017.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ConversationsListDataSource: NSObject {
+class ConversationsListTableDataSource: NSObject {
     private var conversations = [[Conversation]]()
     
     private let communicationManager: CommunicationManager
@@ -43,7 +43,7 @@ class ConversationsListDataSource: NSObject {
     }
 }
 
-extension ConversationsListDataSource: UITableViewDataSource {
+extension ConversationsListTableDataSource: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return conversations.count
     }
@@ -57,13 +57,16 @@ extension ConversationsListDataSource: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let conversationCell = tableView.dequeueReusableCell(withIdentifier: ConversationCell.identifier, for: indexPath) as! ConversationCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: ConversationCell.identifier, for: indexPath)
+        guard let conversationCell = cell as? ConversationCellConfiguration else {
+            fatalError("Wrong cell type in conversations list view controller")
+        }
         let conversation = self.conversation(for: indexPath)
         conversationCell.name = conversation.name
         conversationCell.message = conversation.messages.last?.text
         conversationCell.date = conversation.lastMessageDate
         conversationCell.online = conversation.isOnline
         conversationCell.hasUnreadMessages = conversation.hasUnreadMessages
-        return conversationCell
+        return cell
     }
 }

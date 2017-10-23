@@ -10,15 +10,19 @@ import MultipeerConnectivity
 
 class MultipeerCommunicator: NSObject {
     weak var delegate: CommunicatorDelegate?
-    var online = false
+    var online = false {
+        didSet {
+            online ? startServices() : stopServices()
+        }
+    }
     
     private let serviceType = "tinkoff-chat"
     private let discoveryInfoUserNameKey = "userName"
     private let myPeerID = MCPeerID(displayName: UIDevice.current.identifierForVendor!.uuidString)
+    private let serviceBrowser: MCNearbyServiceBrowser
+    private let serviceAdvertiser: MCNearbyServiceAdvertiser
+    private let messageSerializer: MessageSerializer
     
-    private var serviceBrowser: MCNearbyServiceBrowser
-    private var serviceAdvertiser: MCNearbyServiceAdvertiser
-    private var messageSerializer: MessageSerializer
     private var sessionsByPeerID = [MCPeerID: MCSession]()
     private var invitedPeers = [MCPeerID: [String: String]?]()
     
@@ -28,7 +32,8 @@ class MultipeerCommunicator: NSObject {
         serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerID, discoveryInfo: discoveryInfo, serviceType: serviceType)
         serviceBrowser = MCNearbyServiceBrowser(peer: myPeerID, serviceType: serviceType)
         super.init()
-        setup()
+        serviceAdvertiser.delegate = self
+        serviceBrowser.delegate = self
     }
     
     deinit {
@@ -36,11 +41,14 @@ class MultipeerCommunicator: NSObject {
         serviceBrowser.stopBrowsingForPeers()
     }
     
-    private func setup() {
-        serviceBrowser.delegate = self
-        serviceAdvertiser.delegate = self
+    private func startServices() {
         serviceBrowser.startBrowsingForPeers()
         serviceAdvertiser.startAdvertisingPeer()
+    }
+    
+    private func stopServices() {
+        serviceBrowser.stopBrowsingForPeers()
+        serviceAdvertiser.stopAdvertisingPeer()
     }
     
     private func getSessionFor(_ peer: MCPeerID) -> MCSession {
@@ -59,7 +67,7 @@ class MultipeerCommunicator: NSObject {
 }
 
 extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate {
-    private static let peerInvitationTimeout: TimeInterval = 30
+    private static let peerInvitationTimeout: TimeInterval = 45
     func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
         let session = getSessionFor(peerID)
         if !session.connectedPeers.contains(peerID) {
@@ -92,13 +100,12 @@ extension MultipeerCommunicator: MCNearbyServiceAdvertiserDelegate {
 
 extension MultipeerCommunicator: Communicator {
     func sendMessage(string: String, to userID: String, completionHandler: ((Bool, Error?) -> Void)?) {
-        guard let peerID = getPeerIDFor(userID) else {
+        guard let peerID = getPeerIDFor(userID), let session = sessionsByPeerID[peerID] else {
             return
         }
-        let session = sessionsByPeerID[peerID]
         do {
             let serializedMessage = try messageSerializer.serializeMessageWith(string)
-            try session?.send(serializedMessage, toPeers: [peerID], with: .reliable)
+            try session.send(serializedMessage, toPeers: [peerID], with: .reliable)
             completionHandler?(true, nil)
         } catch {
             completionHandler?(false, error)
@@ -117,10 +124,20 @@ extension MultipeerCommunicator: MCSessionDelegate {
         }
     }
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
-        if let peerDiscoveryInfo = invitedPeers[peerID], state == .connected {
-            delegate?.didFindUser(userID: peerID.displayName, userName: peerDiscoveryInfo?[discoveryInfoUserNameKey])
+        switch state {
+        case .connected:
+            if let peerDiscoveryInfo = invitedPeers[peerID] {
+                delegate?.didFindUser(userID: peerID.displayName, userName: peerDiscoveryInfo?[discoveryInfoUserNameKey])
+            }
+        case .notConnected:
+            sessionsByPeerID.removeValue(forKey: peerID)
             invitedPeers.removeValue(forKey: peerID)
+            delegate?.didLoseUser(userID: peerID.displayName)
+            
+        default:
+            break
         }
+        
     }
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) { }
     func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) { }

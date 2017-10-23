@@ -33,6 +33,10 @@ class CommunicationManager {
         return conversations.filter { $0.isOnline == online }
     }
     
+    func enableCommunicationServices(_ flag: Bool) {
+        multipeerCommunicator.online = flag
+    }
+    
     func sendMessage(text: String, to conversation: Conversation) {
         let message = Message(with: text, date: Date(), type: .outgoing)
         message.markAsRead()

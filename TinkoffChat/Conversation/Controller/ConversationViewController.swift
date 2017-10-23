@@ -45,7 +45,6 @@ class ConversationViewController: UIViewController {
         view.endEditing(true)
     }
     
-    
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -88,14 +87,14 @@ extension ConversationViewController {
                 bottomConstraint.constant = 0.0
             } else {
                 bottomConstraint.constant = endFrame.size.height
-                scrollToLastRow()
             }
+            view.layoutIfNeeded()
             UIView.animate(withDuration: duration,
                            delay: 0,
                            options: animationCurve,
                            animations: { self.view.layoutIfNeeded() },
-                           completion: nil)
-        }
+                           completion: { _ in self.scrollToLastRow() }
+            )}
     }
 }
 
