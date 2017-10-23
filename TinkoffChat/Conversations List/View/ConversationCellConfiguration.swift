@@ -14,4 +14,6 @@ protocol ConversationCellConfiguration: class {
     var date: Date? { get set }
     var online: Bool { get set }
     var hasUnreadMessages: Bool { get set }
+    
+    func applyFontStyle()
 }

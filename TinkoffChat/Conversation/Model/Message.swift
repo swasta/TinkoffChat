@@ -8,11 +8,23 @@
 
 import Foundation
 
-struct Message {
+class Message {
     enum MessageType {
         case incoming
         case outgoing
     }
     let type: MessageType
     let text: String
+    let date: Date
+    private(set) var isRead = false
+    
+    init(with text: String, date: Date, type: MessageType) {
+        self.text = text
+        self.date = date
+        self.type = type
+    }
+    
+    func markAsRead() {
+        isRead = true
+    }
 }

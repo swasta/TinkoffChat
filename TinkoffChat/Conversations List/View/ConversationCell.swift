@@ -31,10 +31,8 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {
     var message: String? {
         didSet {
             if message != nil {
-                messageLabel.font = .systemFont(ofSize: messageLabel.font.pointSize)
                 messageLabel.text = message
             } else {
-                messageLabel.font = .italicSystemFont(ofSize: messageLabel.font.pointSize)
                 messageLabel.text = noMessagesText
             }
         }
@@ -61,13 +59,17 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {
         }
     }
     
-    var hasUnreadMessages: Bool = false {
-        didSet {
+    var hasUnreadMessages: Bool = false
+    
+    func applyFontStyle() {
+        if message != nil {
             if hasUnreadMessages {
                 messageLabel.font = .boldSystemFont(ofSize: messageLabel.font.pointSize)
-            } else if message != nil {
+            } else {
                 messageLabel.font = .systemFont(ofSize: messageLabel.font.pointSize)
             }
+        } else {
+            messageLabel.font = .italicSystemFont(ofSize: messageLabel.font.pointSize)
         }
     }
 }
