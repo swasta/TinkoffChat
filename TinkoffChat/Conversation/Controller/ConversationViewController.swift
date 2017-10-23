@@ -15,7 +15,8 @@ class ConversationViewController: UIViewController {
             communicationManager.delegate = self
         }
     }
-    private lazy var dataSource = ConversationDataSource(conversation: conversation)
+    private lazy var tableDataSource = ConversationDataSource(conversation: conversation)
+    private lazy var tableDelegate = ConversationTableDelegate(conversation: conversation)
     private var sendMessageViewController: SendMessageViewController!
     
     @IBOutlet private weak var tableView: UITableView!
@@ -30,13 +31,19 @@ class ConversationViewController: UIViewController {
             tableView.backgroundView = noMessagesView
         }
         navigationItem.title = conversation.name
-        tableView.dataSource = dataSource
+        tableView.dataSource = tableDataSource
+        tableView.delegate = tableDelegate
         registerForKeyboardNotifications()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         scrollToLastRow()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        tableView.reloadData()
     }
     
     // MARK: - Actions

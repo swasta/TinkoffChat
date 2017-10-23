@@ -9,10 +9,6 @@
 import Foundation
 
 class Message {
-    enum MessageType {
-        case incoming
-        case outgoing
-    }
     let type: MessageType
     let text: String
     let date: Date

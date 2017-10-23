@@ -57,8 +57,7 @@ extension ConversationsListTableDataSource: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ConversationCell.identifier, for: indexPath)
-        guard let conversationCell = cell as? ConversationCellConfiguration else {
+        guard let conversationCell = tableView.dequeueReusableCell(withIdentifier: ConversationCell.identifier, for: indexPath) as? ConversationCellConfiguration & UITableViewCell else {
             fatalError("Wrong cell type in conversations list view controller")
         }
         let conversation = self.conversation(for: indexPath)
@@ -67,6 +66,6 @@ extension ConversationsListTableDataSource: UITableViewDataSource {
         conversationCell.date = conversation.lastMessageDate
         conversationCell.online = conversation.isOnline
         conversationCell.hasUnreadMessages = conversation.hasUnreadMessages
-        return cell
+        return conversationCell
     }
 }

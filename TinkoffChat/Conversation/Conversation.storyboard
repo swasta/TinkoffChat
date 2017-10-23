@@ -31,7 +31,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="1366" height="52"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aKv-gO-Lgx" userLabel="Message container view">
+                                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aKv-gO-Lgx" userLabel="Message container view">
                                                     <rect key="frame" x="8" y="8" width="426.5" height="36"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do you have any plans for next week?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zvF-e9-5Me">
@@ -51,11 +51,6 @@
                                                         <constraint firstItem="zvF-e9-5Me" firstAttribute="leading" secondItem="aKv-gO-Lgx" secondAttribute="leading" constant="12" id="P90-Lv-99c"/>
                                                         <constraint firstAttribute="trailing" secondItem="zvF-e9-5Me" secondAttribute="trailing" constant="12" id="iqq-nq-XAD"/>
                                                     </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="15"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
                                                 </view>
                                             </subviews>
                                             <constraints>
@@ -66,6 +61,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="messageContainerView" destination="aKv-gO-Lgx" id="Dd6-CD-UWc"/>
                                             <outlet property="messageLabel" destination="zvF-e9-5Me" id="uFa-UV-jWx"/>
                                         </connections>
                                     </tableViewCell>
@@ -96,11 +92,6 @@
                                                         <constraint firstAttribute="trailing" secondItem="cYO-cX-fXt" secondAttribute="trailing" constant="12" id="p3b-11-6dI"/>
                                                         <constraint firstItem="cYO-cX-fXt" firstAttribute="top" secondItem="t7a-CK-O1g" secondAttribute="top" constant="8" id="q0O-AQ-gIY"/>
                                                     </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="15"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
                                                 </view>
                                             </subviews>
                                             <constraints>
@@ -111,6 +102,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="messageContainerView" destination="t7a-CK-O1g" id="3Yv-jO-UT7"/>
                                             <outlet property="messageLabel" destination="cYO-cX-fXt" id="vnj-7s-O6a"/>
                                         </connections>
                                     </tableViewCell>
@@ -125,43 +117,6 @@
                                     <segue destination="Ruv-wJ-K4r" kind="embed" identifier="SendMessageContainerSegue" id="G7z-nU-vYE"/>
                                 </connections>
                             </containerView>
-                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="Nad-bH-W1y">
-                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="NYp-D5-tpp">
-                                        <rect key="frame" x="8" y="0.0" width="274" height="44"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VGG-W3-HmY" customClass="ProfileImageButton" customModule="TinkoffChat" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" secondItem="VGG-W3-HmY" secondAttribute="height" multiplier="1:1" id="C6S-sj-Y2a"/>
-                                                    <constraint firstAttribute="width" constant="44" id="EmD-Zp-yMt">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="60"/>
-                                                    </constraint>
-                                                </constraints>
-                                                <state key="normal" image="photoIcon"/>
-                                            </button>
-                                            <textField opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Введите сообщение" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PbU-jf-Q8s">
-                                                <rect key="frame" x="52" y="5" width="222" height="34"/>
-                                                <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                <textInputTraits key="textInputTraits" returnKeyType="send" enablesReturnKeyAutomatically="YES"/>
-                                            </textField>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstItem="PbU-jf-Q8s" firstAttribute="top" secondItem="NYp-D5-tpp" secondAttribute="top" constant="5" id="6sb-q7-Kl5"/>
-                                            <constraint firstAttribute="bottom" secondItem="PbU-jf-Q8s" secondAttribute="bottom" constant="5" id="iGR-RY-nf9"/>
-                                        </constraints>
-                                    </stackView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="NYp-D5-tpp" firstAttribute="leading" secondItem="Nad-bH-W1y" secondAttribute="leadingMargin" id="DP8-Xv-lKp"/>
-                                    <constraint firstItem="NYp-D5-tpp" firstAttribute="top" secondItem="Nad-bH-W1y" secondAttribute="top" id="Q8R-5V-3bR"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="NYp-D5-tpp" secondAttribute="trailing" constant="38" id="THi-Th-vHw"/>
-                                    <constraint firstAttribute="trailing" secondItem="NYp-D5-tpp" secondAttribute="trailing" priority="750" constant="38" id="iNw-W0-qri"/>
-                                    <constraint firstAttribute="bottom" secondItem="NYp-D5-tpp" secondAttribute="bottom" id="seD-s2-tmx"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
@@ -176,11 +131,6 @@
                             <constraint firstItem="FVk-ZE-tJU" firstAttribute="trailing" secondItem="FO6-AR-OME" secondAttribute="trailing" id="vQr-T8-5PO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FVk-ZE-tJU"/>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="Nad-bH-W1y"/>
-                            </mask>
-                        </variation>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="wbc-nl-1ny" appends="YES" id="r6Y-ZZ-CuI"/>
                         </connections>
