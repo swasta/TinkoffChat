@@ -15,7 +15,7 @@ class SendMessageViewController: UIViewController {
             sendButton.isEnabled = false
         }
     }
-    @IBOutlet weak var messageTextView: UITextView!
+    @IBOutlet private weak var messageTextView: UITextView!
     
     var conversation: Conversation!
     var communicationManager: CommunicationManager!
