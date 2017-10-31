@@ -43,7 +43,7 @@ class FileBasedProfileHandler: IProfileHandler {
         return profile
     }
     
-    func serialize(_ profile: ProfileStorageModel) ->  [String: Any] {
+    private func serialize(_ profile: ProfileStorageModel) -> [String: Any] {
         let profileImageData = NSKeyedArchiver.archivedData(withRootObject: profile.profileImage)
         return [FileBasedProfileHandler.profileImageKey: profileImageData,
                 FileBasedProfileHandler.nameKey: profile.name,
@@ -51,10 +51,11 @@ class FileBasedProfileHandler: IProfileHandler {
     }
     
     private func deserializeProfile(from data: Data) throws -> ProfileStorageModel? {
-        guard let dictionary = NSKeyedUnarchiver.unarchiveObject(with: data) as? [String : Any],
+        guard let dictionary = NSKeyedUnarchiver.unarchiveObject(with: data) as? [String: Any],
             let name = dictionary[FileBasedProfileHandler.nameKey] as? String,
             let userInfo = dictionary[FileBasedProfileHandler.userInfoKey] as? String,
-            let profileImage = NSKeyedUnarchiver.unarchiveObject(with: dictionary[FileBasedProfileHandler.profileImageKey] as! Data) as? UIImage
+            let profileImageData = dictionary[FileBasedProfileHandler.profileImageKey] as? Data,
+            let profileImage = NSKeyedUnarchiver.unarchiveObject(with: profileImageData) as? UIImage
             else {
                 throw FileBasedProfileSaverError.corruptedData
         }

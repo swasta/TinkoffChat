@@ -9,12 +9,11 @@
 import UIKit
 
 class ConversationViewController: UIViewController {
-    var model: IConversationModel! // cannot be nil, otherwise app must crash
+    private var model: IConversationModel!
+    private var tableDataSource: IConversationTableDataSource!
+    private var tableDelegate: IConversationTableDelegate!
     
-    var tableDataSource: IConversationTableDataSource!
-    var tableDelegate: IConversationTableDelegate!
-    
-    private var sendMessageViewController: SendMessageViewController!
+    private var sendMessageViewController: SendMessageViewController! // Will be set by embed segue
     
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var noMessagesView: UIView!
@@ -67,6 +66,7 @@ class ConversationViewController: UIViewController {
                 assertionFailure("Failed embeded segue")
                 return
         }
+        self.sendMessageViewController = sendMessageViewController
         sendMessageViewController.model = model
     }
     
@@ -150,4 +150,3 @@ extension ConversationViewController {
             )}
     }
 }
-

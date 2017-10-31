@@ -1,5 +1,5 @@
 //
-//  Message.swift
+//  MessageViewModel.swift
 //  TinkoffChat
 //
 //  Created by Nikita Borodulin on 29/10/2017.
@@ -18,7 +18,7 @@ class MessageViewModel {
     let text: String
     let date: String
     
-    init(with text: String, date: String, type: MessageType) {
+    init(withText text: String, date: String, type: MessageType) {
         self.text = text
         self.date = date
         self.type = type

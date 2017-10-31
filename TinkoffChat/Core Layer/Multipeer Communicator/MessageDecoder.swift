@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol IMessageDecoder {
+protocol IMessageDecoder: class {
     func getMessage(from data: Data) -> String?
 }
 
@@ -16,7 +16,7 @@ class MessageDecoder: IMessageDecoder {
     private static let messageTextKey = "text"
     
     func getMessage(from data: Data) -> String? {
-        if let json = try? JSONSerialization.jsonObject(with: data, options:[] ),
+        if let json = try? JSONSerialization.jsonObject(with: data, options: []),
             let peerMessage = json as? [String: String] {
             return peerMessage[MessageDecoder.messageTextKey]
         } else {

@@ -9,7 +9,6 @@
 import Foundation
 
 class ProfileStorageService: IProfileStorageService {
-    
     private let profileGCDStorage: IProfileGCDStorage
     private let profileOperationQueueStorage: IProfileOperationQueueStorage
     
@@ -18,19 +17,21 @@ class ProfileStorageService: IProfileStorageService {
         self.profileOperationQueueStorage = profileOperationQueueStorage
     }
     
-    func saveWithGCD(profileStorageModel: ProfileStorageModel, completionHandler: @escaping (Bool, Error?) -> ()) {
+    // MARK: - API
+    
+    func saveWithGCD(profileStorageModel: ProfileStorageModel, completionHandler: @escaping (Bool, Error?) -> Void) {
         profileGCDStorage.save(profileStorageModel, completionHandler: completionHandler)
     }
     
-    func loadWithGCD(completionHandler: @escaping (ProfileStorageModel?, Error?) -> ()) {
+    func loadWithGCD(completionHandler: @escaping (ProfileStorageModel?, Error?) -> Void) {
         profileGCDStorage.load(completionHandler: completionHandler)
     }
     
-    func saveWithOperationQueue(profileStorageModel: ProfileStorageModel, completionHandler: @escaping (Bool, Error?) -> ()) {
+    func saveWithOperationQueue(profileStorageModel: ProfileStorageModel, completionHandler: @escaping (Bool, Error?) -> Void) {
         profileOperationQueueStorage.save(profileStorageModel, completionHandler: completionHandler)
     }
     
-    func loadWithOperationQueue(completionHandler: @escaping (ProfileStorageModel?, Error?) -> ()) {
+    func loadWithOperationQueue(completionHandler: @escaping (ProfileStorageModel?, Error?) -> Void) {
         profileOperationQueueStorage.load(completionHandler: completionHandler)
     }
 }

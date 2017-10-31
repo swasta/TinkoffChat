@@ -1,5 +1,5 @@
 //
-//  UserProfile.swift
+//  ProfileModel.swift
 //  TinkoffChat
 //
 //  Created by Nikita Borodulin on 14/10/2017.
@@ -9,9 +9,9 @@
 import UIKit
 
 protocol IProfileModel: class {
-    func saveProfileWithGCD(completionHandler: @escaping (Bool, Error?) -> ())
-    func loadProfile(completionHandler: @escaping (ProfileViewModel?, Error?) -> ())
-    func saveProfileWithOperationQueue(completionHandler: @escaping (Bool, Error?) -> ())
+    func saveProfileWithGCD(completionHandler: @escaping (Bool, Error?) -> Void)
+    func loadProfile(completionHandler: @escaping (ProfileViewModel?, Error?) -> Void)
+    func saveProfileWithOperationQueue(completionHandler: @escaping (Bool, Error?) -> Void)
     func update(with profile: ProfileViewModel)
     var profileWasModified: Bool { get }
 }
@@ -26,7 +26,7 @@ class ProfileModel: IProfileModel {
         self.profileStorageService = profileStorageService
     }
     
-    func loadProfile(completionHandler: @escaping (ProfileViewModel?, Error?) -> ()) {
+    func loadProfile(completionHandler: @escaping (ProfileViewModel?, Error?) -> Void) {
         let randomCondition = arc4random_uniform(2) == 0
         if randomCondition == true {
             loadProfileWithGCD(completionHandler: completionHandler)
@@ -35,7 +35,7 @@ class ProfileModel: IProfileModel {
         }
     }
     
-    private func loadProfileWithGCD(completionHandler: @escaping (ProfileViewModel?, Error?) -> ()) {
+    private func loadProfileWithGCD(completionHandler: @escaping (ProfileViewModel?, Error?) -> Void) {
         profileStorageService.loadWithGCD { [unowned self] (profile, error) in
             if let error = error {
                 completionHandler(nil, error)
@@ -54,7 +54,7 @@ class ProfileModel: IProfileModel {
         }
     }
     
-    private func loadProfileWithOperationQueue(completionHandler: @escaping (ProfileViewModel?, Error?) -> ()) {
+    private func loadProfileWithOperationQueue(completionHandler: @escaping (ProfileViewModel?, Error?) -> Void) {
         profileStorageService.loadWithOperationQueue { [unowned self] (profile, error) in
             if let error = error {
                 completionHandler(nil, error)
@@ -73,7 +73,7 @@ class ProfileModel: IProfileModel {
         }
     }
     
-    func saveProfileWithGCD(completionHandler: @escaping (Bool, Error?) -> ()) {
+    func saveProfileWithGCD(completionHandler: @escaping (Bool, Error?) -> Void) {
         let profileToStore = ProfileStorageModel(name: modifiedProfile.name,
                                                  userInfo: modifiedProfile.userInfo,
                                                  profileImage: modifiedProfile.profileImage)
@@ -85,7 +85,7 @@ class ProfileModel: IProfileModel {
         }
     }
     
-    func saveProfileWithOperationQueue(completionHandler: @escaping (Bool, Error?) -> ()) {
+    func saveProfileWithOperationQueue(completionHandler: @escaping (Bool, Error?) -> Void) {
         let profileToStore = ProfileStorageModel(name: modifiedProfile.name,
                                                  userInfo: modifiedProfile.userInfo,
                                                  profileImage: modifiedProfile.profileImage)

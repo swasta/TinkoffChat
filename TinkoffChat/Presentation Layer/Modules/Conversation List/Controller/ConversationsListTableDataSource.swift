@@ -17,6 +17,8 @@ class ConversationsListTableDataSource: NSObject, IConversationsListTableDataSou
     private var conversations = [[ConversationViewModel]]()
     private let headerTitles = ["Online", "History"]
     
+    // MARK: - API
+    
     func conversation(for indexPath: IndexPath) -> ConversationViewModel {
         return conversations[indexPath.section][indexPath.row]
     }
@@ -26,6 +28,8 @@ class ConversationsListTableDataSource: NSObject, IConversationsListTableDataSou
         let offlineConversations = dataSource.filter { !$0.isOnline }
         conversations = [sort(onlineConversations), sort(offlineConversations)]
     }
+    
+    // MARK: - Private methods
     
     private func sort(_ conversations: [ConversationViewModel]) -> [ConversationViewModel] {
         let sortedConversationsWithLastMessageDate = conversations
@@ -37,6 +41,8 @@ class ConversationsListTableDataSource: NSObject, IConversationsListTableDataSou
         return sortedConversationsWithLastMessageDate + sortedConversationsWithoutLastMessageDate
     }
 }
+
+// MARK: - UITableViewDataSource
 
 extension ConversationsListTableDataSource: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {

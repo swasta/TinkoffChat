@@ -13,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]? = nil) -> Bool {
         guard let rootViewController = window?.rootViewController as? UINavigationController,
             let conversationsListViewController = rootViewController.topViewController as? ConversationsListViewController else {
                 assertionFailure("Wrong root controller loaded from initial storyboard")

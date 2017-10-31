@@ -1,5 +1,5 @@
 //
-//  Conversation.swift
+//  ConversationViewModel.swift
 //  TinkoffChat
 //
 //  Created by Nikita Borodulin on 29/10/2017.

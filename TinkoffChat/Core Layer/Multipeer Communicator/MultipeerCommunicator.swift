@@ -28,7 +28,7 @@ class MultipeerCommunicator: NSObject {
     private var sessionsByPeerID = [MCPeerID: MCSession]()
     private var foundPeers = [MCPeerID: [String: String]?]()
     
-    init(with messageHandler: IMessageHandler) {
+    init(_ messageHandler: IMessageHandler) {
         self.messageHandler = messageHandler
         let discoveryInfo = [discoveryInfoUserNameKey: UIDevice.current.name]
         serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerID, discoveryInfo: discoveryInfo, serviceType: serviceType)
@@ -93,14 +93,12 @@ extension MultipeerCommunicator: ICommunicator {
 
 extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate {
     private static let peerInvitationTimeout: TimeInterval = 30
-    func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
+    func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String: String]?) {
         print("found peer \(peerID.displayName)")
         foundPeers[peerID] = info
-        if myPeerID.hash > peerID.hash {
-            let session = getSessionFor(peerID) ?? createNewSession(for: peerID)
-            browser.invitePeer(peerID, to: session, withContext: nil, timeout: MultipeerCommunicator.peerInvitationTimeout)
-            print("invited peer \(peerID.displayName)")
-        }
+        let session = getSessionFor(peerID) ?? createNewSession(for: peerID)
+        browser.invitePeer(peerID, to: session, withContext: nil, timeout: MultipeerCommunicator.peerInvitationTimeout)
+        print("invited peer \(peerID.displayName)")
     }
     
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
@@ -121,13 +119,7 @@ extension MultipeerCommunicator: MCNearbyServiceAdvertiserDelegate {
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
         print("did receive invitation from \(peerID.displayName)")
         let session = getSessionFor(peerID) ?? createNewSession(for: peerID)
-        if foundPeers[peerID] != nil {
-            print("will accept invitation")
-            invitationHandler(true, session)
-        } else {
-            print("will decline invitation")
-            invitationHandler(false, nil)
-        }
+        invitationHandler(true, session)
     }
     
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didNotStartAdvertisingPeer error: Error) {
@@ -163,7 +155,6 @@ extension MultipeerCommunicator: MCSessionDelegate {
             session.disconnect()
         case .connecting:
             print("connecting state with \(peerID.displayName)")
-            break
         }
         
     }

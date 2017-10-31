@@ -12,8 +12,8 @@ import Foundation
  Although GCD and OperationQueue storage interfaces have exactly the same methods, I intentionally created them separately. This makes it obvious, that storage service has two different type of storages.
 */
 protocol IProfileOperationQueueStorage: class {
-    func save(_ profile: ProfileStorageModel, completionHandler: @escaping (_ success: Bool, _ error: Error?) -> ())
-    func load(completionHandler: @escaping (ProfileStorageModel?, Error?) ->())
+    func save(_ profile: ProfileStorageModel, completionHandler: @escaping (_ success: Bool, _ error: Error?) -> Void)
+    func load(completionHandler: @escaping (ProfileStorageModel?, Error?) -> Void)
 }
 
 class ProfileOperationQueueStorage: IProfileOperationQueueStorage {
@@ -25,12 +25,12 @@ class ProfileOperationQueueStorage: IProfileOperationQueueStorage {
     }
     
     func save(_ profile: ProfileStorageModel, completionHandler: @escaping (Bool, Error?) -> Void) {
-        let saveOperation = SaveProfileOperation(with: profile, profileHandler: profileHandler, completionHandler: completionHandler)
+        let saveOperation = SaveProfileOperation(profile, profileHandler, completionHandler: completionHandler)
         queue.addOperation(saveOperation)
     }
     
     func load(completionHandler: @escaping (ProfileStorageModel?, Error?) -> Void) {
-        let loadOperation = LoadProfileOperation(with: profileHandler, completionHandler: completionHandler)
+        let loadOperation = LoadProfileOperation(profileHandler, completionHandler: completionHandler)
         queue.addOperation(loadOperation)
     }
 }

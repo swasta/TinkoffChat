@@ -9,8 +9,8 @@
 import Foundation
 
 protocol IProfileGCDStorage: class {
-    func save(_ profile: ProfileStorageModel, completionHandler: @escaping (_ success: Bool, _ error: Error?) -> ())
-    func load(completionHandler: @escaping (ProfileStorageModel?, Error?) ->())
+    func save(_ profile: ProfileStorageModel, completionHandler: @escaping (_ success: Bool, _ error: Error?) -> Void)
+    func load(completionHandler: @escaping (ProfileStorageModel?, Error?) -> Void)
 }
 
 class ProfileGCDStorage: IProfileGCDStorage {
@@ -21,7 +21,7 @@ class ProfileGCDStorage: IProfileGCDStorage {
         self.profileHandler = profileHandler
     }
     
-    func save(_ profile: ProfileStorageModel, completionHandler: @escaping (Bool, Error?) -> ()) {
+    func save(_ profile: ProfileStorageModel, completionHandler: @escaping (Bool, Error?) -> Void) {
         serialQueue.async {
             do {
                 try self.profileHandler.save(profile)
@@ -32,7 +32,7 @@ class ProfileGCDStorage: IProfileGCDStorage {
         }
     }
     
-    func load(completionHandler: @escaping (ProfileStorageModel?, Error?) -> ()) {
+    func load(completionHandler: @escaping (ProfileStorageModel?, Error?) -> Void) {
         serialQueue.async {
             do {
                 let profile = try self.profileHandler.load()

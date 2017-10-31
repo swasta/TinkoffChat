@@ -12,7 +12,9 @@ import UIKit
     @IBInspectable var characterSpacing: CGFloat = 1 {
         didSet {
             let attributedString = NSMutableAttributedString(string: self.text!)
-            attributedString.addAttribute(NSAttributedStringKey.kern, value: self.characterSpacing, range: NSRange(location: 0, length: attributedString.length - 1))
+            attributedString.addAttribute(NSAttributedStringKey.kern,
+                                          value: self.characterSpacing,
+                                          range: NSRange(location: 0, length: attributedString.length - 1))
             self.attributedText = attributedString
         }
     }

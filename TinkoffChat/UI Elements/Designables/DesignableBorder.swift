@@ -22,7 +22,7 @@ extension DesignableBorder where Self: UIView {
         layer.borderColor = borderColor!.cgColor
         layer.borderWidth = scaledValue(borderWidth)
     }
-    
+
     private func scaledValue(_ value: CGFloat) -> CGFloat {
         return value / UIScreen.main.scale
     }

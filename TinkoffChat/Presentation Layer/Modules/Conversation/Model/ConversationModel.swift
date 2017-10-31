@@ -10,7 +10,7 @@ import Foundation
 
 class ConversationModel: IConversationModel {
     weak var delegate: IConversationModelDelegate?
-    let communicationService: ICommunicationService
+    private let communicationService: ICommunicationService
     
     private let conversation: ConversationViewModel
     
@@ -27,18 +27,20 @@ class ConversationModel: IConversationModel {
         self.conversation = conversation
     }
     
+    // MARK: - API
+    
     func markConversationAsRead() {
         conversation.markAs(.read)
     }
     
-    func send(message: String, completionHandler: (() -> ())?) {
+    func send(message: String, completionHandler: (() -> Void)?) {
         communicationService.sendMessage(text: message, to: conversation.id) { [unowned self] (success: Bool, error: Error?) in
             switch error {
             case let error?:
                 fatalError("Failed to send message: \(error)")
             case nil:
                 if success {
-                    let sentMessage = MessageViewModel(with: message, date: Date().formattedForMessage(), type: .outgoing)
+                    let sentMessage = MessageViewModel(withText: message, date: Date().formattedForMessage(), type: .outgoing)
                     self.conversation.append(sentMessage)
                 } else {
                     fatalError("Failed to send message: unknown error")
@@ -49,6 +51,8 @@ class ConversationModel: IConversationModel {
         }
     }
 }
+
+// MARK: - ICommunicationServiceDelegate
 
 extension ConversationModel: ICommunicationServiceDelegate {
     func didFindUser(userID: String, userName: String?) {
@@ -65,7 +69,7 @@ extension ConversationModel: ICommunicationServiceDelegate {
     
     func didReceiveMessage(text: String, fromUser: String, toUser: String) {
         if conversation.id == fromUser {
-            conversation.append(MessageViewModel(with: text, date: Date().formattedForMessage(), type: .incoming))
+            conversation.append(MessageViewModel(withText: text, date: Date().formattedForMessage(), type: .incoming))
             delegate?.setup(dataSource: conversation.messages)
         }
     }

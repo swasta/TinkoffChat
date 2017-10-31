@@ -1,5 +1,5 @@
 //
-//  CommunicationManager.swift
+//  CommunicationService.swift
 //  TinkoffChat
 //
 //  Created by Nikita Borodulin on 19/10/2017.
@@ -13,9 +13,11 @@ class CommunicationService: ICommunicationService {
     
     let communicator: ICommunicator
     
-    init(with communicator: ICommunicator) {
+    init(_ communicator: ICommunicator) {
         self.communicator = communicator
     }
+    
+    // MARK: - API
     
     func sendMessage(text: String, to userID: String, completionHandler: ((_ success: Bool, _ error: Error?) -> Void)?) {
         communicator.sendMessage(text: text, to: userID, completionHandler: completionHandler)

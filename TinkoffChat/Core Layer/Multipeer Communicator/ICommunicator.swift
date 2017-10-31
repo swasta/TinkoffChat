@@ -8,7 +8,7 @@
 
 import MultipeerConnectivity
 
-protocol ICommunicator {
+protocol ICommunicator: class {
     func sendMessage(text: String, to userID: String, completionHandler: ((_ success: Bool, _ error: Error?) -> Void)?)
     weak var delegate: ICommunicatorDelegate? { get set }
 }

@@ -9,7 +9,6 @@
 import UIKit
 
 class SendMessageViewController: UIViewController {
-    
     @IBOutlet private weak var sendButton: UIButton! {
         didSet {
             sendButton.isEnabled = false
@@ -21,11 +20,7 @@ class SendMessageViewController: UIViewController {
     
     var userIsOnline: Bool = true {
         didSet {
-            if userIsOnline, messageTextView != nil, messageTextView.text != "" {
-                shouldEnableSendButton(true)
-            } else {
-                shouldEnableSendButton(false)
-            }
+            shouldEnableSendButton(userIsOnline)
         }
     }
     
@@ -42,7 +37,13 @@ class SendMessageViewController: UIViewController {
     }
     
     private func shouldEnableSendButton(_ flag: Bool) {
-        sendButton.isEnabled = flag
+        DispatchQueue.main.async {
+            let conditionToEnableButton = self.userIsOnline && self.messageTextView != nil && self.messageTextView.text != ""
+            let currentButtonStateIsDifferent = self.sendButton.isEnabled != conditionToEnableButton
+            if currentButtonStateIsDifferent {
+                self.sendButton.isEnabled = flag
+            }
+        }
     }
 }
 

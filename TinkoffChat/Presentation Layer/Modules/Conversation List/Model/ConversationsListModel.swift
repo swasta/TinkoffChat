@@ -11,7 +11,7 @@ import Foundation
 class ConversationsListModel: IConversationsListModel {
     weak var delegate: IConversationsListModelDelegate?
     
-    let communicationService: ICommunicationService
+    private let communicationService: ICommunicationService
     
     private static let defaultUserName = "Unknown"
     
@@ -73,10 +73,9 @@ extension ConversationsListModel: ICommunicationServiceDelegate {
             assertionFailure("received message from unknown user")
             return
         }
-        let receivedMessage = MessageViewModel(with: text, date: Date().formattedForMessage(), type: .incoming)
+        let receivedMessage = MessageViewModel(withText: text, date: Date().formattedForMessage(), type: .incoming)
         pastConversation.append(receivedMessage)
         pastConversation.markAs(.unread)
         delegate?.setup(dataSource: conversations)
     }
 }
-

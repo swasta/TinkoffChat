@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol IMessageHandler {
+protocol IMessageHandler: class {
     func prepareForSend(text: String) -> Data?
     func getMessage(from data: Data) -> String?
 }

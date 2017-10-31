@@ -122,7 +122,7 @@ class ProfileViewController: UIViewController {
         enableSaveButtons(false)
         switch savingOption {
         case .GCD:
-            model.saveProfileWithGCD() { [unowned self] (success, error) in
+            model.saveProfileWithGCD { [unowned self] (success, error) in
                 DispatchQueue.main.async {
                     self.activityIndicator.stopAnimating()
                     if let error = error {
@@ -134,7 +134,7 @@ class ProfileViewController: UIViewController {
                 }
             }
         case .operationQueue:
-            model.saveProfileWithOperationQueue() { [unowned self] (success, error) in
+            model.saveProfileWithOperationQueue { [unowned self] (success, error) in
                 DispatchQueue.main.async {
                     self.activityIndicator.stopAnimating()
                     if let error = error {
@@ -157,7 +157,7 @@ class ProfileViewController: UIViewController {
     private func showAlertForFailedProfileSave(with savingOption: UserProfileSavingOption) {
         let alertController = UIAlertController(title: "Ошибка", message: "Не удалось сохранить данные", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        alertController.addAction(UIAlertAction(title: "Повторить", style: .default) { action in
+        alertController.addAction(UIAlertAction(title: "Повторить", style: .default) { _ in
             self.saveUserProfile(using: savingOption)
         })
         present(alertController, animated: true, completion: nil)
@@ -228,7 +228,7 @@ extension ProfileViewController {
 }
 
 extension ProfileViewController: UIImagePickerControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
         var image = info[UIImagePickerControllerOriginalImage] as? UIImage
         if let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
             image = editedImage

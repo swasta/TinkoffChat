@@ -20,6 +20,7 @@ protocol ICommunicationServiceDelegate: class {
     func didReceiveMessage(text: String, fromUser: String, toUser: String)
 }
 
+// Optional methods
 extension ICommunicationServiceDelegate {
     func didFindUser(userID: String, userName: String?) { }
 }

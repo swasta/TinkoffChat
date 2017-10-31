@@ -9,26 +9,26 @@
 import UIKit
 
 @IBDesignable class DesignableImageView: UIImageView, DesignableCorners {
-    
+
     // MARK: - Corners
     @IBInspectable var cornerRadius: CGFloat = .nan {
         didSet {
             setupCorners()
         }
     }
-    
+
     @IBInspectable var isCircular: Bool = false {
         didSet {
             setupCorners()
         }
     }
-    
+
     @IBInspectable var cornerRadiusFraction: CGFloat = .nan {
         didSet {
             setupCorners()
         }
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         setupCorners()

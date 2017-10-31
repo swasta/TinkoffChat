@@ -16,9 +16,9 @@ class ConversationsListViewController: UIViewController {
     
     @IBOutlet private weak var tableView: UITableView!
     
-    var tableDelegate: UITableViewDelegate!
-    var tableDataSource: IConversationsListTableDataSource!
-    var model: IConversationsListModel!
+    private var tableDelegate: UITableViewDelegate!
+    private var tableDataSource: IConversationsListTableDataSource!
+    private var model: IConversationsListModel!
     
     // MARK: Dependency injection
     

@@ -12,7 +12,7 @@ protocol IConversationModel: class {
     weak var delegate: IConversationModelDelegate? { get set }
     var isEmpty: Bool { get }
     var userName: String { get }
-    func send(message: String, completionHandler: (() -> ())?)
+    func send(message: String, completionHandler: (() -> Void)?)
     func markConversationAsRead()
 }
 

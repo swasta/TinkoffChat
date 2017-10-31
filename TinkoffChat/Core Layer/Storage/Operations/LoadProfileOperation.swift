@@ -9,10 +9,10 @@
 import Foundation
 
 class LoadProfileOperation: Operation {
-    private let completionHandler: (ProfileStorageModel?, Error?) -> ()
+    private let completionHandler: (ProfileStorageModel?, Error?) -> Void
     private let profileHandler: IProfileHandler
     
-    init(with profileHandler: IProfileHandler, completionHandler: @escaping (ProfileStorageModel?, Error?) -> Void) {
+    init(_ profileHandler: IProfileHandler, completionHandler: @escaping (ProfileStorageModel?, Error?) -> Void) {
         self.profileHandler = profileHandler
         self.completionHandler = completionHandler
     }

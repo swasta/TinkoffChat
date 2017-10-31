@@ -28,7 +28,7 @@ struct ProfileViewModel {
 }
 
 extension ProfileViewModel: Equatable {
-    static func ==(lhs: ProfileViewModel, rhs: ProfileViewModel) -> Bool {
+    static func == (lhs: ProfileViewModel, rhs: ProfileViewModel) -> Bool {
         return lhs.name == rhs.name &&
             lhs.userInfo == rhs.userInfo &&
             lhs.profileImage == rhs.profileImage
