@@ -11,7 +11,7 @@ import Foundation
 class CommunicationService: ICommunicationService {
     weak var delegate: ICommunicationServiceDelegate?
     
-    let communicator: ICommunicator
+    private let communicator: ICommunicator
     
     init(_ communicator: ICommunicator) {
         self.communicator = communicator

@@ -10,7 +10,6 @@ import Foundation
 
 protocol ICommunicationService: class {
     weak var delegate: ICommunicationServiceDelegate? { get set }
-    var communicator: ICommunicator { get }
     func sendMessage(text: String, to userID: String, completionHandler: ((_ success: Bool, _ error: Error?) -> Void)?)
 }
 
