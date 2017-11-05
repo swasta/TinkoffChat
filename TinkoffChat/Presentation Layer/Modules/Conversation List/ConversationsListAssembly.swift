@@ -9,9 +9,11 @@
 import UIKit
 
 class ConversationsListAssembly {
+    private let rootAssembly: IRootAssembly
     private let communicationService: ICommunicationService
     
-    init(_ communicationService: ICommunicationService) {
+    init(_ rootAssembly: IRootAssembly, _ communicationService: ICommunicationService) {
+        self.rootAssembly = rootAssembly
         self.communicationService = communicationService
     }
     
@@ -20,7 +22,10 @@ class ConversationsListAssembly {
         model.delegate = conversationsListViewController
         let conversationsListTableDataSource = ConversationsListTableDataSource()
         let conversationsListTableDelegate = ConversationsListTableDelegate()
-        conversationsListViewController.setDependencies(conversationsListTableDataSource, conversationsListTableDelegate, model)
+        conversationsListViewController.setDependencies(rootAssembly,
+                                                        conversationsListTableDataSource,
+                                                        conversationsListTableDelegate,
+                                                        model)
     }
     
     // MARK: - Private methods

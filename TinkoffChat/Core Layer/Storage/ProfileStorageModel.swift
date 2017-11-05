@@ -9,7 +9,7 @@
 import UIKit
 
 struct ProfileStorageModel {
-    let name: String
-    let userInfo: String
-    let profileImage: UIImage
+    let name: String?
+    let userInfo: String?
+    let profileImage: UIImage?
 }

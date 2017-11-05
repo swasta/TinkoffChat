@@ -12,6 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
+    private let rootAssembly = RootAssembly()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]? = nil) -> Bool {
         guard let rootViewController = window?.rootViewController as? UINavigationController,
@@ -19,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 assertionFailure("Wrong root controller loaded from initial storyboard")
                 return false
         }
-        RootAssembly.conversationsListAssembly.assembly(conversationsListViewController)
+        rootAssembly.conversationsListAssembly.assembly(conversationsListViewController)
         return true
     }
 }

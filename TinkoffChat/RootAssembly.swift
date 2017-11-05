@@ -8,24 +8,30 @@
 
 import Foundation
 
-class RootAssembly {
-    // This service is used by each module of the app to keep only one communicator on the Core layer, therefore made static.
-    private static let communicationService: ICommunicationService = {
+protocol IRootAssembly: class {
+    var conversationsListAssembly: ConversationsListAssembly { get }
+    var conversationAssembly: ConversationAssembly { get }
+    var profileAssembly: ProfileAssembly { get }
+}
+
+class RootAssembly: IRootAssembly {
+    // This service is used by each module of the app to keep only one communicator on the Core layer.
+    private let communicationService: ICommunicationService = {
         let communicator = MultipeerCommunicator(MessageHandler(encoder: MessageEncoder(), decoder: MessageDecoder()))
         let communicationService = CommunicationService(communicator)
         communicator.delegate = communicationService
         return communicationService
     }()
 
-    static let conversationsListAssembly: ConversationsListAssembly = {
-        let conversationsListAssembly = ConversationsListAssembly(communicationService)
+    lazy var conversationsListAssembly: ConversationsListAssembly = {
+        let conversationsListAssembly = ConversationsListAssembly(self, communicationService)
         return conversationsListAssembly
     }()
 
-    static let conversationAssembly: ConversationAssembly = {
-        let communicationAssembly = ConversationAssembly(communicationService)
+    lazy var conversationAssembly: ConversationAssembly = {
+        let communicationAssembly = ConversationAssembly(self, communicationService)
         return communicationAssembly
     }()
 
-    static let profileAssembly = ProfileAssembly()
+    lazy var profileAssembly = ProfileAssembly()
 }

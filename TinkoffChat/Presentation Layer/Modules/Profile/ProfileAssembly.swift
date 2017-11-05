@@ -19,16 +19,12 @@ class ProfileAssembly {
     }
     
     private func getProfileStorageService() -> IProfileStorageService {
-        let storages = getStorages()
-        return ProfileStorageService(storages.profileGCDStorage, storages.profileOperationQueueStorage)
+        let storageManager = getStorageManager()
+        return ProfileStorageService(storageManager)
     }
     
-    private func getStorages() -> (profileGCDStorage: IProfileGCDStorage, profileOperationQueueStorage: IProfileOperationQueueStorage) {
-        let profileHandler = getProfileHandler()
-        return (ProfileGCDStorage(profileHandler), ProfileOperationQueueStorage(profileHandler))
-    }
-    
-    private func getProfileHandler() -> IProfileHandler {
-        return FileBasedProfileHandler()
+    private func getStorageManager() -> IStorageManager {
+            let coreDataStack = CoreDataStack()
+            return StorageManager(coreDataStack)
     }
 }

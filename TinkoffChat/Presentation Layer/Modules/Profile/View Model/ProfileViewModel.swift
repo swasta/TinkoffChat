@@ -13,10 +13,14 @@ struct ProfileViewModel {
     let userInfo: String
     let profileImage: UIImage
     
-    static func createDefaultProfile() -> ProfileViewModel {
-        let name = "John Doe"
-        let userInfo = "Lorem ipsum dolor sit er elit lamet"
-        return ProfileViewModel(name: name, userInfo: userInfo, profileImage: #imageLiteral(resourceName: "placeholder-user"))
+    init(name: String?, userInfo: String?, profileImage: UIImage?) {
+        self.name = name ?? ""
+        self.userInfo = userInfo ?? ""
+        self.profileImage = profileImage ?? #imageLiteral(resourceName: "placeholder-user")
+    }
+    
+    init() {
+        self.init(name: nil, userInfo: nil, profileImage: nil)
     }
     
     func createCopyWithChanged(name: String? = nil, userInfo: String? = nil, profileImage: UIImage? = nil) -> ProfileViewModel {

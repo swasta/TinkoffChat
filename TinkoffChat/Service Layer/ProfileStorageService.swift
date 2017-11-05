@@ -6,32 +6,27 @@
 //  Copyright © 2017 com.nikitaborodulin. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+protocol IProfileStorageService: class {
+    func save(profileStorageModel: ProfileStorageModel, completionHandler: @escaping () -> Void)
+    func loadProfile(completionHandler: @escaping (ProfileStorageModel) -> Void)
+}
 
 class ProfileStorageService: IProfileStorageService {
-    private let profileGCDStorage: IProfileGCDStorage
-    private let profileOperationQueueStorage: IProfileOperationQueueStorage
+    private let storageManager: IStorageManager
     
-    init(_ profileGCDStorage: IProfileGCDStorage, _ profileOperationQueueStorage: IProfileOperationQueueStorage) {
-        self.profileGCDStorage = profileGCDStorage
-        self.profileOperationQueueStorage = profileOperationQueueStorage
+    init(_ storageManager: IStorageManager) {
+        self.storageManager = storageManager
     }
     
     // MARK: - API
     
-    func saveWithGCD(profileStorageModel: ProfileStorageModel, completionHandler: @escaping (Bool, Error?) -> Void) {
-        profileGCDStorage.save(profileStorageModel, completionHandler: completionHandler)
+    func loadProfile(completionHandler: @escaping (ProfileStorageModel) -> Void) {
+        storageManager.loadProfile(completionHandler: completionHandler)
     }
     
-    func loadWithGCD(completionHandler: @escaping (ProfileStorageModel?, Error?) -> Void) {
-        profileGCDStorage.load(completionHandler: completionHandler)
-    }
-    
-    func saveWithOperationQueue(profileStorageModel: ProfileStorageModel, completionHandler: @escaping (Bool, Error?) -> Void) {
-        profileOperationQueueStorage.save(profileStorageModel, completionHandler: completionHandler)
-    }
-    
-    func loadWithOperationQueue(completionHandler: @escaping (ProfileStorageModel?, Error?) -> Void) {
-        profileOperationQueueStorage.load(completionHandler: completionHandler)
+    func save(profileStorageModel: ProfileStorageModel, completionHandler: @escaping () -> Void) {
+        storageManager.save(profileStorageModel: profileStorageModel, completionHandler: completionHandler)
     }
 }

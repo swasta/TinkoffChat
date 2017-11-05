@@ -9,20 +9,25 @@
 import UIKit
 
 class ConversationsListViewController: UIViewController {
-    private struct SegueIdentifiers {
+    private enum SegueIdentifiers {
         static let profileSegue = "ProfileSegue"
         static let conversationSegue = "ConversationSegue"
     }
     
     @IBOutlet private weak var tableView: UITableView!
     
+    private var rootAssembly: IRootAssembly!
     private var tableDelegate: UITableViewDelegate!
     private var tableDataSource: IConversationsListTableDataSource!
     private var model: IConversationsListModel!
     
     // MARK: Dependency injection
     
-    func setDependencies(_ tableDataSource: IConversationsListTableDataSource, _ tableDelegate: UITableViewDelegate, _ model: IConversationsListModel) {
+    func setDependencies(_ rootAssembly: IRootAssembly,
+                         _ tableDataSource: IConversationsListTableDataSource,
+                         _ tableDelegate: UITableViewDelegate,
+                         _ model: IConversationsListModel) {
+        self.rootAssembly = rootAssembly
         self.tableDataSource = tableDataSource
         self.tableDelegate = tableDelegate
         self.model = model
@@ -68,7 +73,7 @@ class ConversationsListViewController: UIViewController {
                 assertionFailure("Unknown segue destination view controller")
                 return
         }
-        RootAssembly.profileAssembly.assembly(profileViewController)
+        rootAssembly.profileAssembly.assembly(profileViewController)
     }
     
     private func handleConversationSegue(with destination: UIViewController) {
@@ -80,7 +85,7 @@ class ConversationsListViewController: UIViewController {
             return
         }
         let selectedConversation = tableDataSource.conversation(for: selectedIndexPath)
-        RootAssembly.conversationAssembly.assembly(conversationViewController,
+        rootAssembly.conversationAssembly.assembly(conversationViewController,
                                                    conversation: selectedConversation)
         tableView.deselectRow(at: selectedIndexPath, animated: true)
     }

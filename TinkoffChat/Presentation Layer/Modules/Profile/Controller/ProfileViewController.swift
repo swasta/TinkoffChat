@@ -9,25 +9,21 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-    
-    enum UserProfileSavingOption {
-        case GCD
-        case operationQueue
-    }
-    
     @IBOutlet private weak var nameTextField: UITextField!
     @IBOutlet private weak var userInfoTextView: UITextView!
     @IBOutlet private weak var profileImageView: UIImageView!
     @IBOutlet private weak var selectProfilePhotoButton: UIButton!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private weak var scrollView: UIScrollView!
-    @IBOutlet private var saveButtons: [UIButton]!
+    @IBOutlet private weak var saveButton: UIButton!
     
     var model: IProfileModel!
-    var currentProfile = ProfileViewModel.createDefaultProfile() {
+    var currentProfile: ProfileViewModel? {
         didSet {
-            model.update(with: currentProfile)
-            enableSaveButtons(model.profileWasModified)
+            if let currentProfile = currentProfile {
+                model.update(with: currentProfile)
+                enableSaveButton(model.profileWasModified)
+            }
         }
     }
     
@@ -38,7 +34,7 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         assertDependencies()
-        enableSaveButtons(false)
+        enableSaveButton(false)
         loadUserProfile()
         registerForKeyboardNotifications()
     }
@@ -50,17 +46,13 @@ class ProfileViewController: UIViewController {
     
     // MARK: - Actions
     
+    @IBAction private func saveButtonTapped(_ sender: UIButton) {
+        saveUserProfile()
+    }
+    
     @IBAction private func selectProfilePhotoAction(_ sender: UIButton) {
         print("Выбери изображение профиля")
         showAlertForChangingProfilePhoto()
-    }
-    
-    @IBAction private func gcdButtonAction(_ sender: UIButton) {
-        saveUserProfile(using: .GCD)
-    }
-    
-    @IBAction private func operationButtonAction(_ sender: UIButton) {
-        saveUserProfile(using: .operationQueue)
     }
     
     @IBAction private func dismissKeyboard(_ recognizer: UITapGestureRecognizer) {
@@ -90,60 +82,28 @@ class ProfileViewController: UIViewController {
         profileImageView.image = profile.profileImage
     }
     
-    private func enableSaveButtons(_ flag: Bool) {
-        saveButtons.forEach { $0.isEnabled = flag }
+    private func enableSaveButton(_ flag: Bool) {
+        saveButton.isEnabled = flag
     }
     
     private func loadUserProfile() {
         activityIndicator.startAnimating()
-        model.loadProfile { [unowned self] (loadedProfile, error) in
+        model.loadProfile { loadedProfile in
             DispatchQueue.main.async {
                 self.activityIndicator.stopAnimating()
-                if let error = error {
-                    self.handleDataOperationError(error)
-                    return
-                }
-                if let loadedProfile = loadedProfile {
-                    self.currentProfile = loadedProfile
-                    self.updateUI(with: loadedProfile)
-                } else {
-                    self.updateUI(with: self.currentProfile)
-                }
+                self.currentProfile = loadedProfile
+                self.updateUI(with: loadedProfile)
             }
         }
     }
     
-    private func handleDataOperationError(_ error: Error) {
-        print("\(error)")
-    }
-    
-    private func saveUserProfile(using savingOption: UserProfileSavingOption) {
+    private func saveUserProfile() {
         activityIndicator.startAnimating()
-        enableSaveButtons(false)
-        switch savingOption {
-        case .GCD:
-            model.saveProfileWithGCD { [unowned self] (success, error) in
-                DispatchQueue.main.async {
-                    self.activityIndicator.stopAnimating()
-                    if let error = error {
-                        self.handleDataOperationError(error)
-                        return
-                    }
-                    success ? self.showAlertForSuccessProfileSave() : self.showAlertForFailedProfileSave(with: savingOption)
-                    self.enableSaveButtons(true)
-                }
-            }
-        case .operationQueue:
-            model.saveProfileWithOperationQueue { [unowned self] (success, error) in
-                DispatchQueue.main.async {
-                    self.activityIndicator.stopAnimating()
-                    if let error = error {
-                        self.handleDataOperationError(error)
-                        return
-                    }
-                    success ? self.showAlertForSuccessProfileSave() : self.showAlertForFailedProfileSave(with: savingOption)
-                    self.enableSaveButtons(true)
-                }
+        enableSaveButton(false)
+        model.saveProfile {
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+                self.showAlertForSuccessProfileSave()
             }
         }
     }
@@ -151,15 +111,6 @@ class ProfileViewController: UIViewController {
     private func showAlertForSuccessProfileSave() {
         let alertController = UIAlertController(title: "Данные сохранены", message: nil, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alertController, animated: true, completion: nil)
-    }
-    
-    private func showAlertForFailedProfileSave(with savingOption: UserProfileSavingOption) {
-        let alertController = UIAlertController(title: "Ошибка", message: "Не удалось сохранить данные", preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        alertController.addAction(UIAlertAction(title: "Повторить", style: .default) { _ in
-            self.saveUserProfile(using: savingOption)
-        })
         present(alertController, animated: true, completion: nil)
     }
     
@@ -234,7 +185,7 @@ extension ProfileViewController: UIImagePickerControllerDelegate {
             image = editedImage
         }
         profileImageView.image = image
-        currentProfile = currentProfile.createCopyWithChanged(profileImage: image)
+        currentProfile = currentProfile?.createCopyWithChanged(profileImage: image)
         dismiss(animated: true, completion: nil)
     }
 }
@@ -257,7 +208,7 @@ extension ProfileViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let text = textField.text {
-            currentProfile = currentProfile.createCopyWithChanged(name: text)
+            currentProfile = currentProfile?.createCopyWithChanged(name: text)
         }
         activeField = nil
     }
@@ -270,7 +221,7 @@ extension ProfileViewController: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if let text = textView.text {
-            currentProfile = currentProfile.createCopyWithChanged(userInfo: text)
+            currentProfile = currentProfile?.createCopyWithChanged(userInfo: text)
         }
         activeField = nil
     }

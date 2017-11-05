@@ -9,16 +9,15 @@
 import UIKit
 
 protocol IProfileModel: class {
-    func saveProfileWithGCD(completionHandler: @escaping (Bool, Error?) -> Void)
-    func loadProfile(completionHandler: @escaping (ProfileViewModel?, Error?) -> Void)
-    func saveProfileWithOperationQueue(completionHandler: @escaping (Bool, Error?) -> Void)
+    func saveProfile(completionHandler: @escaping () -> Void)
+    func loadProfile(completionHandler: @escaping (ProfileViewModel) -> Void)
     func update(with profile: ProfileViewModel)
     var profileWasModified: Bool { get }
 }
 
 class ProfileModel: IProfileModel {
-    private var originalProfile: ProfileViewModel = ProfileViewModel.createDefaultProfile()
-    private var modifiedProfile: ProfileViewModel = ProfileViewModel.createDefaultProfile()
+    private var originalProfile: ProfileViewModel = ProfileViewModel()
+    private var modifiedProfile: ProfileViewModel = ProfileViewModel()
     
     private let profileStorageService: IProfileStorageService
     
@@ -26,74 +25,22 @@ class ProfileModel: IProfileModel {
         self.profileStorageService = profileStorageService
     }
     
-    func loadProfile(completionHandler: @escaping (ProfileViewModel?, Error?) -> Void) {
-        let randomCondition = arc4random_uniform(2) == 0
-        if randomCondition == true {
-            loadProfileWithGCD(completionHandler: completionHandler)
-        } else {
-            loadProfileWithOperationQueue(completionHandler: completionHandler)
+    func loadProfile(completionHandler: @escaping (ProfileViewModel) -> Void) {
+        profileStorageService.loadProfile { loadedProfile in
+            let profileViewModel = ProfileViewModel(name: loadedProfile.name, userInfo: loadedProfile.userInfo, profileImage: loadedProfile.profileImage)
+            self.originalProfile = profileViewModel
+            self.modifiedProfile = profileViewModel
+            completionHandler(profileViewModel)
         }
     }
     
-    private func loadProfileWithGCD(completionHandler: @escaping (ProfileViewModel?, Error?) -> Void) {
-        profileStorageService.loadWithGCD { [unowned self] (profile, error) in
-            if let error = error {
-                completionHandler(nil, error)
-                return
-            }
-            if let loadedProfile = profile {
-                let profileViewModel = ProfileViewModel(name: loadedProfile.name,
-                                                        userInfo: loadedProfile.userInfo,
-                                                        profileImage: loadedProfile.profileImage)
-                self.originalProfile = profileViewModel
-                self.modifiedProfile = profileViewModel
-                completionHandler(profileViewModel, nil)
-            } else {
-                completionHandler(nil, nil)
-            }
-        }
-    }
-    
-    private func loadProfileWithOperationQueue(completionHandler: @escaping (ProfileViewModel?, Error?) -> Void) {
-        profileStorageService.loadWithOperationQueue { [unowned self] (profile, error) in
-            if let error = error {
-                completionHandler(nil, error)
-                return
-            }
-            if let loadedProfile = profile {
-                let profileViewModel = ProfileViewModel(name: loadedProfile.name,
-                                                        userInfo: loadedProfile.userInfo,
-                                                        profileImage: loadedProfile.profileImage)
-                self.originalProfile = profileViewModel
-                self.modifiedProfile = profileViewModel
-                completionHandler(profileViewModel, nil)
-            } else {
-                completionHandler(nil, nil)
-            }
-        }
-    }
-    
-    func saveProfileWithGCD(completionHandler: @escaping (Bool, Error?) -> Void) {
+    func saveProfile(completionHandler: @escaping () -> Void) {
         let profileToStore = ProfileStorageModel(name: modifiedProfile.name,
                                                  userInfo: modifiedProfile.userInfo,
                                                  profileImage: modifiedProfile.profileImage)
-        profileStorageService.saveWithGCD(profileStorageModel: profileToStore) { [unowned self] (success, error) in
-            if success {
-                self.originalProfile = self.modifiedProfile
-            }
-            completionHandler(success, error)
-        }
-    }
-    
-    func saveProfileWithOperationQueue(completionHandler: @escaping (Bool, Error?) -> Void) {
-        let profileToStore = ProfileStorageModel(name: modifiedProfile.name,
-                                                 userInfo: modifiedProfile.userInfo,
-                                                 profileImage: modifiedProfile.profileImage)
-        profileStorageService.saveWithOperationQueue(profileStorageModel: profileToStore) { [unowned self] (success, error) in
-            if success {
-                self.originalProfile = self.modifiedProfile
-            }
-            completionHandler(success, error)
+        profileStorageService.save(profileStorageModel: profileToStore) { [unowned self] in
+            self.originalProfile = self.modifiedProfile
+            completionHandler()
         }
     }
     
