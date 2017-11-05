@@ -29,7 +29,7 @@ class RootAssembly: IRootAssembly {
     }()
 
     lazy var conversationAssembly: ConversationAssembly = {
-        let communicationAssembly = ConversationAssembly(self, communicationService)
+        let communicationAssembly = ConversationAssembly(communicationService)
         return communicationAssembly
     }()
 

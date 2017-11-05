@@ -9,11 +9,9 @@
 import Foundation
 
 class ConversationAssembly {
-    private let rootAssembly: IRootAssembly
     private let communicationService: ICommunicationService
     
-    init(_ rootAssembly: IRootAssembly, _ communicationService: ICommunicationService) {
-        self.rootAssembly = rootAssembly
+    init(_ communicationService: ICommunicationService) {
         self.communicationService = communicationService
     }
     
