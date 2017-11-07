@@ -13,7 +13,7 @@ protocol IConversationTableDataSource: UITableViewDataSource {
 }
 
 class ConversationTableDataSource: NSObject, IConversationTableDataSource {
-    private struct CellIdentifier {
+    private enum CellIdentifier {
         static let incomingCellIdentifier = "Incoming Cell"
         static let outgoingCellIdentifier = "Outgoing Cell"
     }

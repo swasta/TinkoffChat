@@ -9,7 +9,6 @@
 import Foundation
 
 class ConversationAssembly {
-    
     private let communicationService: ICommunicationService
     
     init(_ communicationService: ICommunicationService) {
