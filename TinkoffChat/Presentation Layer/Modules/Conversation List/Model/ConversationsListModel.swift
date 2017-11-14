@@ -6,76 +6,108 @@
 //  Copyright © 2017 com.nikitaborodulin. All rights reserved.
 //
 
-import Foundation
+import CoreData
+import UIKit
 
-class ConversationsListModel: IConversationsListModel {
-    weak var delegate: IConversationsListModelDelegate?
-    
+protocol IConversationsListModel: class {
+    func getConversationID(for indexPath: IndexPath) -> String
+    func configureWith(_ tableView: UITableView)
+}
+
+class ConversationsListModel: NSObject, IConversationsListModel {
     private let communicationService: ICommunicationService
+    private let conversationStorageService: IConversationStorageService
     
-    private static let defaultUserName = "Unknown"
+    private var tableView: UITableView!
+    private var fetchResultsController: NSFetchedResultsController<Conversation>
+    private var fetchedResultsConversationListHelper: FetchedResultsConversationListHelper!
     
-    private var conversations = [ConversationViewModel]() {
-        didSet {
-            delegate?.setup(dataSource: conversations)
-        }
-    }
-    
-    init(communicationService: ICommunicationService) {
+    init(communicationService: ICommunicationService,
+         conversationStorageService: IConversationStorageService) {
         self.communicationService = communicationService
+        self.conversationStorageService = conversationStorageService
+        let fetchRequest: NSFetchRequest<Conversation> = Conversation.fetchRequest()
+        let sortBySectionsDescriptor = NSSortDescriptor(key: #keyPath(Conversation.isOnline), ascending: false)
+        let sortByDateDescriptor = NSSortDescriptor(key: #keyPath(Conversation.lastMessage.date), ascending: false)
+        let sortByNameDescriptor = NSSortDescriptor(key: #keyPath(Conversation.participant.name), ascending: false)
+        fetchRequest.sortDescriptors = [sortBySectionsDescriptor, sortByDateDescriptor, sortByNameDescriptor]
+        fetchResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                                            managedObjectContext: conversationStorageService.mainContext,
+                                                            sectionNameKeyPath: #keyPath(Conversation.isOnline),
+                                                            cacheName: nil)
+        super.init()
     }
     
-    func resumeListeningToCommunicationService() {
-        communicationService.delegate = self
-    }
-    
-    private func descendingDateAscendingNames(conversation1: ConversationViewModel,
-                                              conversation2: ConversationViewModel) -> Bool {
-        if let date1 = conversation1.lastMessageDate, let date2 = conversation2.lastMessageDate {
-            return date1 > date2
-        } else if conversation1.lastMessageDate == nil && conversation2.lastMessageDate != nil {
-            return false
-        } else if conversation2.lastMessageDate == nil && conversation1.lastMessageDate != nil {
-            return true
-        } else if conversation1.userName < conversation2.userName {
-            return true
-        } else {
-            return false
+    func configureWith(_ tableView: UITableView) {
+        self.tableView = tableView
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        fetchedResultsConversationListHelper = FetchedResultsConversationListHelper(tableView: tableView)
+        fetchResultsController.delegate = fetchedResultsConversationListHelper
+        do {
+            try fetchResultsController.performFetch()
+        } catch {
+            print("Error fetching: \(error)")
         }
     }
     
-    private func getConversationWith(userID: String) -> ConversationViewModel? {
-        return conversations.filter {$0.id == userID}.first
+    func getConversationID(for indexPath: IndexPath) -> String {
+        guard let conversationID = fetchResultsController.object(at: indexPath).conversationID else {
+            preconditionFailure("No conversation found for passed index path")
+        }
+        return conversationID
     }
 }
 
-extension ConversationsListModel: ICommunicationServiceDelegate {
-    func didFindUser(userID: String, userName: String?) {
-        if let pastConversation = getConversationWith(userID: userID) {
-            pastConversation.isOnline = true
-            delegate?.setup(dataSource: conversations)
-        } else {
-            let newConversation = ConversationViewModel(id: userID, userName: userName ?? ConversationsListModel.defaultUserName)
-            conversations.append(newConversation)
+extension ConversationsListModel: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: ConversationCell.identifier, for: indexPath)
+        guard let conversationCell = cell as? ConversationCellConfiguration & UITableViewCell else {
+            assertionFailure("Wrong cell type")
+            return cell
         }
+        let conversation = fetchResultsController.object(at: indexPath)
+        conversationCell.name = conversation.participant?.name
+        conversationCell.message = conversation.lastMessage?.text
+        conversationCell.date = conversation.lastMessage?.date?.formattedForMessage()
+        conversationCell.online = conversation.isOnline
+        conversationCell.hasUnreadMessages = conversation.isUnread
+        return conversationCell
     }
     
-    func didLoseUser(userID: String) {
-        guard let pastConversation = getConversationWith(userID: userID) else {
-            return
+    func numberOfSections(in tableView: UITableView) -> Int {
+        guard let sectionsCount = fetchResultsController.sections?.count else {
+            preconditionFailure("no sections in fetchedResultsController")
         }
-        pastConversation.isOnline = false
-        delegate?.setup(dataSource: conversations)
+        return sectionsCount
     }
     
-    func didReceiveMessage(text: String, fromUser: String, toUser: String) {
-        guard let pastConversation = getConversationWith(userID: fromUser) else {
-            assertionFailure("received message from unknown user")
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let sections = fetchResultsController.sections else {
+            preconditionFailure("no sections in fetchedResultsController")
+        }
+        let sectionInfo = sections[section]
+        return sectionInfo.numberOfObjects
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard let sections = fetchResultsController.sections else {
+            preconditionFailure("no sections in fetchedResultsController")
+        }
+        guard sections[section].numberOfObjects > 0 else {
+            return nil
+        }
+        let conversationInSection = fetchResultsController.object(at: IndexPath(row: 0, section: section))
+        return conversationInSection.isOnline ? "Online" : "History"
+    }
+}
+
+extension ConversationsListModel: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let conversationCell = cell as? ConversationCellConfiguration else {
+            assertionFailure("Wrong cell type in ConversationListViewController")
             return
         }
-        let receivedMessage = MessageViewModel(withText: text, date: Date().formattedForMessage(), type: .incoming)
-        pastConversation.append(receivedMessage)
-        pastConversation.markAs(.unread)
-        delegate?.setup(dataSource: conversations)
+        conversationCell.applyFontStyle()
     }
 }

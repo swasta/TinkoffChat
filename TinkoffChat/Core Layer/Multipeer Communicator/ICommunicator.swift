@@ -9,7 +9,7 @@
 import MultipeerConnectivity
 
 protocol ICommunicator: class {
-    func sendMessage(text: String, to userID: String, completionHandler: ((_ success: Bool, _ error: Error?) -> Void)?)
+    func sendMessage(text: String, to userID: String) throws
     weak var delegate: ICommunicatorDelegate? { get set }
 }
 

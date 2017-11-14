@@ -8,19 +8,33 @@
 
 import Foundation
 
+protocol ICommunicationService: class {
+    func sendMessage(text: String, to userID: String)
+}
+
 class CommunicationService: ICommunicationService {
-    weak var delegate: ICommunicationServiceDelegate?
-    
     private let communicator: ICommunicator
+    private let storageManager: IStorageManager
     
-    init(_ communicator: ICommunicator) {
+    init(_ communicator: ICommunicator, _ storageManager: IStorageManager) {
         self.communicator = communicator
+        self.storageManager = storageManager
+        self.storageManager.setAllConversationsOffline()
     }
     
     // MARK: - API
     
-    func sendMessage(text: String, to userID: String, completionHandler: ((_ success: Bool, _ error: Error?) -> Void)?) {
-        communicator.sendMessage(text: text, to: userID, completionHandler: completionHandler)
+    func sendMessage(text: String, to userID: String) {
+        do {
+            try communicator.sendMessage(text: text, to: userID)
+            storageManager.handleSentMessageWith(text: text, toConversationWithID: userID)
+        } catch MultipeerCommunicator.MultipeerCommunicatorError.communicatorInternalError {
+            print("Multipeer internal error")
+        } catch MultipeerCommunicator.MultipeerCommunicatorError.communicatorMessageEncodingError {
+            print("Failed to encode message with text: \(text)")
+        } catch {
+            print("Unknown error sending message \(error)")
+        }
     }
 }
 
@@ -28,15 +42,16 @@ class CommunicationService: ICommunicationService {
 
 extension CommunicationService: ICommunicatorDelegate {
     func didFindUser(userID: String, userName: String?) {
-        delegate?.didFindUser(userID: userID, userName: userName)
+        storageManager.handleFoundUserWith(id: userID, userName: userName)
     }
     
     func didLoseUser(userID: String) {
-        delegate?.didLoseUser(userID: userID)
+        storageManager.handleLostUserWith(id: userID)
     }
     
     func didReceiveMessage(text: String, fromUser sender: String, toUser receiver: String) {
-        delegate?.didReceiveMessage(text: text, fromUser: sender, toUser: receiver)
+        
+        storageManager.handleReceivedMessageWith(text: text, fromUserID: sender)
     }
     
     func failedToStartBrowsingForUsers(error: Error) {

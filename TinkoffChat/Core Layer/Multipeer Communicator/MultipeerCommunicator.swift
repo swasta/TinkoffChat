@@ -13,7 +13,6 @@ class MultipeerCommunicator: NSObject {
     enum MultipeerCommunicatorError: Error {
         case communicatorInternalError
         case communicatorMessageEncodingError
-        case communicatorCantSend
     }
     
     weak var delegate: ICommunicatorDelegate?
@@ -27,6 +26,7 @@ class MultipeerCommunicator: NSObject {
     
     private var sessionsByPeerID = [MCPeerID: MCSession]()
     private var foundPeers = [MCPeerID: [String: String]?]()
+    private var connectedPeers = Set<MCPeerID>()
     
     init(_ messageHandler: IMessageHandler) {
         self.messageHandler = messageHandler
@@ -71,20 +71,17 @@ class MultipeerCommunicator: NSObject {
 // MARK: ICommunicator
 
 extension MultipeerCommunicator: ICommunicator {
-    func sendMessage(text: String, to userID: String, completionHandler: ((_ success: Bool, _ error: Error?) -> Void)?) {
+    func sendMessage(text: String, to userID: String) throws {
         guard let peerID = getPeerIDFor(userID), let session = sessionsByPeerID[peerID] else {
-            completionHandler?(false, MultipeerCommunicatorError.communicatorInternalError)
-            return
+            throw MultipeerCommunicatorError.communicatorInternalError
         }
         guard let serializedMessage = messageHandler.prepareForSend(text: text) else {
-            completionHandler?(false, MultipeerCommunicatorError.communicatorMessageEncodingError)
-            return
+            throw MultipeerCommunicatorError.communicatorMessageEncodingError
         }
         do {
             try session.send(serializedMessage, toPeers: [peerID], with: .reliable)
-            completionHandler?(true, nil)
         } catch {
-            completionHandler?(false, error)
+            print("Failed to send message \(error)")
         }
     }
 }
@@ -97,13 +94,14 @@ extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate {
         print("found peer \(peerID.displayName)")
         foundPeers[peerID] = info
         let session = getSessionFor(peerID) ?? createNewSession(for: peerID)
+        
         browser.invitePeer(peerID, to: session, withContext: nil, timeout: MultipeerCommunicator.peerInvitationTimeout)
         print("invited peer \(peerID.displayName)")
     }
     
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
         print("lost \(peerID.displayName)")
-        if sessionsByPeerID.removeValue(forKey: peerID) != nil {
+        if connectedPeers.remove(peerID) != nil {
             delegate?.didLoseUser(userID: peerID.displayName)
         }
     }
@@ -135,7 +133,11 @@ extension MultipeerCommunicator: MCSessionDelegate {
             print("Couldn't decode message from \(peerID.displayName)")
             return
         }
-        delegate?.didReceiveMessage(text: message, fromUser: peerID.displayName, toUser: myPeerID.displayName)
+        if connectedPeers.contains(peerID) {
+            delegate?.didReceiveMessage(text: message, fromUser: peerID.displayName, toUser: myPeerID.displayName)
+        } else {
+            print("Received message from not connected peer ¯\\_(ツ)_/¯")
+        }
     }
     
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
@@ -145,12 +147,14 @@ extension MultipeerCommunicator: MCSessionDelegate {
             if let peerDiscoveryInfo = foundPeers[peerID] {
                 print("connected with \(peerID.displayName)")
                 delegate?.didFindUser(userID: peerID.displayName, userName: peerDiscoveryInfo?[discoveryInfoUserNameKey])
+                connectedPeers.insert(peerID)
             }
         case .notConnected:
             print("not connected with \(peerID.displayName)")
-            if sessionsByPeerID.removeValue(forKey: peerID) != nil {
+            if connectedPeers.remove(peerID) != nil {
                 delegate?.didLoseUser(userID: peerID.displayName)
             }
+            sessionsByPeerID.removeValue(forKey: peerID)
             foundPeers.removeValue(forKey: peerID)
             session.disconnect()
         case .connecting:

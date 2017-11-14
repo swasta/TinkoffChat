@@ -6,17 +6,17 @@
 //  Copyright © 2017 com.nikitaborodulin. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol IConversationModel: class {
     weak var delegate: IConversationModelDelegate? { get set }
-    var isEmpty: Bool { get }
+    var isOnline: Bool { get }
     var userName: String { get }
-    func send(message: String, completionHandler: (() -> Void)?)
+    func send(message: String)
     func markConversationAsRead()
+    func configureWith(_ tableView: UITableView)
 }
 
 protocol IConversationModelDelegate: class {
-    func setup(dataSource: [MessageViewModel])
     func userChangesStatusTo(online: Bool)
 }

@@ -10,23 +10,23 @@ import Foundation
 
 class ConversationAssembly {
     private let communicationService: ICommunicationService
+    private let conversationStorageService: IConversationStorageService
     
-    init(_ communicationService: ICommunicationService) {
+    init(_ communicationService: ICommunicationService,
+         _ conversationStorageService: IConversationStorageService) {
         self.communicationService = communicationService
+        self.conversationStorageService = conversationStorageService
     }
     
-    func assembly(_ conversationViewController: ConversationViewController, conversation: ConversationViewModel) {
-        let model = getConversationModel(communicationService, conversation: conversation)
-        communicationService.delegate = model
-        let conversationsTableDataSource = ConversationTableDataSource()
-        conversationsTableDataSource.setup(dataSource: conversation.messages)
+    func assembly(_ conversationViewController: ConversationViewController, conversationID: String) {
+        let model = getConversationModel(communicationService, conversationID: conversationID)
         model.delegate = conversationViewController
-        let conversationsTableDelegate = ConversationTableDelegate()
-        conversationsTableDelegate.setup(dataSource: conversation.messages)
-        conversationViewController.setDependencies(conversationsTableDataSource, conversationsTableDelegate, model)
+        conversationViewController.setDependencies(model)
     }
     
-    private func getConversationModel(_ communicationService: ICommunicationService, conversation: ConversationViewModel) -> ConversationModel {
-        return ConversationModel(communicationService: communicationService, conversation: conversation)
+    private func getConversationModel(_ communicationService: ICommunicationService, conversationID: String) -> ConversationModel {
+        return ConversationModel(communicationService: communicationService,
+                                 conversationStorageService: conversationStorageService,
+                                 conversationID: conversationID)
     }
 }

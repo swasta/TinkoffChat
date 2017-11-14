@@ -43,10 +43,8 @@ class CoreDataStack: ICoreDataStack {
     }()
     
     func performSave(in context: NSManagedObjectContext, completionHandler: (() -> Void)?) {
-        if context.hasChanges {
-//            No need for a capture list in the block below. As soon as the block finishes executing, context releases it.
-//            The block's retain count becomes zero and it is deallocated. When it deallocates, it releases 'self'.
-            context.perform {
+        context.perform {
+            if context.hasChanges {
                 do {
                     try context.save()
                 } catch {
@@ -57,9 +55,9 @@ class CoreDataStack: ICoreDataStack {
                 } else {
                     completionHandler?()
                 }
+            } else {
+                completionHandler?()
             }
-        } else {
-            completionHandler?()
         }
     }
     
@@ -91,8 +89,7 @@ class CoreDataStack: ICoreDataStack {
                                                               configurationName: nil,
                                                               at: persistentStoreURL,
                                                               options: nil)
-        }
-        catch {
+        } catch {
             fatalError("Unable to Load Persistent Store")
         }
         return persistentStoreCoordinator

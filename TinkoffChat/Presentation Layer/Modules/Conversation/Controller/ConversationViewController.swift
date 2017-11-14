@@ -10,10 +10,8 @@ import UIKit
 
 class ConversationViewController: UIViewController {
     private var model: IConversationModel!
-    private var tableDataSource: IConversationTableDataSource!
-    private var tableDelegate: IConversationTableDelegate!
     
-    private var sendMessageViewController: SendMessageViewController! // Will be set by embed segue
+    private var sendMessageViewController: SendMessageViewController! // Set by the embed segue
     
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var noMessagesView: UIView!
@@ -21,9 +19,7 @@ class ConversationViewController: UIViewController {
     
     // MARK: Dependency injection
     
-    func setDependencies(_ tableDataSource: IConversationTableDataSource, _ tableDelegate: IConversationTableDelegate, _ model: IConversationModel) {
-        self.tableDataSource = tableDataSource
-        self.tableDelegate = tableDelegate
+    func setDependencies(_ model: IConversationModel) {
         self.model = model
     }
     
@@ -33,13 +29,8 @@ class ConversationViewController: UIViewController {
         super.viewDidLoad()
         assertDependencies()
         configureTitle(with: model.userName)
-        configureTableView()
+        model.configureWith(tableView)
         registerForKeyboardNotifications()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        scrollToLastRow()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -47,9 +38,22 @@ class ConversationViewController: UIViewController {
         tableView.reloadData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        sendMessageViewController.userIsOnline = model.isOnline
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         model.markConversationAsRead()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let sendMessageViewControllerHeight = sendMessageViewController.view.bounds.height
+        let tableViewContentInset = UIEdgeInsets(top: 0, left: 0, bottom: sendMessageViewControllerHeight, right: 0)
+        tableView.contentInset = tableViewContentInset
+        tableView.scrollIndicatorInsets = tableViewContentInset
     }
     
     // MARK: - Actions
@@ -73,36 +77,15 @@ class ConversationViewController: UIViewController {
     // MARK: - Private methods
     
     private func assertDependencies() {
-        assert(tableDataSource != nil && tableDelegate != nil && model != nil)
+        assert(model != nil)
     }
     
     private func configureTitle(with userName: String) {
         navigationItem.title = userName
     }
     
-    private func configureTableView() {
-        tableView.dataSource = tableDataSource
-        tableView.delegate = tableDelegate
-        showNoMessagesBackgroundView(model.isEmpty)
-    }
-    
     private func registerForKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(updateConstraintForKeyboard(_:)), name: .UIKeyboardWillChangeFrame, object: nil)
-    }
-    
-    private func scrollToLastRow() {
-        DispatchQueue.main.async {
-            let numberOfSections = self.tableView.numberOfSections
-            let numberOfRows = self.tableView.numberOfRows(inSection: numberOfSections - 1)
-            if numberOfRows > 0 {
-                let indexPath = IndexPath(row: numberOfRows - 1, section: (numberOfSections - 1))
-                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-            }
-        }
-    }
-    
-    private func showNoMessagesBackgroundView(_ flag: Bool) {
-        flag ? (tableView.backgroundView = noMessagesView) : (tableView.backgroundView = nil)
     }
 }
 
@@ -112,16 +95,6 @@ extension ConversationViewController: IConversationModelDelegate {
     func userChangesStatusTo(online: Bool) {
         if sendMessageViewController != nil {
             sendMessageViewController.userIsOnline = online
-        }
-    }
-    
-    func setup(dataSource: [MessageViewModel]) {
-        tableDelegate.setup(dataSource: dataSource)
-        tableDataSource.setup(dataSource: dataSource)
-        DispatchQueue.main.async {
-            self.showNoMessagesBackgroundView(dataSource.isEmpty)
-            self.tableView.reloadData()
-            self.scrollToLastRow()
         }
     }
 }
@@ -136,17 +109,21 @@ extension ConversationViewController {
             let animationCurveRawNSNumber = userInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber
             let animationCurveRaw = animationCurveRawNSNumber.uintValue
             let animationCurve = UIViewAnimationOptions(rawValue: animationCurveRaw)
+            let contentInset: UIEdgeInsets
             if endFrame.origin.y >= UIScreen.main.bounds.height {
+                contentInset = UIEdgeInsets(top: 0, left: 0, bottom: sendMessageViewController.view.frame.height, right: 0)
                 bottomConstraint.constant = 0.0
             } else {
-                bottomConstraint.constant = endFrame.size.height
+                bottomConstraint.constant = endFrame.height
+                let sendMessageViewControllerHeight = sendMessageViewController.view.frame.height
+                contentInset = UIEdgeInsets(top: 0, left: 0, bottom: endFrame.height + sendMessageViewControllerHeight, right: 0)
             }
-            view.layoutIfNeeded()
-            UIView.animate(withDuration: duration,
-                           delay: 0,
-                           options: animationCurve,
-                           animations: { self.view.layoutIfNeeded() },
-                           completion: { _ in self.scrollToLastRow() }
-            )}
+            UIView.animate(withDuration: duration, delay: 0, options: animationCurve, animations: {
+                self.view.layoutIfNeeded()
+                self.tableView.contentInset = contentInset
+                self.tableView.scrollIndicatorInsets = contentInset
+                self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.bounds.height + contentInset.bottom), animated: true)
+            })
+        }
     }
 }

@@ -10,13 +10,17 @@ import UIKit
 
 protocol MessageCellConfiguration: class {
     var message: String? { get set }
+    func configure(for type: MessageCellType)
+}
+
+enum MessageCellType {
+    case incoming
+    case outgoing
 }
 
 class MessageCell: UITableViewCell, MessageCellConfiguration {
-    enum MessageCellType {
-        case incoming
-        case outgoing
-    }
+    static let incomingCellIdentifier = "Incoming Cell"
+    static let outgoingCellIdentifier = "Outgoing Cell"
 
     var message: String? {
         didSet {
@@ -33,7 +37,7 @@ class MessageCell: UITableViewCell, MessageCellConfiguration {
         }
     }
     
-    func mask(for type: MessageCellType) {
+    func configure(for type: MessageCellType) {
         let roundedRect = messageContainerView.bounds
         let maskLayer = CAShapeLayer()
         let maskPath: UIBezierPath

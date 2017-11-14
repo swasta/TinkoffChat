@@ -18,9 +18,15 @@ class MessageEncoder: IMessageEncoder {
     private static let messageIdKey = "messageId"
     private static let messageTextKey = "text"
     
+    private let identifierGenerator: IIdentifierGenerator
+    
+    init(_ identifierGenerator: IIdentifierGenerator) {
+        self.identifierGenerator = identifierGenerator
+    }
+    
     func prepareForSend(text: String) -> Data? {
         let message = [MessageEncoder.messageEventTypeKey: MessageEncoder.messageEventTypeDescription,
-                       MessageEncoder.messageIdKey: generateIdentifier(),
+                       MessageEncoder.messageIdKey: identifierGenerator.generateIdentifier(),
                        MessageEncoder.messageTextKey: text]
         do {
             let messageData = try JSONSerialization.data(withJSONObject: message, options: .prettyPrinted)
@@ -29,9 +35,5 @@ class MessageEncoder: IMessageEncoder {
             print("Error creating message json: \(error.localizedDescription)")
         }
         return nil
-    }
-    
-    private func generateIdentifier() -> String {
-        return ("\(arc4random_uniform(UINT32_MAX)) + \(Date.timeIntervalSinceReferenceDate) + \(arc4random_uniform(UINT32_MAX))".data(using: .utf8)?.base64EncodedString())!
     }
 }
