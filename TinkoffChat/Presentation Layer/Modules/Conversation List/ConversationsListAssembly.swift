@@ -11,40 +11,26 @@ import UIKit
 class ConversationsListAssembly {
     private let rootAssembly: IRootAssembly
     private let communicationService: ICommunicationService
+    private let conversationStorageService: IConversationStorageService
     
-    init(_ rootAssembly: IRootAssembly, _ communicationService: ICommunicationService) {
+    init(_ rootAssembly: IRootAssembly,
+         _ communicationService: ICommunicationService,
+         _ conversationStorageService: IConversationStorageService) {
         self.rootAssembly = rootAssembly
         self.communicationService = communicationService
+        self.conversationStorageService = conversationStorageService
     }
     
     func assembly(_ conversationsListViewController: ConversationsListViewController) {
         let model = getConversationsListModel()
-        model.delegate = conversationsListViewController
-        let conversationsListTableDataSource = ConversationsListTableDataSource()
-        let conversationsListTableDelegate = ConversationsListTableDelegate()
-        conversationsListViewController.setDependencies(rootAssembly,
-                                                        conversationsListTableDataSource,
-                                                        conversationsListTableDelegate,
-                                                        model)
+        conversationsListViewController.setDependencies(rootAssembly, model)
     }
     
     // MARK: - Private methods
     
     private func getConversationsListModel() -> IConversationsListModel {
-        let conversationsListModel = ConversationsListModel(communicationService: communicationService)
-        communicationService.delegate = conversationsListModel
+        let conversationsListModel = ConversationsListModel(communicationService: communicationService,
+                                                            conversationStorageService: conversationStorageService)
         return conversationsListModel
-    }
-    
-    private func getMessageHandler() -> IMessageHandler {
-        return MessageHandler(encoder: getMessageEncoder(), decoder: getMessageDecoder())
-    }
-    
-    private func getMessageEncoder() -> IMessageEncoder {
-        return MessageEncoder()
-    }
-    
-    private func getMessageDecoder() -> IMessageDecoder {
-        return MessageDecoder()
     }
 }

@@ -9,6 +9,13 @@
 import Foundation
 
 class ProfileAssembly {
+    
+    private let storageManager: IStorageManager
+    
+    init(_ storageManager: IStorageManager) {
+        self.storageManager = storageManager
+    }
+    
     func assembly(_ profileViewController: ProfileViewController) {
         profileViewController.model = getProfileModel()
     }
@@ -19,12 +26,6 @@ class ProfileAssembly {
     }
     
     private func getProfileStorageService() -> IProfileStorageService {
-        let storageManager = getStorageManager()
         return ProfileStorageService(storageManager)
-    }
-    
-    private func getStorageManager() -> IStorageManager {
-            let coreDataStack = CoreDataStack()
-            return StorageManager(coreDataStack)
     }
 }

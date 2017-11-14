@@ -10,28 +10,29 @@ import CoreData
 
 extension User {
     private static let fetchRequestUserByIDTemplateName = "UserByID"
-    private static let fetchRequestUserByIDAttributeName = "id"
+    private static let fetchRequestUserByIDAttributeName = "userID"
     
-    static func findOrInsertUserWith(id: String, in context: NSManagedObjectContext) -> User? {
-        guard let model = context.persistentStoreCoordinator?.managedObjectModel else {
-            assertionFailure("Model is not available in context")
-            return nil
+    static func findOrInsertUserWith(id: String, in context: NSManagedObjectContext) -> User {
+        if let fetchedUser = fetchUserWith(id: id, in: context) {
+            return fetchedUser
+        } else {
+            let newUser = User.insertUserWith(id: id, in: context)
+            return newUser
         }
-        var user: User?
+    }
+    
+    private static func fetchUserWith(id: String, in context: NSManagedObjectContext) -> User? {
+        guard let model = context.persistentStoreCoordinator?.managedObjectModel else {
+            preconditionFailure("Model is not available in context")
+        }
         let fetchRequest = User.fetchRequestUserBy(id: id, model: model)
         do {
             let results = try context.fetch(fetchRequest)
             assert(results.count < 2, "Multiple AppUsers found")
-            if let foundUser = results.first {
-                user = foundUser
-            }
+            return results.first
         } catch {
-            print("Failed to fetch User with id: \(id) \(error)")
+            fatalError("Failed to fetch User with id: \(id) \(error)")
         }
-        if user == nil {
-            user = User.insertUserWith(id: id, in: context)
-        }
-        return user
     }
     
     private static func insertUserWith(id: String, in context: NSManagedObjectContext) -> User {

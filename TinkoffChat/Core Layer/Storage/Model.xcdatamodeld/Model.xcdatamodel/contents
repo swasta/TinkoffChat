@@ -3,20 +3,41 @@
     <entity name="AppUser" representedClassName="AppUser" syncable="YES" codeGenerationType="class">
         <relationship name="currentUser" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="appUser" inverseEntity="User" syncable="YES"/>
     </entity>
+    <entity name="Conversation" representedClassName="Conversation" syncable="YES" codeGenerationType="class">
+        <attribute name="conversationID" attributeType="String" syncable="YES"/>
+        <attribute name="isOnline" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="isUnread" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="lastMessage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Message" inverseName="lastMessageInConversation" inverseEntity="Message" syncable="YES"/>
+        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="conversation" inverseEntity="Message" syncable="YES"/>
+        <relationship name="participant" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="conversation" inverseEntity="User" syncable="YES"/>
+    </entity>
+    <entity name="Message" representedClassName="Message" syncable="YES" codeGenerationType="class">
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="isOutgoing" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="messageID" attributeType="String" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="conversation" maxCount="1" deletionRule="Nullify" destinationEntity="Conversation" inverseName="messages" inverseEntity="Conversation" syncable="YES"/>
+        <relationship name="lastMessageInConversation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Conversation" inverseName="lastMessage" inverseEntity="Conversation" syncable="YES"/>
+    </entity>
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
         <attribute name="info" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isOnline" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="profileImage" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="userID" attributeType="String" syncable="YES"/>
         <relationship name="appUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AppUser" inverseName="currentUser" inverseEntity="AppUser" syncable="YES"/>
-        <fetchIndex name="byUserID">
-            <fetchIndexElement property="userID" type="Binary" order="ascending"/>
-        </fetchIndex>
+        <relationship name="conversation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Conversation" inverseName="participant" inverseEntity="Conversation" syncable="YES"/>
     </entity>
     <fetchRequest name="AppUser" entity="AppUser"/>
-    <fetchRequest name="UserByID" entity="User" predicateString="userID == &quot;$id&quot;"/>
+    <fetchRequest name="ConversationByID" entity="Conversation" predicateString="conversationID == $conversationID"/>
+    <fetchRequest name="ConversationsByOnlineUserID" entity="Conversation" predicateString="participant.isOnline == 1 AND messages != nil"/>
+    <fetchRequest name="MessagesByConversationID" entity="Message" predicateString="conversation.conversationID == $id"/>
+    <fetchRequest name="OnlineUsers" entity="User" predicateString="isOnline == 1"/>
+    <fetchRequest name="UserByID" entity="User" predicateString="userID == $userID"/>
     <elements>
-        <element name="AppUser" positionX="-63" positionY="-18" width="128" height="60"/>
-        <element name="User" positionX="108" positionY="18" width="128" height="120"/>
+        <element name="AppUser" positionX="-72" positionY="39" width="128" height="60"/>
+        <element name="Conversation" positionX="-63" positionY="180" width="128" height="135"/>
+        <element name="Message" positionX="-243" positionY="176" width="128" height="133"/>
+        <element name="User" positionX="108" positionY="18" width="128" height="148"/>
     </elements>
 </model>

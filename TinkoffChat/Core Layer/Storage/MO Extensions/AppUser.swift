@@ -14,21 +14,26 @@ extension AppUser {
     private static let appUserDefaultID = UIDevice.current.identifierForVendor!.uuidString
     
     static func findOrInsertAppUser(in context: NSManagedObjectContext) -> AppUser {
+        if let fetchedAppUser = fetchAppUser(in: context) {
+            return fetchedAppUser
+        } else {
+            let newAppUser = AppUser.insertAppUser(in: context)
+            return newAppUser
+        }
+    }
+    
+    private static func fetchAppUser(in context: NSManagedObjectContext) -> AppUser? {
         guard let model = context.persistentStoreCoordinator?.managedObjectModel else {
             preconditionFailure("Model is not available in context")
-            
         }
-        var foundAppUser: AppUser?
-        
         let fetchRequest = AppUser.fetchRequestAppUser(model: model)
         do {
             let results = try context.fetch(fetchRequest)
             assert(results.count < 2, "Multiple AppUsers found")
-            foundAppUser = results.first
+            return results.first
         } catch {
-            print("Failed to fetch AppUser \(error)")
+            fatalError("Failed to fetch AppUser: \(error)")
         }
-        return foundAppUser ?? AppUser.insertAppUser(in: context)
     }
     
     private static func insertAppUser(in context: NSManagedObjectContext) -> AppUser {

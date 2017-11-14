@@ -28,12 +28,9 @@ class SendMessageViewController: UIViewController {
     
     @IBAction private func sendButtonAction(_ sender: UIButton) {
         messageTextView.text = messageTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
-        model.send(message: messageTextView.text) {
-            DispatchQueue.main.async {
-                self.messageTextView.text = ""
-                self.sendButton.isEnabled = false
-            }
-        }
+        model.send(message: messageTextView.text)
+        self.messageTextView.text = ""
+        self.sendButton.isEnabled = false
     }
     
     private func shouldEnableSendButton(_ flag: Bool) {

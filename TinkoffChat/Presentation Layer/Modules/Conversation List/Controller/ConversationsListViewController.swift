@@ -17,19 +17,13 @@ class ConversationsListViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     
     private var rootAssembly: IRootAssembly!
-    private var tableDelegate: UITableViewDelegate!
-    private var tableDataSource: IConversationsListTableDataSource!
     private var model: IConversationsListModel!
     
     // MARK: Dependency injection
     
     func setDependencies(_ rootAssembly: IRootAssembly,
-                         _ tableDataSource: IConversationsListTableDataSource,
-                         _ tableDelegate: UITableViewDelegate,
                          _ model: IConversationsListModel) {
         self.rootAssembly = rootAssembly
-        self.tableDataSource = tableDataSource
-        self.tableDelegate = tableDelegate
         self.model = model
     }
     
@@ -38,8 +32,7 @@ class ConversationsListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         assertDependencies()
-        tableView.dataSource = tableDataSource
-        tableView.delegate = tableDelegate
+        model.configureWith(tableView)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -50,7 +43,6 @@ class ConversationsListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
-        model.resumeListeningToCommunicationService()
     }
     
     // MARK: Navigation
@@ -84,9 +76,9 @@ class ConversationsListViewController: UIViewController {
             assertionFailure("Unknown segue destination view controller")
             return
         }
-        let selectedConversation = tableDataSource.conversation(for: selectedIndexPath)
+        let selectedConversationID = model.getConversationID(for: selectedIndexPath)
         rootAssembly.conversationAssembly.assembly(conversationViewController,
-                                                   conversation: selectedConversation)
+                                                   conversationID: selectedConversationID)
         tableView.deselectRow(at: selectedIndexPath, animated: true)
     }
     
@@ -95,15 +87,6 @@ class ConversationsListViewController: UIViewController {
     // MARK: Private methods
     
     private func assertDependencies() {
-        assert(tableDataSource != nil && tableDelegate != nil && model != nil)
-    }
-}
-
-extension ConversationsListViewController: IConversationsListModelDelegate {
-    func setup(dataSource: [ConversationViewModel]) {
-        tableDataSource.setup(dataSource: dataSource)
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+        assert(model != nil)
     }
 }

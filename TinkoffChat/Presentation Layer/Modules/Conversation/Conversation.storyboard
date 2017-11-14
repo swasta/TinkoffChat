@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7pB-hW-cpM">
-    <device id="ipad12_9" orientation="landscape">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7pB-hW-cpM">
+    <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -17,25 +17,25 @@
             <objects>
                 <viewController id="7pB-hW-cpM" customClass="ConversationViewController" customModule="TinkoffChat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bIa-mc-a0t">
-                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="749" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="E8R-s9-ubZ">
-                                <rect key="frame" x="0.0" y="20" width="1366" height="933.5"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Incoming Cell" id="gfe-Xt-3J9" customClass="MessageCell" customModule="TinkoffChat" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="1366" height="52"/>
+                                        <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gfe-Xt-3J9" id="LSU-Db-VCV">
-                                            <rect key="frame" x="0.0" y="0.0" width="1366" height="52"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aKv-gO-Lgx" userLabel="Message container view">
-                                                    <rect key="frame" x="8" y="8" width="426.5" height="36"/>
+                                                    <rect key="frame" x="15" y="11" width="204.5" height="22"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do you have any plans for next week?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zvF-e9-5Me">
-                                                            <rect key="frame" x="12" y="8" width="402.5" height="20"/>
+                                                            <rect key="frame" x="12" y="8" width="180.5" height="6"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -66,17 +66,17 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Outgoing Cell" id="rfR-TP-a4E" customClass="MessageCell" customModule="TinkoffChat" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="80" width="1366" height="52"/>
+                                        <rect key="frame" x="0.0" y="72" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rfR-TP-a4E" id="zaj-PD-4xx">
-                                            <rect key="frame" x="0.0" y="0.0" width="1366" height="52"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t7a-CK-O1g" userLabel="Message container view">
-                                                    <rect key="frame" x="464.5" y="8" width="893.5" height="36"/>
+                                                    <rect key="frame" x="73.5" y="11" width="231.5" height="22"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We should figure out our next holiday trip soon, since the summer is almost over..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cYO-cX-fXt">
-                                                            <rect key="frame" x="12" y="8" width="869.5" height="20"/>
+                                                            <rect key="frame" x="12" y="8" width="207.5" height="6"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -109,7 +109,7 @@
                                 </prototypes>
                             </tableView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FO6-AR-OME">
-                                <rect key="frame" x="0.0" y="953.5" width="1366" height="70.5"/>
+                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="zZe-5s-rPR"/>
                                 </constraints>
@@ -122,7 +122,7 @@
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="E8R-s9-ubZ" firstAttribute="leading" secondItem="FVk-ZE-tJU" secondAttribute="leading" id="6CO-fz-E3Z"/>
-                            <constraint firstItem="E8R-s9-ubZ" firstAttribute="bottom" secondItem="FO6-AR-OME" secondAttribute="top" id="G90-p4-S9H"/>
+                            <constraint firstItem="FVk-ZE-tJU" firstAttribute="bottom" secondItem="E8R-s9-ubZ" secondAttribute="bottom" id="C75-0n-YRr"/>
                             <constraint firstItem="FO6-AR-OME" firstAttribute="leading" secondItem="FVk-ZE-tJU" secondAttribute="leading" id="fFt-ub-Efz"/>
                             <constraint firstItem="E8R-s9-ubZ" firstAttribute="top" secondItem="FVk-ZE-tJU" secondAttribute="top" id="kXi-H7-hJF"/>
                             <constraint firstItem="FVk-ZE-tJU" firstAttribute="bottom" secondItem="FO6-AR-OME" secondAttribute="bottom" id="nin-0m-ZOM"/>
@@ -137,32 +137,10 @@
                     </view>
                     <connections>
                         <outlet property="bottomConstraint" destination="nin-0m-ZOM" id="3jp-em-shs"/>
-                        <outlet property="noMessagesView" destination="eQg-LP-CTJ" id="ymi-Jm-5VH"/>
                         <outlet property="tableView" destination="E8R-s9-ubZ" id="1He-s2-8zM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PSn-aT-qsh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" id="eQg-LP-CTJ">
-                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No messages yet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NVH-LN-dOv">
-                            <rect key="frame" x="20" y="48" width="200" height="32.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                            <variation key="heightClass=regular-widthClass=regular">
-                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
-                            </variation>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstItem="NVH-LN-dOv" firstAttribute="centerX" secondItem="eQg-LP-CTJ" secondAttribute="centerX" id="SaJ-LW-Ibv"/>
-                        <constraint firstItem="NVH-LN-dOv" firstAttribute="centerY" secondItem="eQg-LP-CTJ" secondAttribute="centerY" id="jnU-aY-Dek"/>
-                    </constraints>
-                    <viewLayoutGuide key="safeArea" id="h2P-Dk-uqV"/>
-                </view>
                 <tapGestureRecognizer id="wbc-nl-1ny">
                     <connections>
                         <action selector="dismissKeyboard:" destination="7pB-hW-cpM" id="6z2-yg-Pqf"/>
@@ -176,21 +154,21 @@
             <objects>
                 <viewController id="Ruv-wJ-K4r" customClass="SendMessageViewController" customModule="TinkoffChat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UXa-78-Hgq">
-                        <rect key="frame" x="0.0" y="0.0" width="1366" height="70.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="iB0-6v-UGV">
-                                <rect key="frame" x="10" y="0.0" width="1292" height="70.5"/>
+                                <rect key="frame" x="10" y="0.0" width="246" height="44"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wd8-9w-dPA" customClass="ProfileImageButton" customModule="TinkoffChat" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="17.5" width="35.5" height="35.5"/>
+                                        <rect key="frame" x="0.0" y="11" width="22.5" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="wd8-9w-dPA" secondAttribute="height" multiplier="1:1" id="HA4-xG-B0x"/>
                                         </constraints>
                                         <state key="normal" image="photoIcon"/>
                                     </button>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8e6-eS-rzk" customClass="SendMessageTextView" customModule="TinkoffChat" customModuleProvider="target">
-                                        <rect key="frame" x="45.5" y="5" width="1246.5" height="60.5"/>
+                                        <rect key="frame" x="32.5" y="5" width="213.5" height="34"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -224,7 +202,7 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tqa-c0-8Rk">
-                                <rect key="frame" x="1312" y="13.5" width="44" height="44"/>
+                                <rect key="frame" x="266" y="0.0" width="44" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="44" id="bRx-Bf-gum"/>
                                     <constraint firstAttribute="width" secondItem="tqa-c0-8Rk" secondAttribute="height" multiplier="1:1" id="q1l-oi-eZG"/>

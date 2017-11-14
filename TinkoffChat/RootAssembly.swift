@@ -15,23 +15,32 @@ protocol IRootAssembly: class {
 }
 
 class RootAssembly: IRootAssembly {
-    // This service is used by each module of the app to keep only one communicator on the Core layer.
-    private let communicationService: ICommunicationService = {
-        let communicator = MultipeerCommunicator(MessageHandler(encoder: MessageEncoder(), decoder: MessageDecoder()))
-        let communicationService = CommunicationService(communicator)
+    
+    // MARK: - Common components
+    private lazy var communicationService: ICommunicationService = {
+        let messageEncoder = MessageEncoder(IdentifierGenerator())
+        let communicator = MultipeerCommunicator(MessageHandler(encoder: messageEncoder, decoder: MessageDecoder()))
+        let communicationService = CommunicationService(communicator, storageManager)
         communicator.delegate = communicationService
         return communicationService
     }()
-
+    
+    private lazy var conversationStorageService: IConversationStorageService = {
+        return ConversationStorageService(storageManager: storageManager)
+    }()
+    
+    private let storageManager = StorageManager(CoreDataStack(), IdentifierGenerator())
+    
+    // MARK: - Assemblies
     lazy var conversationsListAssembly: ConversationsListAssembly = {
-        let conversationsListAssembly = ConversationsListAssembly(self, communicationService)
+        let conversationsListAssembly = ConversationsListAssembly(self, communicationService, conversationStorageService)
         return conversationsListAssembly
     }()
 
     lazy var conversationAssembly: ConversationAssembly = {
-        let communicationAssembly = ConversationAssembly(communicationService)
+        let communicationAssembly = ConversationAssembly(communicationService, conversationStorageService)
         return communicationAssembly
     }()
 
-    lazy var profileAssembly = ProfileAssembly()
+    lazy var profileAssembly = ProfileAssembly(storageManager)
 }
