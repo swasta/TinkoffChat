@@ -52,6 +52,22 @@
 		14B2EADE1FABAF8100421528 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B2EADD1FABAF8100421528 /* CoreDataStack.swift */; };
 		14B2FC841FAF440F00302AD1 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B2FC831FAF440F00302AD1 /* StorageManager.swift */; };
 		14B50CB31F7C10AF004E5E81 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B50CB21F7C10AF004E5E81 /* ProfileViewController.swift */; };
+		14E6B05D1FBE145800FCD310 /* IRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E6B05C1FBE145800FCD310 /* IRequest.swift */; };
+		14E6B05F1FBE145F00FCD310 /* AnyParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E6B05E1FBE145F00FCD310 /* AnyParser.swift */; };
+		14E6B0641FBE166600FCD310 /* IRequestSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E6B0631FBE166600FCD310 /* IRequestSender.swift */; };
+		14E6B0661FBECCEB00FCD310 /* RequestSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E6B0651FBECCEB00FCD310 /* RequestSender.swift */; };
+		14E6B0681FBED1B500FCD310 /* PixabayAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E6B0671FBED1B500FCD310 /* PixabayAPIRequest.swift */; };
+		14E6B06A1FBEDD3500FCD310 /* PixabayImageListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E6B0691FBEDD3500FCD310 /* PixabayImageListRequest.swift */; };
+		14E6B06C1FBEE88200FCD310 /* RequestsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E6B06B1FBEE88200FCD310 /* RequestsFactory.swift */; };
+		14E6B06E1FBEE95300FCD310 /* PixabayImageListParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E6B06D1FBEE95300FCD310 /* PixabayImageListParser.swift */; };
+		14E6B0701FBF1EAE00FCD310 /* ProfileImageLoaderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E6B06F1FBF1EAE00FCD310 /* ProfileImageLoaderService.swift */; };
+		14E6B0771FC01E7D00FCD310 /* ProfileImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E6B0761FC01E7D00FCD310 /* ProfileImagePickerViewController.swift */; };
+		14E6B0791FC01E8A00FCD310 /* ProfileImagePickerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E6B0781FC01E8A00FCD310 /* ProfileImagePickerModel.swift */; };
+		14E6B07B1FC01F2800FCD310 /* ProfileImagePicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14E6B07A1FC01F2800FCD310 /* ProfileImagePicker.storyboard */; };
+		14E6B07D1FC020D500FCD310 /* ProfileImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E6B07C1FC020D500FCD310 /* ProfileImageCell.swift */; };
+		14E6B0831FC041F900FCD310 /* ProfileImagePickerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E6B0821FC041F900FCD310 /* ProfileImagePickerAssembly.swift */; };
+		14E6B0851FC0570D00FCD310 /* LoadImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E6B0841FC0570D00FCD310 /* LoadImageRequest.swift */; };
+		14E6B0871FC0581700FCD310 /* PixabayLoadImageParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E6B0861FC0581700FCD310 /* PixabayLoadImageParser.swift */; };
 		14EF57141FB8941800ACC8DD /* ConversationStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EF57131FB8941800ACC8DD /* ConversationStorageService.swift */; };
 		14EF57181FB8A83200ACC8DD /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EF57171FB8A83200ACC8DD /* Message.swift */; };
 		14EFBD421F8AE5D200228E4B /* ConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EFBD411F8AE5D200228E4B /* ConversationCell.swift */; };
@@ -108,6 +124,22 @@
 		14B2EADD1FABAF8100421528 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		14B2FC831FAF440F00302AD1 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		14B50CB21F7C10AF004E5E81 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		14E6B05C1FBE145800FCD310 /* IRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRequest.swift; sourceTree = "<group>"; };
+		14E6B05E1FBE145F00FCD310 /* AnyParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyParser.swift; sourceTree = "<group>"; };
+		14E6B0631FBE166600FCD310 /* IRequestSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRequestSender.swift; sourceTree = "<group>"; };
+		14E6B0651FBECCEB00FCD310 /* RequestSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSender.swift; sourceTree = "<group>"; };
+		14E6B0671FBED1B500FCD310 /* PixabayAPIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixabayAPIRequest.swift; sourceTree = "<group>"; };
+		14E6B0691FBEDD3500FCD310 /* PixabayImageListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixabayImageListRequest.swift; sourceTree = "<group>"; };
+		14E6B06B1FBEE88200FCD310 /* RequestsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsFactory.swift; sourceTree = "<group>"; };
+		14E6B06D1FBEE95300FCD310 /* PixabayImageListParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixabayImageListParser.swift; sourceTree = "<group>"; };
+		14E6B06F1FBF1EAE00FCD310 /* ProfileImageLoaderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageLoaderService.swift; sourceTree = "<group>"; };
+		14E6B0761FC01E7D00FCD310 /* ProfileImagePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImagePickerViewController.swift; sourceTree = "<group>"; };
+		14E6B0781FC01E8A00FCD310 /* ProfileImagePickerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImagePickerModel.swift; sourceTree = "<group>"; };
+		14E6B07A1FC01F2800FCD310 /* ProfileImagePicker.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfileImagePicker.storyboard; sourceTree = "<group>"; };
+		14E6B07C1FC020D500FCD310 /* ProfileImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageCell.swift; sourceTree = "<group>"; };
+		14E6B0821FC041F900FCD310 /* ProfileImagePickerAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImagePickerAssembly.swift; sourceTree = "<group>"; };
+		14E6B0841FC0570D00FCD310 /* LoadImageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadImageRequest.swift; sourceTree = "<group>"; };
+		14E6B0861FC0581700FCD310 /* PixabayLoadImageParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixabayLoadImageParser.swift; sourceTree = "<group>"; };
 		14EF57131FB8941800ACC8DD /* ConversationStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationStorageService.swift; sourceTree = "<group>"; };
 		14EF57171FB8A83200ACC8DD /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		14EFBD411F8AE5D200228E4B /* ConversationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCell.swift; sourceTree = "<group>"; };
@@ -221,38 +253,6 @@
 			path = "MO Extensions";
 			sourceTree = "<group>";
 		};
-		1477E8051FA7946500EE0ED5 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				145108481F92AE920094CADD /* ProfileModel.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		1477E8061FA794AB00EE0ED5 /* View Model */ = {
-			isa = PBXGroup;
-			children = (
-				14F132FD1FA73A2700D0228C /* ProfileViewModel.swift */,
-			);
-			path = "View Model";
-			sourceTree = "<group>";
-		};
-		1477E8071FA794C500EE0ED5 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				14B50CB21F7C10AF004E5E81 /* ProfileViewController.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		1477E8081FA794E100EE0ED5 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				1436B5B51F8169950099E508 /* ProfileImageButton.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		1493CB621F72CBA800C544E9 = {
 			isa = PBXGroup;
 			children = (
@@ -301,6 +301,7 @@
 				14A756131FA3D36C00F42106 /* Conversation */,
 				14A756121FA3D33100F42106 /* Conversation List */,
 				14A756041FA3AB8100F42106 /* Profile */,
+				14E6B0751FC01E4C00FCD310 /* ProfileImagePicker */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -308,10 +309,10 @@
 		14A756041FA3AB8100F42106 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				1477E8051FA7946500EE0ED5 /* Model */,
-				1477E8071FA794C500EE0ED5 /* Controller */,
-				1477E8081FA794E100EE0ED5 /* View */,
-				1477E8061FA794AB00EE0ED5 /* View Model */,
+				14B50CB21F7C10AF004E5E81 /* ProfileViewController.swift */,
+				1436B5B51F8169950099E508 /* ProfileImageButton.swift */,
+				14F132FD1FA73A2700D0228C /* ProfileViewModel.swift */,
+				145108481F92AE920094CADD /* ProfileModel.swift */,
 				1477E8091FA794F700EE0ED5 /* ProfileAssembly.swift */,
 				1493CB721F72CBA900C544E9 /* Profile.storyboard */,
 			);
@@ -321,6 +322,7 @@
 		14A756051FA3B02A00F42106 /* Core Layer */ = {
 			isa = PBXGroup;
 			children = (
+				14E6B05B1FBE141A00FCD310 /* Networking */,
 				14A756111FA3D06700F42106 /* Storage */,
 				14A756061FA3B03A00F42106 /* Multipeer Communicator */,
 				145D4BD91FB60D630046D1E4 /* IdentifierGenerator.swift */,
@@ -358,7 +360,6 @@
 				145108411F92ADED0094CADD /* Model */,
 				145108421F92ADFB0094CADD /* Controller */,
 				145108401F92ADE50094CADD /* View */,
-				14B05A751FA72C1D00DD342D /* View Model */,
 				146215281FA47A530027B092 /* ConversationsListAssembly.swift */,
 				1440E7811F86AB8E0000A1F1 /* ConversationsList.storyboard */,
 			);
@@ -371,7 +372,6 @@
 				145108431F92AE160094CADD /* Model */,
 				1451083F1F92AC050094CADD /* Controller */,
 				145108441F92AE1D0094CADD /* View */,
-				14B05A741FA72B5B00DD342D /* View Model */,
 				14484ED61FA4DEA5008113E8 /* ConversationAssembly.swift */,
 				144D53D51F8771FB002D0764 /* Conversation.storyboard */,
 			);
@@ -384,6 +384,7 @@
 				145963481F98E25D00091DF2 /* CommunicationService.swift */,
 				14F133071FA7427200D0228C /* ProfileStorageService.swift */,
 				14EF57131FB8941800ACC8DD /* ConversationStorageService.swift */,
+				14E6B06F1FBF1EAE00FCD310 /* ProfileImageLoaderService.swift */,
 			);
 			path = "Service Layer";
 			sourceTree = "<group>";
@@ -396,18 +397,57 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		14B05A741FA72B5B00DD342D /* View Model */ = {
+		14E6B05B1FBE141A00FCD310 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				14E6B0621FBE165300FCD310 /* RequestManager */,
+				14E6B0601FBE163F00FCD310 /* Requests */,
+				14E6B0611FBE164600FCD310 /* Parsers */,
+				14E6B06B1FBEE88200FCD310 /* RequestsFactory.swift */,
 			);
-			path = "View Model";
+			path = Networking;
 			sourceTree = "<group>";
 		};
-		14B05A751FA72C1D00DD342D /* View Model */ = {
+		14E6B0601FBE163F00FCD310 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
+				14E6B05C1FBE145800FCD310 /* IRequest.swift */,
+				14E6B0671FBED1B500FCD310 /* PixabayAPIRequest.swift */,
+				14E6B0691FBEDD3500FCD310 /* PixabayImageListRequest.swift */,
+				14E6B0841FC0570D00FCD310 /* LoadImageRequest.swift */,
 			);
-			path = "View Model";
+			path = Requests;
+			sourceTree = "<group>";
+		};
+		14E6B0611FBE164600FCD310 /* Parsers */ = {
+			isa = PBXGroup;
+			children = (
+				14E6B05E1FBE145F00FCD310 /* AnyParser.swift */,
+				14E6B06D1FBEE95300FCD310 /* PixabayImageListParser.swift */,
+				14E6B0861FC0581700FCD310 /* PixabayLoadImageParser.swift */,
+			);
+			path = Parsers;
+			sourceTree = "<group>";
+		};
+		14E6B0621FBE165300FCD310 /* RequestManager */ = {
+			isa = PBXGroup;
+			children = (
+				14E6B0631FBE166600FCD310 /* IRequestSender.swift */,
+				14E6B0651FBECCEB00FCD310 /* RequestSender.swift */,
+			);
+			path = RequestManager;
+			sourceTree = "<group>";
+		};
+		14E6B0751FC01E4C00FCD310 /* ProfileImagePicker */ = {
+			isa = PBXGroup;
+			children = (
+				14E6B0761FC01E7D00FCD310 /* ProfileImagePickerViewController.swift */,
+				14E6B07C1FC020D500FCD310 /* ProfileImageCell.swift */,
+				14E6B0781FC01E8A00FCD310 /* ProfileImagePickerModel.swift */,
+				14E6B0821FC041F900FCD310 /* ProfileImagePickerAssembly.swift */,
+				14E6B07A1FC01F2800FCD310 /* ProfileImagePicker.storyboard */,
+			);
+			path = ProfileImagePicker;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -473,6 +513,7 @@
 				1493CB791F72CBA900C544E9 /* LaunchScreen.storyboard in Resources */,
 				1493CB761F72CBA900C544E9 /* Assets.xcassets in Resources */,
 				144D53D61F8771FB002D0764 /* Conversation.storyboard in Resources */,
+				14E6B07B1FC01F2800FCD310 /* ProfileImagePicker.storyboard in Resources */,
 				1493CB811F72D1A800C544E9 /* Media.xcassets in Resources */,
 				1493CB741F72CBA900C544E9 /* Profile.storyboard in Resources */,
 			);
@@ -487,10 +528,14 @@
 			files = (
 				1459634C1F9924A200091DF2 /* SendMessageViewController.swift in Sources */,
 				1436B5B61F8169950099E508 /* ProfileImageButton.swift in Sources */,
+				14E6B06E1FBEE95300FCD310 /* PixabayImageListParser.swift in Sources */,
+				14E6B0661FBECCEB00FCD310 /* RequestSender.swift in Sources */,
 				145963431F98D52A00091DF2 /* MultipeerCommunicator.swift in Sources */,
 				1459633F1F98D2E600091DF2 /* ICommunicator.swift in Sources */,
 				14484ED51FA4DA09008113E8 /* IConversationModel.swift in Sources */,
 				147FBB661FACE31A001101AE /* Model.xcdatamodeld in Sources */,
+				14E6B05F1FBE145F00FCD310 /* AnyParser.swift in Sources */,
+				14E6B0851FC0570D00FCD310 /* LoadImageRequest.swift in Sources */,
 				14EF57181FB8A83200ACC8DD /* Message.swift in Sources */,
 				145D4BDA1FB60D630046D1E4 /* IdentifierGenerator.swift in Sources */,
 				14B2EADE1FABAF8100421528 /* CoreDataStack.swift in Sources */,
@@ -500,11 +545,17 @@
 				1402053C1F99D25100E833CB /* SendMessageTextView.swift in Sources */,
 				14ACCB6C1FA6100500B9F79F /* ConversationsListModel.swift in Sources */,
 				14A756101FA3CA1000F42106 /* MessageDecoder.swift in Sources */,
+				14E6B0681FBED1B500FCD310 /* PixabayAPIRequest.swift in Sources */,
 				1436B5B41F815C670099E508 /* DesignableBorder.swift in Sources */,
 				14B2FC841FAF440F00302AD1 /* StorageManager.swift in Sources */,
+				14E6B0641FBE166600FCD310 /* IRequestSender.swift in Sources */,
+				14E6B06A1FBEDD3500FCD310 /* PixabayImageListRequest.swift in Sources */,
 				1440E77B1F86A50E0000A1F1 /* ConversationViewController.swift in Sources */,
 				140D1B711F810E3A006F2AEA /* DesignableCorners.swift in Sources */,
+				14E6B06C1FBEE88200FCD310 /* RequestsFactory.swift in Sources */,
 				145963491F98E25D00091DF2 /* CommunicationService.swift in Sources */,
+				14E6B0791FC01E8A00FCD310 /* ProfileImagePickerModel.swift in Sources */,
+				14E6B0871FC0581700FCD310 /* PixabayLoadImageParser.swift in Sources */,
 				145D4BD61FB605E00046D1E4 /* Conversation.swift in Sources */,
 				14EF57141FB8941800ACC8DD /* ConversationStorageService.swift in Sources */,
 				14F133081FA7427200D0228C /* ProfileStorageService.swift in Sources */,
@@ -512,17 +563,22 @@
 				14EFBD421F8AE5D200228E4B /* ConversationCell.swift in Sources */,
 				145108491F92AE920094CADD /* ProfileModel.swift in Sources */,
 				147FBB6B1FACF81B001101AE /* User.swift in Sources */,
+				14E6B07D1FC020D500FCD310 /* ProfileImageCell.swift in Sources */,
 				148FA89E1F86B9D200888C3E /* DesignableImageView.swift in Sources */,
 				1493CB6F1F72CBA900C544E9 /* AppDelegate.swift in Sources */,
 				1440E7781F86A47F0000A1F1 /* ConversationsListViewController.swift in Sources */,
 				14484ED71FA4DEA5008113E8 /* ConversationAssembly.swift in Sources */,
 				14484ED91FA4DF85008113E8 /* ConversationModel.swift in Sources */,
 				14A756011FA3A96F00F42106 /* RootAssembly.swift in Sources */,
+				14E6B0771FC01E7D00FCD310 /* ProfileImagePickerViewController.swift in Sources */,
+				14E6B0831FC041F900FCD310 /* ProfileImagePickerAssembly.swift in Sources */,
+				14E6B05D1FBE145800FCD310 /* IRequest.swift in Sources */,
 				14A7560A1FA3BED800F42106 /* MessageEncoder.swift in Sources */,
 				14ABB0EB1FA66B4C0077D42E /* Date+Extensions.swift in Sources */,
 				140D1B731F810F78006F2AEA /* DesignableButton.swift in Sources */,
 				147FBB691FACF41A001101AE /* AppUser.swift in Sources */,
 				14AC4F151FB9CC81006DDFFB /* FetchedResultsConversationHelper.swift in Sources */,
+				14E6B0701FBF1EAE00FCD310 /* ProfileImageLoaderService.swift in Sources */,
 				1477E80A1FA794F700EE0ED5 /* ProfileAssembly.swift in Sources */,
 				14F132FE1FA73A2700D0228C /* ProfileViewModel.swift in Sources */,
 				144D53D81F87798C002D0764 /* MessageCell.swift in Sources */,

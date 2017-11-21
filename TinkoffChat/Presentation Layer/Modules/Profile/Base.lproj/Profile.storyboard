@@ -26,20 +26,20 @@
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="960"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="WCd-p6-ixP">
-                                                <rect key="frame" x="0.0" y="0.0" width="768" height="945"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="768" height="944"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" verticalHuggingPriority="270" verticalCompressionResistancePriority="700" translatesAutoresizingMaskIntoConstraints="NO" id="cBT-fO-mp8" userLabel="Profile image container">
-                                                        <rect key="frame" x="0.0" y="0.0" width="768" height="538"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="768" height="537"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="270" verticalCompressionResistancePriority="700" image="placeholder-user" translatesAutoresizingMaskIntoConstraints="NO" id="1Qs-Pt-Gpq">
-                                                                <rect key="frame" x="128" y="16" width="513.5" height="514"/>
+                                                                <rect key="frame" x="128.5" y="16" width="512.5" height="513"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="1Qs-Pt-Gpq" secondAttribute="height" multiplier="1:1" id="Fc3-L7-p0J"/>
                                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="skg-NI-RYv"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="700" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fpc-7s-G9k" customClass="ProfileImageButton" customModule="TinkoffChat" customModuleProvider="target">
-                                                                <rect key="frame" x="513.5" y="402" width="128" height="128"/>
+                                                                <rect key="frame" x="513.5" y="401.5" width="127.5" height="127.5"/>
                                                                 <color key="backgroundColor" red="0.2470588235" green="0.47058823529999999" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="Fpc-7s-G9k" secondAttribute="height" multiplier="1:1" id="RDJ-Yq-hi7"/>
@@ -68,7 +68,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" verticalHuggingPriority="220" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="PQI-3U-6Qd" userLabel="Description container">
-                                                        <rect key="frame" x="0.0" y="538" width="768" height="333"/>
+                                                        <rect key="frame" x="0.0" y="537" width="768" height="333"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Имя пользователя" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cNW-VA-9eQ">
                                                                 <rect key="frame" x="16" y="8" width="736" height="33.5"/>
@@ -141,7 +141,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kHd-Qj-6GK" userLabel="Button container">
-                                                        <rect key="frame" x="0.0" y="871" width="768" height="74"/>
+                                                        <rect key="frame" x="0.0" y="870" width="768" height="74"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="hsp-R3-FKU" userLabel="Button stack">
                                                                 <rect key="frame" x="16" y="0.0" width="736" height="74"/>
@@ -195,7 +195,7 @@
                                         <constraints>
                                             <constraint firstItem="WCd-p6-ixP" firstAttribute="leading" secondItem="zng-dL-d1f" secondAttribute="leading" id="HIm-kC-U10"/>
                                             <constraint firstItem="WCd-p6-ixP" firstAttribute="top" secondItem="zng-dL-d1f" secondAttribute="top" id="XVi-qg-qJ9"/>
-                                            <constraint firstAttribute="bottom" secondItem="WCd-p6-ixP" secondAttribute="bottom" constant="15" id="fHJ-ei-Ol3"/>
+                                            <constraint firstAttribute="bottom" secondItem="WCd-p6-ixP" secondAttribute="bottom" constant="16" id="fHJ-ei-Ol3"/>
                                             <constraint firstItem="wVL-fB-7eD" firstAttribute="height" secondItem="zng-dL-d1f" secondAttribute="height" multiplier="0.077" priority="750" id="qDw-Wp-Bt4"/>
                                             <constraint firstAttribute="trailing" secondItem="WCd-p6-ixP" secondAttribute="trailing" id="ukx-0d-rvA"/>
                                         </constraints>
@@ -227,7 +227,7 @@
                     <navigationItem key="navigationItem" title="Мой профиль" id="oaL-GD-XVb">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="INr-96-Jup">
                             <connections>
-                                <segue destination="8gd-Xu-QKc" kind="unwind" unwindAction="unwindToConversationsListWithSender:" id="Jzj-eg-tKQ"/>
+                                <segue destination="8gd-Xu-QKc" kind="unwind" identifier="unwindSegueToConversationsList" unwindAction="unwindToConversationsListWithSender:" id="Jzj-eg-tKQ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -239,6 +239,7 @@
                         <outlet property="scrollView" destination="11R-U2-f7U" id="IvK-oM-Jhc"/>
                         <outlet property="selectProfilePhotoButton" destination="Fpc-7s-G9k" id="j7b-i7-mjI"/>
                         <outlet property="userInfoTextView" destination="mpY-eV-lEo" id="PcP-6F-IyU"/>
+                        <segue destination="edT-FG-YWG" kind="presentation" identifier="segueToProfileImagePickerViewControllerIdentifier" id="3SF-tT-uDZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="POe-kU-zQI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -250,6 +251,14 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="977" y="107"/>
+        </scene>
+        <!--ProfileImagePicker-->
+        <scene sceneID="EZ4-QO-X9E">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ProfileImagePicker" id="edT-FG-YWG" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vHp-RW-xlv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1530" y="142"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="GzG-JL-Z53">

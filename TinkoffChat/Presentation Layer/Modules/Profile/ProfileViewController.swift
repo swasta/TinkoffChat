@@ -17,7 +17,14 @@ class ProfileViewController: UIViewController {
     @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var saveButton: UIButton!
     
+    private enum SegueIdentifiers: String {
+        case segueToProfileImagePickerViewControllerIdentifier
+        case unwindSegueToConversationsList
+    }
+    
+    var rootAssembly: IRootAssembly!
     var model: IProfileModel!
+    
     var currentProfile: ProfileViewModel? {
         didSet {
             if let currentProfile = currentProfile {
@@ -65,6 +72,28 @@ class ProfileViewController: UIViewController {
         self.model = model
     }
     
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case SegueIdentifiers.segueToProfileImagePickerViewControllerIdentifier.rawValue?:
+            guard let containerViewController = segue.destination as? UINavigationController,
+                let profileImagePickerViewController = containerViewController.topViewController as? ProfileImagePickerViewController else {
+                    assertionFailure("Unknown segue destination")
+                    return
+            }
+            rootAssembly.profileImagePickerAssembly.assembly(profileImagePickerViewController)
+            profileImagePickerViewController.onSelectProfileImage = { [weak self] selectedImage in
+                self?.updateUserProfile(with: selectedImage)
+            }
+        case SegueIdentifiers.unwindSegueToConversationsList.rawValue?:
+            break
+        default:
+            assertionFailure("Unknown segue")
+            return
+        }
+    }
+    
     // MARK: - Private methods
     
     private func assertDependencies() {
@@ -108,6 +137,11 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    private func updateUserProfile(with image: UIImage?) {
+        profileImageView.image = image
+        currentProfile = currentProfile?.createCopyWithChanged(profileImage: image)
+    }
+    
     private func showAlertForSuccessProfileSave() {
         let alertController = UIAlertController(title: "Данные сохранены", message: nil, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -124,9 +158,13 @@ class ProfileViewController: UIViewController {
         let photoLibraryAction = UIAlertAction(title: "Выбрать из галереи", style: .default) { _ in
             self.showImagePicker(for: .photoLibrary)
         }
+        let loadFromInternetAction = UIAlertAction(title: "Загрузить из сети", style: .default) { _ in
+            self.performSegue(withIdentifier: SegueIdentifiers.segueToProfileImagePickerViewControllerIdentifier.rawValue, sender: nil)
+        }
         let cancelAction = UIAlertAction(title: "Отменить", style: .cancel)
         alertController.addAction(cameraAction)
         alertController.addAction(photoLibraryAction)
+        alertController.addAction(loadFromInternetAction)
         alertController.addAction(cancelAction)
         present(alertController, animated: true, completion: nil)
     }
@@ -184,8 +222,7 @@ extension ProfileViewController: UIImagePickerControllerDelegate {
         if let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
             image = editedImage
         }
-        profileImageView.image = image
-        currentProfile = currentProfile?.createCopyWithChanged(profileImage: image)
+        updateUserProfile(with: image)
         dismiss(animated: true, completion: nil)
     }
 }

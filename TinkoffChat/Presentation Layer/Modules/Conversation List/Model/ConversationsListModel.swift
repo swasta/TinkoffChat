@@ -17,8 +17,7 @@ protocol IConversationsListModel: class {
 class ConversationsListModel: NSObject, IConversationsListModel {
     private let communicationService: ICommunicationService
     private let conversationStorageService: IConversationStorageService
-    
-    private var tableView: UITableView!
+
     private var fetchResultsController: NSFetchedResultsController<Conversation>
     private var fetchedResultsConversationListHelper: FetchedResultsConversationListHelper!
     
@@ -39,9 +38,8 @@ class ConversationsListModel: NSObject, IConversationsListModel {
     }
     
     func configureWith(_ tableView: UITableView) {
-        self.tableView = tableView
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
+        tableView.delegate = self
+        tableView.dataSource = self
         fetchedResultsConversationListHelper = FetchedResultsConversationListHelper(tableView: tableView)
         fetchResultsController.delegate = fetchedResultsConversationListHelper
         do {

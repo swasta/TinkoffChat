@@ -12,6 +12,7 @@ protocol IRootAssembly: class {
     var conversationsListAssembly: ConversationsListAssembly { get }
     var conversationAssembly: ConversationAssembly { get }
     var profileAssembly: ProfileAssembly { get }
+    var profileImagePickerAssembly: ProfileImagePickerAssembly { get }
 }
 
 class RootAssembly: IRootAssembly {
@@ -42,5 +43,7 @@ class RootAssembly: IRootAssembly {
         return communicationAssembly
     }()
 
-    lazy var profileAssembly = ProfileAssembly(storageManager)
+    lazy var profileAssembly = ProfileAssembly(self, storageManager)
+    
+    let profileImagePickerAssembly = ProfileImagePickerAssembly()
 }

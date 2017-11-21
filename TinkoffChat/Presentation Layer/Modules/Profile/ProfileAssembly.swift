@@ -11,13 +11,16 @@ import Foundation
 class ProfileAssembly {
     
     private let storageManager: IStorageManager
+    private let rootAssembly: IRootAssembly
     
-    init(_ storageManager: IStorageManager) {
+    init(_ rootAssembly: IRootAssembly, _ storageManager: IStorageManager) {
+        self.rootAssembly = rootAssembly
         self.storageManager = storageManager
     }
     
     func assembly(_ profileViewController: ProfileViewController) {
         profileViewController.model = getProfileModel()
+        profileViewController.rootAssembly = rootAssembly
     }
     
     private func getProfileModel() -> IProfileModel {
