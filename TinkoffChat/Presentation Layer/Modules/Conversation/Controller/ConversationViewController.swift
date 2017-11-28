@@ -16,6 +16,7 @@ class ConversationViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var noMessagesView: UIView!
     @IBOutlet private weak var bottomConstraint: NSLayoutConstraint!
+    private var animatableTitleLabel = ConversationTitleLabel()
     
     // MARK: Dependency injection
     
@@ -38,14 +39,12 @@ class ConversationViewController: UIViewController {
         tableView.reloadData()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        sendMessageViewController.userIsOnline = model.isOnline
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        sendMessageViewController.userIsOnline = model.isOnline
+        animateTitleLabelIfNeeded(online: model.isOnline)
         model.markConversationAsRead()
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -81,7 +80,12 @@ class ConversationViewController: UIViewController {
     }
     
     private func configureTitle(with userName: String) {
-        navigationItem.title = userName
+        animatableTitleLabel.text = userName
+        navigationItem.titleView = animatableTitleLabel
+    }
+    
+    private func animateTitleLabelIfNeeded(online: Bool) {
+        animatableTitleLabel.isOnline = online
     }
     
     private func registerForKeyboardNotifications() {
@@ -94,6 +98,7 @@ class ConversationViewController: UIViewController {
 extension ConversationViewController: IConversationModelDelegate {
     func userChangesStatusTo(online: Bool) {
         if sendMessageViewController != nil {
+            animateTitleLabelIfNeeded(online: online)
             sendMessageViewController.userIsOnline = online
         }
     }
@@ -104,26 +109,37 @@ extension ConversationViewController: IConversationModelDelegate {
 extension ConversationViewController {
     @objc private func updateConstraintForKeyboard(_ notification: Notification) {
         if let userInfo = notification.userInfo {
-            let endFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+            let keyboardFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
             let duration: TimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
             let animationCurveRawNSNumber = userInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber
             let animationCurveRaw = animationCurveRawNSNumber.uintValue
             let animationCurve = UIViewAnimationOptions(rawValue: animationCurveRaw)
             let contentInset: UIEdgeInsets
-            if endFrame.origin.y >= UIScreen.main.bounds.height {
+            let keyboardWillHide = keyboardFrame.origin.y >= UIScreen.main.bounds.height
+            if keyboardWillHide {
                 contentInset = UIEdgeInsets(top: 0, left: 0, bottom: sendMessageViewController.view.frame.height, right: 0)
                 bottomConstraint.constant = 0.0
             } else {
-                bottomConstraint.constant = endFrame.height
+                bottomConstraint.constant = keyboardFrame.height
                 let sendMessageViewControllerHeight = sendMessageViewController.view.frame.height
-                contentInset = UIEdgeInsets(top: 0, left: 0, bottom: endFrame.height + sendMessageViewControllerHeight, right: 0)
+                contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrame.height + sendMessageViewControllerHeight, right: 0)
             }
             UIView.animate(withDuration: duration, delay: 0, options: animationCurve, animations: {
                 self.view.layoutIfNeeded()
-                self.tableView.contentInset = contentInset
-                self.tableView.scrollIndicatorInsets = contentInset
-                self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.bounds.height + contentInset.bottom), animated: true)
+                self.updateTableViewWith(contentInset: contentInset)
             })
+        }
+    }
+    
+    private func updateTableViewWith(contentInset: UIEdgeInsets) {
+        self.tableView.contentInset = contentInset
+        self.tableView.scrollIndicatorInsets = contentInset
+        let tableEffectiveHeight = self.tableView.bounds.height - contentInset.bottom
+        let contentExceedsVisiblePart = self.tableView.contentSize.height > tableEffectiveHeight
+        if contentExceedsVisiblePart {
+            self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.bounds.height + contentInset.bottom), animated: true)
+        } else {
+            self.tableView.setContentOffset(.zero, animated: true)
         }
     }
 }

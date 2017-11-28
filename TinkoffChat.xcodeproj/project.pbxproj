@@ -11,6 +11,7 @@
 		140A90471F86B17C007C3F85 /* CustomKerningLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140A90461F86B17C007C3F85 /* CustomKerningLabel.swift */; };
 		140D1B711F810E3A006F2AEA /* DesignableCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140D1B701F810E3A006F2AEA /* DesignableCorners.swift */; };
 		140D1B731F810F78006F2AEA /* DesignableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140D1B721F810F78006F2AEA /* DesignableButton.swift */; };
+		141CC2C01FC9D3A400FB2AC3 /* SendButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141CC2BF1FC9D3A400FB2AC3 /* SendButton.swift */; };
 		1436B5B41F815C670099E508 /* DesignableBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1436B5B31F815C670099E508 /* DesignableBorder.swift */; };
 		1436B5B61F8169950099E508 /* ProfileImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1436B5B51F8169950099E508 /* ProfileImageButton.swift */; };
 		1440E7781F86A47F0000A1F1 /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1440E7771F86A47F0000A1F1 /* ConversationsListViewController.swift */; };
@@ -35,6 +36,9 @@
 		147FBB661FACE31A001101AE /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 147FBB641FACE31A001101AE /* Model.xcdatamodeld */; };
 		147FBB691FACF41A001101AE /* AppUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147FBB681FACF41A001101AE /* AppUser.swift */; };
 		147FBB6B1FACF81B001101AE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147FBB6A1FACF81B001101AE /* User.swift */; };
+		148965011FCBF0E9000D0478 /* ConversationTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148965001FCBF0E9000D0478 /* ConversationTitleLabel.swift */; };
+		148965031FCC2D12000D0478 /* EmittingWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148965021FCC2D12000D0478 /* EmittingWindow.swift */; };
+		148965061FCC2E25000D0478 /* Emitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148965051FCC2E25000D0478 /* Emitter.swift */; };
 		148FA89E1F86B9D200888C3E /* DesignableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148FA89D1F86B9D200888C3E /* DesignableImageView.swift */; };
 		1493CB6F1F72CBA900C544E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1493CB6E1F72CBA900C544E9 /* AppDelegate.swift */; };
 		1493CB741F72CBA900C544E9 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1493CB721F72CBA900C544E9 /* Profile.storyboard */; };
@@ -81,6 +85,7 @@
 		140A90461F86B17C007C3F85 /* CustomKerningLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomKerningLabel.swift; sourceTree = "<group>"; };
 		140D1B701F810E3A006F2AEA /* DesignableCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableCorners.swift; sourceTree = "<group>"; };
 		140D1B721F810F78006F2AEA /* DesignableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableButton.swift; sourceTree = "<group>"; };
+		141CC2BF1FC9D3A400FB2AC3 /* SendButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendButton.swift; sourceTree = "<group>"; };
 		1436B5B31F815C670099E508 /* DesignableBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableBorder.swift; sourceTree = "<group>"; };
 		1436B5B51F8169950099E508 /* ProfileImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageButton.swift; sourceTree = "<group>"; };
 		1440E7771F86A47F0000A1F1 /* ConversationsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
@@ -105,6 +110,9 @@
 		147FBB651FACE31A001101AE /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		147FBB681FACF41A001101AE /* AppUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUser.swift; sourceTree = "<group>"; };
 		147FBB6A1FACF81B001101AE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		148965001FCBF0E9000D0478 /* ConversationTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTitleLabel.swift; sourceTree = "<group>"; };
+		148965021FCC2D12000D0478 /* EmittingWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmittingWindow.swift; sourceTree = "<group>"; };
+		148965051FCC2E25000D0478 /* Emitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emitter.swift; sourceTree = "<group>"; };
 		148FA89D1F86B9D200888C3E /* DesignableImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableImageView.swift; sourceTree = "<group>"; };
 		1493CB6B1F72CBA800C544E9 /* TinkoffChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkoffChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1493CB6E1F72CBA900C544E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -238,6 +246,8 @@
 			isa = PBXGroup;
 			children = (
 				144D53D71F87798C002D0764 /* MessageCell.swift */,
+				141CC2BF1FC9D3A400FB2AC3 /* SendButton.swift */,
+				148965001FCBF0E9000D0478 /* ConversationTitleLabel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -251,6 +261,15 @@
 				14EF57171FB8A83200ACC8DD /* Message.swift */,
 			);
 			path = "MO Extensions";
+			sourceTree = "<group>";
+		};
+		148965041FCC2DFF000D0478 /* Additions */ = {
+			isa = PBXGroup;
+			children = (
+				148965021FCC2D12000D0478 /* EmittingWindow.swift */,
+				148965051FCC2E25000D0478 /* Emitter.swift */,
+			);
+			path = Additions;
 			sourceTree = "<group>";
 		};
 		1493CB621F72CBA800C544E9 = {
@@ -276,7 +295,6 @@
 				14A756141FA3D3C300F42106 /* Service Layer */,
 				14A756021FA3AB2F00F42106 /* Presentation Layer */,
 				14ABB0E91FA66B3B0077D42E /* Extensions */,
-				1436B5B91F8188C20099E508 /* UI Elements */,
 				1493CB6E1F72CBA900C544E9 /* AppDelegate.swift */,
 				14A756001FA3A96F00F42106 /* RootAssembly.swift */,
 				1493CB801F72D1A800C544E9 /* Media.xcassets */,
@@ -291,6 +309,8 @@
 			isa = PBXGroup;
 			children = (
 				14A756031FA3AB5B00F42106 /* Modules */,
+				148965041FCC2DFF000D0478 /* Additions */,
+				1436B5B91F8188C20099E508 /* UI Elements */,
 			);
 			path = "Presentation Layer";
 			sourceTree = "<group>";
@@ -528,6 +548,7 @@
 			files = (
 				1459634C1F9924A200091DF2 /* SendMessageViewController.swift in Sources */,
 				1436B5B61F8169950099E508 /* ProfileImageButton.swift in Sources */,
+				148965061FCC2E25000D0478 /* Emitter.swift in Sources */,
 				14E6B06E1FBEE95300FCD310 /* PixabayImageListParser.swift in Sources */,
 				14E6B0661FBECCEB00FCD310 /* RequestSender.swift in Sources */,
 				145963431F98D52A00091DF2 /* MultipeerCommunicator.swift in Sources */,
@@ -560,6 +581,7 @@
 				14EF57141FB8941800ACC8DD /* ConversationStorageService.swift in Sources */,
 				14F133081FA7427200D0228C /* ProfileStorageService.swift in Sources */,
 				14B50CB31F7C10AF004E5E81 /* ProfileViewController.swift in Sources */,
+				148965031FCC2D12000D0478 /* EmittingWindow.swift in Sources */,
 				14EFBD421F8AE5D200228E4B /* ConversationCell.swift in Sources */,
 				145108491F92AE920094CADD /* ProfileModel.swift in Sources */,
 				147FBB6B1FACF81B001101AE /* User.swift in Sources */,
@@ -570,6 +592,7 @@
 				14484ED71FA4DEA5008113E8 /* ConversationAssembly.swift in Sources */,
 				14484ED91FA4DF85008113E8 /* ConversationModel.swift in Sources */,
 				14A756011FA3A96F00F42106 /* RootAssembly.swift in Sources */,
+				141CC2C01FC9D3A400FB2AC3 /* SendButton.swift in Sources */,
 				14E6B0771FC01E7D00FCD310 /* ProfileImagePickerViewController.swift in Sources */,
 				14E6B0831FC041F900FCD310 /* ProfileImagePickerAssembly.swift in Sources */,
 				14E6B05D1FBE145800FCD310 /* IRequest.swift in Sources */,
@@ -583,6 +606,7 @@
 				14F132FE1FA73A2700D0228C /* ProfileViewModel.swift in Sources */,
 				144D53D81F87798C002D0764 /* MessageCell.swift in Sources */,
 				146215291FA47A530027B092 /* ConversationsListAssembly.swift in Sources */,
+				148965011FCBF0E9000D0478 /* ConversationTitleLabel.swift in Sources */,
 				14AC4F171FB9CF88006DDFFB /* FetchedResultsConversationListHelper.swift in Sources */,
 				14A7560C1FA3C03600F42106 /* MessageHandler.swift in Sources */,
 				1442AE5C1F9398EF0016CC3A /* DesignableBackgroundColor.swift in Sources */,

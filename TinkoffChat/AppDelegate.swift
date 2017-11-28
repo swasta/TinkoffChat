@@ -13,14 +13,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     private let rootAssembly = RootAssembly()
+    private let rootStoryboardName = "ConversationsList"
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]? = nil) -> Bool {
-        guard let rootViewController = window?.rootViewController as? UINavigationController,
-            let conversationsListViewController = rootViewController.topViewController as? ConversationsListViewController else {
-                assertionFailure("Wrong root controller loaded from initial storyboard")
-                return false
+        self.window = EmittingWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = getRootViewController()
+        window?.makeKeyAndVisible()
+        return true
+    }
+    
+    private func getRootViewController() -> UIViewController {
+        let rootStoryboard = UIStoryboard(name: rootStoryboardName, bundle: nil)
+        let rootViewController = rootStoryboard.instantiateInitialViewController()
+        
+        guard let navigationController = rootViewController as? UINavigationController,
+            let conversationsListViewController = navigationController.topViewController as? ConversationsListViewController else {
+                preconditionFailure("Wrong root controller loaded from initial storyboard")
         }
         rootAssembly.conversationsListAssembly.assembly(conversationsListViewController)
-        return true
+        return navigationController
     }
 }

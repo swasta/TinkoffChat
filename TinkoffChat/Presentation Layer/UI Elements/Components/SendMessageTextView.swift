@@ -13,7 +13,7 @@ import UIKit
     private static let defaultPlaceholderFontSize: CGFloat = 15
     private static let defaultPlaceholderFont = UIFont(name: "SFUIText-Light", size: defaultPlaceholderFontSize)
     private let placeholderLabel: UILabel = UILabel()
-    private var placeholderLabelConstraints = [NSLayoutConstraint]()
+    private var placeholderCenterYConstraint = NSLayoutConstraint()
 
     @IBInspectable var placeholder: String = "" {
         didSet {
@@ -60,7 +60,9 @@ import UIKit
 
     override var textContainerInset: UIEdgeInsets {
         didSet {
-            updateConstraintsForPlaceholderLabel()
+            var topCorrection = (bounds.size.height - contentSize.height * zoomScale) / 2.0
+            topCorrection = max(0, topCorrection)
+            contentInset = UIEdgeInsets(top: topCorrection, left: 0, bottom: 0, right: 0)
         }
     }
 
@@ -119,26 +121,24 @@ import UIKit
         placeholderLabel.textColor = placeholderColor
         placeholderLabel.textAlignment = textAlignment
         placeholderLabel.text = placeholder
-        placeholderLabel.numberOfLines = 0
+        placeholderLabel.numberOfLines = 1
         placeholderLabel.backgroundColor = UIColor.clear
         placeholderLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(placeholderLabel)
-        updateConstraintsForPlaceholderLabel()
+        setupConstraintsForPlaceholderLabel()
+        textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 2, right: 0)
     }
 
     // MARK: - Private methods
 
-    private func updateConstraintsForPlaceholderLabel() {
+    private func setupConstraintsForPlaceholderLabel() {
         let leadingConstant = textContainerInset.left + textContainer.lineFragmentPadding
         let leadingConstraint = placeholderLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor,
                                                                           constant: leadingConstant)
         let widthConstant = -(textContainerInset.left + textContainerInset.right + textContainer.lineFragmentPadding * 2.0)
         let widthConstraint = placeholderLabel.widthAnchor.constraint(equalTo: self.widthAnchor, constant: widthConstant)
-        let centerYConstraint = placeholderLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
-        let newConstraints = [leadingConstraint, widthConstraint, centerYConstraint]
-        NSLayoutConstraint.deactivate(placeholderLabelConstraints)
-        NSLayoutConstraint.activate(newConstraints)
-        placeholderLabelConstraints = newConstraints
+        placeholderCenterYConstraint = placeholderLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+        NSLayoutConstraint.activate([leadingConstraint, widthConstraint, placeholderCenterYConstraint])
     }
 
     @objc private func textDidChange() {
@@ -152,5 +152,12 @@ import UIKit
         setupCorners()
         setupBorder()
         placeholderLabel.preferredMaxLayoutWidth = textContainer.size.width - textContainer.lineFragmentPadding * 2.0
+    }
+    
+    override func updateConstraints() {
+        super.updateConstraints()
+        var topCorrection = (bounds.size.height - contentSize.height * zoomScale) / 2.0
+        topCorrection = max(0, topCorrection)
+        placeholderCenterYConstraint.constant = -topCorrection
     }
 }

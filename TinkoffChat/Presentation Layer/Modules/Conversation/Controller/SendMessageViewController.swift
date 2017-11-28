@@ -20,7 +20,7 @@ class SendMessageViewController: UIViewController {
     
     var userIsOnline: Bool = true {
         didSet {
-            shouldEnableSendButton(userIsOnline)
+            enableSendButton(userIsOnline)
         }
     }
     
@@ -33,7 +33,7 @@ class SendMessageViewController: UIViewController {
         self.sendButton.isEnabled = false
     }
     
-    private func shouldEnableSendButton(_ flag: Bool) {
+    private func enableSendButton(_ flag: Bool) {
         DispatchQueue.main.async {
             let conditionToEnableButton = self.userIsOnline && self.messageTextView != nil && self.messageTextView.text != ""
             let currentButtonStateIsDifferent = self.sendButton.isEnabled != conditionToEnableButton
@@ -50,7 +50,7 @@ extension SendMessageViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         if let text = textView.text {
             let conditionToEnableSendButton = text != "" && userIsOnline
-            shouldEnableSendButton(conditionToEnableSendButton)
+            enableSendButton(conditionToEnableSendButton)
         }
     }
     

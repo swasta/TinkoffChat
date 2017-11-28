@@ -94,13 +94,17 @@ extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate {
         print("found peer \(peerID.displayName)")
         foundPeers[peerID] = info
         let session = getSessionFor(peerID) ?? createNewSession(for: peerID)
-        
-        browser.invitePeer(peerID, to: session, withContext: nil, timeout: MultipeerCommunicator.peerInvitationTimeout)
-        print("invited peer \(peerID.displayName)")
+        if connectedPeers.contains(peerID) {
+            delegate?.didFindUser(userID: peerID.displayName, userName: info?[discoveryInfoUserNameKey])
+        } else {
+            browser.invitePeer(peerID, to: session, withContext: nil, timeout: MultipeerCommunicator.peerInvitationTimeout)
+            print("invited peer \(peerID.displayName)")
+        }
     }
     
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
         print("lost \(peerID.displayName)")
+        getSessionFor(peerID)?.disconnect()
         if connectedPeers.remove(peerID) != nil {
             delegate?.didLoseUser(userID: peerID.displayName)
         }
@@ -118,6 +122,11 @@ extension MultipeerCommunicator: MCNearbyServiceAdvertiserDelegate {
         print("did receive invitation from \(peerID.displayName)")
         let session = getSessionFor(peerID) ?? createNewSession(for: peerID)
         invitationHandler(true, session)
+        if let peerDiscoveryInfo = foundPeers[peerID] {
+            print("connected with \(peerID.displayName)")
+            delegate?.didFindUser(userID: peerID.displayName, userName: peerDiscoveryInfo?[discoveryInfoUserNameKey])
+            connectedPeers.insert(peerID)
+        }
     }
     
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didNotStartAdvertisingPeer error: Error) {
@@ -144,10 +153,10 @@ extension MultipeerCommunicator: MCSessionDelegate {
         switch state {
         case .connected:
             print("state connected")
+            connectedPeers.insert(peerID)
             if let peerDiscoveryInfo = foundPeers[peerID] {
                 print("connected with \(peerID.displayName)")
                 delegate?.didFindUser(userID: peerID.displayName, userName: peerDiscoveryInfo?[discoveryInfoUserNameKey])
-                connectedPeers.insert(peerID)
             }
         case .notConnected:
             print("not connected with \(peerID.displayName)")

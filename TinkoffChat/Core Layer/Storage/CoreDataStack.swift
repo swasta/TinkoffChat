@@ -71,7 +71,7 @@ class CoreDataStack: ICoreDataStack {
         return documentsDirectoryURL.appendingPathComponent(storeName)
     }
     
-    private lazy var managedObjectModel: NSManagedObjectModel = {
+    private let managedObjectModel: NSManagedObjectModel = {
         guard let modelURL = Bundle.main.url(forResource: CoreDataStack.modelName, withExtension: "momd") else {
             fatalError("Error getting model url")
         }
